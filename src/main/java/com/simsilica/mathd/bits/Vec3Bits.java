@@ -1,5 +1,5 @@
 /*
- * $Id: Vec3Bits.java 4027 2015-05-27 09:17:37Z pspeed $
+ * $Id$
  * 
  * Copyright (c) 2015, Simsilica, LLC
  * All rights reserved.

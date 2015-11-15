@@ -1,5 +1,5 @@
 /*
- * $Id: FloatBits.java 4052 2015-06-14 07:26:15Z pspeed $
+ * $Id$
  * 
  * Copyright (c) 2015, Simsilica, LLC
  * All rights reserved.

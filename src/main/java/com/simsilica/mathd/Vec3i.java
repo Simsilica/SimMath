@@ -1,5 +1,5 @@
 /*
- * $Id: Vec3i.java 4018 2015-05-14 06:48:29Z pspeed $
+ * $Id$
  * 
  * Copyright (c) 2015, Simsilica, LLC
  * All rights reserved.

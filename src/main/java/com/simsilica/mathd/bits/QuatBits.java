@@ -1,5 +1,5 @@
 /*
- * $Id: QuatBits.java 4026 2015-05-26 08:28:35Z pspeed $
+ * $Id$
  * 
  * Copyright (c) 2015, Simsilica, LLC
  * All rights reserved.

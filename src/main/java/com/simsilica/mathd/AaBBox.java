@@ -1,5 +1,5 @@
 /*
- * $Id: AaBBox.java 4043 2015-06-10 07:04:04Z pspeed $
+ * $Id$
  * 
  * Copyright (c) 2015, Simsilica, LLC
  * All rights reserved.
