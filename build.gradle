@@ -1,0 +1,44 @@
+apply plugin: 'java'
+apply plugin: 'maven'
+
+version='1.0.1-SNAPSHOT'
+group='com.simsilica'
+
+repositories {
+    mavenLocal()
+    jcenter()
+    
+    // Temporary until JME jars are in jcenter()   
+    maven { url "http://dl.bintray.com/jmonkeyengine/org.jmonkeyengine" }        
+}
+
+// Make sure the build file declares what it actually imports
+configurations.all {
+    transitive = false
+}
+
+dependencies {
+    // Pull in jme core for the math package for easy translation to/from JME 
+    // classes.
+    compile "org.jmonkeyengine:jme3-core:3.1.+"
+}
+
+
+// Configuration to produce maven-repo style -sources and -javadoc jars
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+    exclude '**/.backups' 
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+ 
+artifacts {
+    archives sourcesJar
+    archives javadocJar
+}
+
+
