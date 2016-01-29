@@ -219,7 +219,7 @@ public final class Quatd implements Cloneable {
         return this;
     }
 
-  /*  public Matrix3d toRotationMatrix() {
+    public Matrix3d toRotationMatrix() {
         double d = lengthSq();        
         double s = 2 / d;
  
@@ -251,7 +251,7 @@ public final class Quatd implements Cloneable {
         return new Matrix3d( m00, m01, m02, 
                              m10, m11, m12,
                              m20, m21, m22 );
-    }*/
+    }
 
     public Quatd inverse() {
         double norm = lengthSq();

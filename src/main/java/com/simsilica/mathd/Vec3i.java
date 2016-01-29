@@ -43,7 +43,9 @@ import com.jme3.math.Vector3f;
  *
  *  @author    Paul Speed
  */
-public class Vec3i implements Cloneable {
+public class Vec3i implements Cloneable, java.io.Serializable {
+
+    static final long serialVersionUID = 42;
 
     public int x;
     public int y;
@@ -59,15 +61,11 @@ public class Vec3i implements Cloneable {
     }
     
     public Vec3i( Vector3f v ) {
-        this.x = (int)v.x;
-        this.y = (int)v.y;
-        this.z = (int)v.z;
+        this((int)v.x, (int)v.y,(int)v.z);
     }
 
     public Vec3i( Vec3i v ) {
-        this.x = v.x;
-        this.y = v.y;
-        this.z = v.z;
+        this(v.x, v.y, v.z);
     }
 
     public Vector3f toVector3f() {
@@ -181,6 +179,10 @@ public class Vec3i implements Cloneable {
         return new Vec3i( x - v.x, y - v.y, z - v.z );
     } 
     
+    public final Vec3i subtract( int vx, int vy, int vz ) {
+        return new Vec3i( x - vx, y - vy, z - vz );
+    } 
+    
     public final Vec3i mult( int scale ) {
         return new Vec3i( x * scale, y * scale, z * scale );
     }
@@ -219,6 +221,10 @@ public class Vec3i implements Cloneable {
         x = Math.max(v.x, x);
         y = Math.max(v.y, y);
         z = Math.max(v.z, z);
+    }
+
+    public String toDisplay() {
+        return "[" + x + ", " + y + ", " + z + "]";
     }
 
     @Override
