@@ -48,7 +48,7 @@ configurations.compile {
 dependencies {
     // Pull in jme core for the math package for easy translation to/from JME 
     // classes.
-    compile "org.jmonkeyengine:jme3-core:3.1.+"
+    compile "org.jmonkeyengine:jme3-core:[3.1,)"
 }
 
 
