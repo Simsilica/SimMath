@@ -125,6 +125,10 @@ public class TransitionBuffer<T extends Transition> {
     }
     
     public T getTransition( long time ) {
+        return getTransition(time, true);
+    }
+
+    public T getTransition( long time, boolean clamp ) {
     
         // We run forward from head to tail so that
         // the loop moving underneath us matters less.
@@ -169,12 +173,16 @@ public class TransitionBuffer<T extends Transition> {
             }            
             
             if( time < ft.getStartTime() ) {
-System.out.println("!!!!!<<<<< Time:" + time + "  earlier than ft:" + ft);                
-                // The only way we could have gotten here is if we
-                // asked for a time before anything we have... because
-                // otherwise, time would have been contained in the
-                // previous entry
-                return (T)ft;
+//System.out.println("!!!!!<<<<< Time:" + time + "  earlier than ft:" + ft);
+                if( clamp ) {
+                    // The only way we could have gotten here is if we
+                    // asked for a time before anything we have... because
+                    // otherwise, time would have been contained in the
+                    // previous entry
+                    return (T)ft;
+                } else {
+                    return null;
+                }
             }
  
             if( time <= ft.getEndTime() ) {
@@ -184,11 +192,15 @@ System.out.println("!!!!!<<<<< Time:" + time + "  earlier than ft:" + ft);
             last = ft;                
         }
  
-System.out.println("!!!!!>>>>> Time:" + time + "  later than last:" + last + "  h:" + h + "  t:" + t + "  count:" + count);                
-        // The only way we could have gotten here is if we asked
-        // for a time after this buffer contains... in which case
-        // we'll just return the last value.           
-        return (T)last;
+//System.out.println("!!!!!>>>>> Time:" + time + "  later than last:" + last + "  h:" + h + "  t:" + t + "  count:" + count);
+        if( clamp ) {                
+            // The only way we could have gotten here is if we asked
+            // for a time after this buffer contains... in which case
+            // we'll just return the last value.           
+            return (T)last;
+        } else {
+            return null;
+        }
     }
  
     @Override
