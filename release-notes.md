@@ -1,4 +1,4 @@
-Version 1.0.2 (unreleased)
+Version 1.0.2 
 --------------
 * Modified TransitionBuffer to have a 'clamp' on getTransition()
     that when 'true' will use the old behavior of returning the
@@ -9,6 +9,7 @@ Version 1.0.2 (unreleased)
 * Modified the build.gradle to replace the JME version with a specific 
     version instead of letting it float.  I think alpha4 is generally
     the minimum accepted 3.1 version at this point. 
+
 
 Version 1.0.1
 --------------
