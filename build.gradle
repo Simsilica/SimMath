@@ -17,6 +17,8 @@ apply plugin: 'maven'
 version='1.0.2-SNAPSHOT'
 group='com.simsilica'
 
+ext.jmeVersion = "3.1.0-alpha4" 
+
 // Version meta-data
 ext {
     releaseDescription = "Sim-Math ${project.version}"    
@@ -48,7 +50,7 @@ configurations.compile {
 dependencies {
     // Pull in jme core for the math package for easy translation to/from JME 
     // classes.
-    compile "org.jmonkeyengine:jme3-core:[3.1,)"
+    compile "org.jmonkeyengine:jme3-core:$jmeVersion"
 }
 
 
