@@ -106,6 +106,16 @@ public final class AaBBox {
         min.addLocal(x, y, z);
         max.addLocal(x, y, z);        
     }
+
+    public void setCenter( double xCenter, double yCenter, double zCenter ) {
+        // Avoid creating new objects... at the slight cost
+        // of cut-paste code.
+        double x = xCenter - ((max.x + min.x) * 0.5);
+        double y = yCenter - ((max.y + min.y) * 0.5);
+        double z = zCenter - ((max.z + min.z) * 0.5);
+        min.addLocal(x, y, z);
+        max.addLocal(x, y, z);        
+    }
     
     public Vec3d getCenter() {
         return getCenter(null);   
