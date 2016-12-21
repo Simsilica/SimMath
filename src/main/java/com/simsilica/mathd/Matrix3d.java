@@ -71,7 +71,7 @@ public class Matrix3d {
                             m20, m21, m22);
     }
  
-    public void set( Matrix3d mat ) {
+    public Matrix3d set( Matrix3d mat ) {
         this.m00 = mat.m00;
         this.m01 = mat.m01;
         this.m02 = mat.m02;
@@ -81,11 +81,13 @@ public class Matrix3d {
         this.m20 = mat.m20;
         this.m21 = mat.m21;
         this.m22 = mat.m22;
+        return this;
     }
  
-    public void makeIdentity() {
+    public Matrix3d makeIdentity() {
         m01 = m02 = m10 = m12 = m20 = m21 = 0;
         m00 = m11 = m22 = 1;
+        return this;
     }
 
     public Vec3d getColumn( int i ) {
@@ -221,6 +223,35 @@ public class Matrix3d {
     public Matrix3d transpose() {
         return new Matrix3d( m00, m10, m20, m01, m11, m21, m02, m12, m22 );
     }
+
+    public Matrix3d setSkewSymmetric( Vec3d v ) {
+        m00 = 0; 
+        m11 = 0; 
+        m22 = 0;
+        
+        m01 = -v.z;
+        m02 = v.y;
+        m10 = v.z;
+        m12 = -v.x;
+        m20 = -v.y;
+        m21 = v.x;
+        
+        return this;
+    }
+ 
+    public Matrix3d addLocal( Matrix3d add ) {
+        m00 = m00 + add.m00;
+        m01 = m01 + add.m01;
+        m02 = m02 + add.m02;
+        m10 = m10 + add.m10;
+        m11 = m11 + add.m11;
+        m12 = m12 + add.m12;
+        m20 = m20 + add.m20;
+        m21 = m21 + add.m21;
+        m22 = m22 + add.m22;
+        
+        return this;
+    }
     
     public String toString() {
         return "Matrix3d[{" + m00 + ", " + m01 + ", " + m02 + "}, {"
@@ -228,6 +259,5 @@ public class Matrix3d {
                             + m20 + ", " + m21 + ", " + m22 + "}]";
     }
 }
-
 
 
