@@ -50,6 +50,11 @@ package com.simsilica.mathd;
 public class Grid {
 
     private final Vec3i gridSpacing;
+    
+    private final int shift;
+    private final long mask;
+    private final int signCheck;
+    private final int signExtend;
  
     /**
      *  Creates a grid with the same cell size along each coordinate
@@ -82,8 +87,38 @@ public class Grid {
      */   
     public Grid( Vec3i gridSpacing ) {
         this.gridSpacing = gridSpacing;
+        int axes = 0;
+        if( gridSpacing.x != 0 ) {
+            axes++;
+        }
+        if( gridSpacing.y != 0 ) {
+            axes++;
+        }
+        if( gridSpacing.z != 0 ) {
+            axes++;
+        }
+        int bits = 64 / axes;
+        shift = bits;
+ 
+        // We only ever return ints as grid cell components so
+        // signExtend can be int.       
+        signExtend = (int)(-1L << bits);
+        
+        // Sign check can also be int
+        signCheck = 0x1 << (bits - 1);
+        
+        // But the mask needs to be the full long size because we
+        // will be using it to mask off parts of a value that comes
+        // from the composite long
+        mask = ~(-1L << bits);
+
+        // From those, we'll use the mask to clear off the hi bits
+        // from long parts.  We'll use the signCheck to see if an 
+        // unshifted value is negative.  We'll use the signExtend to
+        // turn it into a negative int without affecting the part of
+        // the number we care about. 
     }
-    
+        
     public final Vec3i getSpacing() {
         return gridSpacing;
     }
@@ -243,6 +278,81 @@ public class Grid {
      */
     public final Vec3d cellToWorld( Vec3i cell, Vec3d store ) {
         return cellToWorld(cell.x, cell.y, cell.z, store);
+    }
+ 
+    /**
+     *  Converts the x, y, z cell location into a single composite long value.  This 
+     *  is done using masking and bitshifting to pack the individual values 
+     *  together.  Any of the axes that are 'flat' or using 0 spacing are 
+     *  skipped giving more overhead to the other dimensions.  Even with three 
+     *  dimensions present, that leaves 2^21 bits (represents +/- 2^20) which is over 
+     *  one million cells in each direction (+ and -).  That seems pretty reasonable
+     *  for a grid that is already reducing space into discrete subspaces.  And if
+     *  it's not then calling code should just avoid using composite IDs.    
+     */   
+    public final long cellToId( int xCell, int yCell, int zCell ) {
+        long result = 0;
+        int nextShift = 0;
+        if( gridSpacing.x != 0 ) {
+            // Mask the provided value just in case the caller passed in
+            // something too large... clamping is better than corruption
+            result = xCell & mask;
+            nextShift = shift;
+        }
+        if( gridSpacing.y != 0 ) {
+            result = (result << nextShift) | (yCell & mask);
+            nextShift = shift;
+        } 
+        if( gridSpacing.z != 0 ) {
+            result = (result << nextShift) | (zCell & mask); 
+        }
+        return result;        
+    } 
+
+    public final Vec3i idToCell( long id, Vec3i store ) {
+        int x, y, z;
+
+        if( gridSpacing.z != 0 ) {
+            z = (int)(id & mask);
+            if( (z & signCheck) != 0 ) {
+                // Sign extend it
+                z = z | signExtend;
+            }
+            id = id >> shift;
+        } else {
+            z = 0;
+        }
+        if( gridSpacing.y != 0 ) {
+            y = (int)(id & mask);
+            if( (y & signCheck) != 0 ) {
+                // Sign extend it
+                y = y | signExtend;
+            }
+            id = id >> shift;
+        } else {
+            y = 0;
+        }
+        if( gridSpacing.x != 0 ) {
+            x = (int)(id & mask);
+            if( (x & signCheck) != 0 ) {
+                // Sign extend it
+                x = x | signExtend;
+            }
+            id = id >> shift;
+        } else {
+            x = 0;
+        }
+ 
+        if( store == null ) {
+            store = new Vec3i(x, y, z);
+        } else {
+            store.set(x, y, z);
+        }       
+        return store;
+    }
+    
+    public final Vec3i idToCell( long id ) {
+        return idToCell(id, new Vec3i());
     }
  
     @Override
