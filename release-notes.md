@@ -10,7 +10,8 @@ Version 1.1.0
     are NaN.
 * Added a Vec3d constructor that takes a JME Vector3f as a reciprocal to
     the existing toVector3f().
-    
+* Added Grid and GridCell classes for standardizing the partitioning of 
+    3D space into regularly spaced cells.     
 
 
 Version 1.0.2 
