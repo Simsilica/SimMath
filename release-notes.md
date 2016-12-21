@@ -1,4 +1,4 @@
-Version 1.1.0
+Version 1.1.0 (unreleased)
 --------------
 * Added an alternate AaBBox.setCenter(double, double, double) method.
 * Added Matrix3d.addLocal(Matrix3d).
