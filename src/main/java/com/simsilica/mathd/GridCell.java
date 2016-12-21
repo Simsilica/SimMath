@@ -61,6 +61,10 @@ public class GridCell {
         return grid;
     }
 
+    public final Vec3i getCell() {
+        return cell;
+    }
+    
     public final Vec3i getWorldOrigin() {
         return worldOrigin;
     }

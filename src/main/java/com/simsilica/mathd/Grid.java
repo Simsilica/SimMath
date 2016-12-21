@@ -171,10 +171,18 @@ public class Grid {
      *  Returns a GridCell object the represents the section of space
      *  for the specified grid cell coordinate.
      */
-    public final GridCell getCell( Vec3i cell ) {
+    public final GridCell getGridCell( Vec3i cell ) {
         return new GridCell(this, cell.clone());
     }
 
+    /**
+     *  Returns a GridCell object the represents the section of space
+     *  for the specified grid cell coordinate.
+     */
+    public final GridCell getGridCell( int xCell, int yCell, int zCell ) {
+        return new GridCell(this, new Vec3i(xCell, yCell, zCell));
+    }
+    
     /**
      *  Returns the grid cell coordinate that contains the
      *  specified world space coordinate. 
