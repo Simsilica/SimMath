@@ -1,3 +1,18 @@
+Version 1.1.0
+--------------
+* Added an alternate AaBBox.setCenter(double, double, double) method.
+* Added Matrix3d.addLocal(Matrix3d).
+* Added Matrix3d.setSkewSymmetric(Vec3d).
+* Modified Matrix3d.set() and Matrix3d.makeIdentity() to return 'this'
+    Matrix3d.
+* Modified Vec3d.set() to return 'this' Vec3d.
+* Added Vec3d.isNaN() which will return true if any of the components
+    are NaN.
+* Added a Vec3d constructor that takes a JME Vector3f as a reciprocal to
+    the existing toVector3f().
+    
+
+
 Version 1.0.2 
 --------------
 * Modified TransitionBuffer to have a 'clamp' on getTransition()
