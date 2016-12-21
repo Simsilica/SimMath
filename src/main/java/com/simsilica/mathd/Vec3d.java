@@ -62,9 +62,20 @@ public final class Vec3d implements Cloneable
         this.y = y;
         this.z = z;
     }
+
+    public Vec3d( Vector3f v ) {
+        this(v.x, v.y, v.z);
+    }
  
     public Vector3f toVector3f() {
         return new Vector3f((float)x, (float)y, (float)z);
+    }
+ 
+    /**
+     *  Returns treu if any of the x,y,z elements are NaN.
+     */
+    public boolean isNaN() {
+        return Double.isNaN(x) || Double.isNaN(y) || Double.isNaN(z);
     }
  
     @Override
@@ -92,16 +103,18 @@ public final class Vec3d implements Cloneable
         return true;
     }
     
-    public final void set( double x, double y, double z ) {
+    public final Vec3d set( double x, double y, double z ) {
         this.x = x;
         this.y = y;
         this.z = z;
+        return this;
     }
     
-    public final void set( Vec3d v ) {
+    public final Vec3d set( Vec3d v ) {
         this.x = v.x;
         this.y = v.y;
         this.z = v.z;
+        return this;
     }
  
     @Override
