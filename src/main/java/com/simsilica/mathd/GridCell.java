@@ -72,24 +72,28 @@ public class GridCell {
     public final boolean contains( Vec3d world ) {
         return contains(world.x, world.y, world.z);
     }
-    
+ 
+    /**
+     *  Returns true if this GridCell contains the specified world location
+     *  where containment is in the range of min inclusive, max exclusive.
+     */   
     public final boolean contains( double x, double y, double z ) {
         Vec3i spacing = grid.getSpacing();
         double xLocal = x - worldOrigin.x;
         double yLocal = y - worldOrigin.y;
         double zLocal = z - worldOrigin.z;
         if( spacing.x != 0 ) {
-            if( xLocal < 0 || xLocal > spacing.x ) {
+            if( xLocal < 0 || xLocal >= spacing.x ) {
                 return false;
             }
         }
         if( spacing.y != 0 ) {
-            if( yLocal < 0 || yLocal > spacing.y ) {
+            if( yLocal < 0 || yLocal >= spacing.y ) {
                 return false;
             }
         }
         if( spacing.z != 0 ) {
-            if( zLocal < 0 || zLocal > spacing.z ) {
+            if( zLocal < 0 || zLocal >= spacing.z ) {
                 return false;
             }
         }

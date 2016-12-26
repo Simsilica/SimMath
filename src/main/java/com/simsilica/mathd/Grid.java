@@ -50,6 +50,7 @@ package com.simsilica.mathd;
 public class Grid {
 
     private final Vec3i gridSpacing;
+    private final int dimensions;
     
     private final int shift;
     private final long mask;
@@ -97,6 +98,7 @@ public class Grid {
         if( gridSpacing.z != 0 ) {
             axes++;
         }
+        this.dimensions = axes;
         int bits = 64 / axes;
         shift = bits;
  
@@ -121,6 +123,10 @@ public class Grid {
         
     public final Vec3i getSpacing() {
         return gridSpacing;
+    }
+ 
+    public final int getDimensions() {
+        return dimensions;
     }
     
     private int worldToCell( int i, int size ) {
