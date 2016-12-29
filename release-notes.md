@@ -1,3 +1,7 @@
+Version 1.1.1 (unreleased)
+--------------
+
+
 Version 1.1.0 
 --------------
 * Added an alternate AaBBox.setCenter(double, double, double) method.
