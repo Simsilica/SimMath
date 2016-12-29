@@ -44,8 +44,10 @@ import com.jme3.math.Vector3f;
  *  @version   $Revision: 3951 $
  *  @author    Paul Speed
  */
-public final class Vec3d implements Cloneable
-{
+public class Vec3d implements Cloneable, java.io.Serializable {
+
+    static final long serialVersionUID = 42L;
+    
     public static final Vec3d UNIT_X = new Vec3d(1,0,0);
     public static final Vec3d UNIT_Y = new Vec3d(0,1,0);
     public static final Vec3d UNIT_Z = new Vec3d(0,0,1);
@@ -53,7 +55,7 @@ public final class Vec3d implements Cloneable
     public double x;
     public double y;
     public double z;
-    
+ 
     public Vec3d() {
     }
     

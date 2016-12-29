@@ -40,7 +40,9 @@ package com.simsilica.mathd;
  *
  *  @author    Paul Speed
  */
-public class Matrix4d {
+public class Matrix4d implements Cloneable, java.io.Serializable {
+
+    static final long serialVersionUID = 42L;
 
     public double m00, m01, m02, m03;    
     public double m10, m11, m12, m13;    
@@ -72,6 +74,13 @@ public class Matrix4d {
         this.m32 = m32;
         this.m33 = m33;
     } 
+ 
+    public Matrix4d clone() {
+        return new Matrix4d(m00, m01, m02, m03,  
+                            m10, m11, m12, m13,
+                            m20, m21, m22, m23,
+                            m30, m31, m32, m33);
+    }
  
     public void makeIdentity() {
         m01 = m02 = m03 = 0;

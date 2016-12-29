@@ -42,7 +42,10 @@ package com.simsilica.mathd;
  *
  *  @author    Paul Speed
  */
-public final class AaBBox {
+public final class AaBBox implements Cloneable, java.io.Serializable {
+
+    static final long serialVersionUID = 42L;
+    
     private final Vec3d min = new Vec3d();
     private final Vec3d max = new Vec3d();
     
@@ -59,6 +62,10 @@ public final class AaBBox {
     
     public AaBBox( Vec3d min, Vec3d max ) {
         set(min, max);
+    }
+    
+    public AaBBox clone() {
+        return new AaBBox(min.clone(), max.clone());
     }
  
     public void set( Vec3d min, Vec3d max ) {

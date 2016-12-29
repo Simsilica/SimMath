@@ -46,7 +46,10 @@ import java.util.Objects;
  *
  *  @author    Paul Speed
  */
-public class GridCell {
+public class GridCell implements java.io.Serializable {
+    
+    static final long serialVersionUID = 42L;
+    
     private final Grid grid;
     private final Vec3i cell;
     private final Vec3i worldOrigin;

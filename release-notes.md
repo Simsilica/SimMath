@@ -11,7 +11,10 @@ Version 1.1.0 (unreleased)
 * Added a Vec3d constructor that takes a JME Vector3f as a reciprocal to
     the existing toVector3f().
 * Added Grid and GridCell classes for standardizing the partitioning of 
-    3D space into regularly spaced cells.     
+    3D space into regularly spaced cells.
+* Made several of the classes Serializable: Quatd, Vec3d, Vec3d, Matrix3d, 
+    Matrix4d, and AaBBox.
+* Made Matrix3d, Matrix4d, and AaBBox cloneable.
 
 
 Version 1.0.2 

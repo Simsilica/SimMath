@@ -44,7 +44,9 @@ import com.jme3.math.Quaternion;
  *  @version   $Revision: 3951 $
  *  @author    Paul Speed
  */
-public final class Quatd implements Cloneable {
+public final class Quatd implements Cloneable, java.io.Serializable {
+
+    static final long serialVersionUID = 42L;
 
     public double x;
     public double y;

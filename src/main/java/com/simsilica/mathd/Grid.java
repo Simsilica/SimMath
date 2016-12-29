@@ -47,7 +47,9 @@ package com.simsilica.mathd;
  *
  *  @author    Paul Speed
  */
-public class Grid {
+public class Grid implements java.io.Serializable {
+    
+    static final long serialVersionUID = 42L;
 
     private final Vec3i gridSpacing;
     private final int dimensions;

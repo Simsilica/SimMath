@@ -42,7 +42,10 @@ package com.simsilica.mathd;
  *
  *  @author    Paul Speed
  */
-public class Matrix3d {
+public class Matrix3d implements Cloneable, java.io.Serializable {
+
+    static final long serialVersionUID = 42L;
+    
     public double m00, m01, m02;    
     public double m10, m11, m12;    
     public double m20, m21, m22;

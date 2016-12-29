@@ -44,7 +44,9 @@ import com.jme3.math.Vector4f;
  *  @version   $Revision: 4026 $
  *  @author    Paul Speed
  */
-public final class Vec4d implements Cloneable {
+public final class Vec4d implements Cloneable, java.io.Serializable {
+
+    static final long serialVersionUID = 42L;
     
     public double x;
     public double y;
