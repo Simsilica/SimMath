@@ -64,6 +64,13 @@ public final class Quatd implements Cloneable, java.io.Serializable {
         this.w = w;        
     }
 
+    public Quatd( Quaternion quat ) {
+        this.x = quat.getX();
+        this.y = quat.getY();
+        this.z = quat.getZ();
+        this.w = quat.getW();
+    }
+
     @Override
     public final Quatd clone() {
         return new Quatd(x,y,z,w);

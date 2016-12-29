@@ -9,12 +9,14 @@ Version 1.1.0 (unreleased)
 * Added Vec3d.isNaN() which will return true if any of the components
     are NaN.
 * Added a Vec3d constructor that takes a JME Vector3f as a reciprocal to
-    the existing toVector3f().
+    the existing toVector3f() method.
 * Added Grid and GridCell classes for standardizing the partitioning of 
     3D space into regularly spaced cells.
 * Made several of the classes Serializable: Quatd, Vec3d, Vec3d, Matrix3d, 
     Matrix4d, and AaBBox.
 * Made Matrix3d, Matrix4d, and AaBBox cloneable.
+* Added a Quatd constructor that takes a JME Quaternion as a reciprocal to
+    the existing toQuaternion() method.
 
 
 Version 1.0.2 
