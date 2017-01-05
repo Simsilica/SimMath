@@ -1,5 +1,6 @@
 Version 1.1.1 (unreleased)
 --------------
+* Added Quaternion.toAngles()
 
 
 Version 1.1.0 

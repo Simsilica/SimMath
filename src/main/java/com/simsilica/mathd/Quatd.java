@@ -305,6 +305,45 @@ public final class Quatd implements Cloneable, java.io.Serializable {
         return this;
     }
 
+    /**
+     *  Returns this quaternion converted to Euler rotation angles (yaw,roll,pitch).
+     *  Note that the result is not always 100% accurate due to the implications of euler angles.
+     *  @see <a href="http://www.euclideanspace.com/maths/geometry/rotations/conversions/quaternionToEuler/index.htm">http://www.euclideanspace.com/maths/geometry/rotations/conversions/quaternionToEuler/index.htm</a>
+     * 
+     *  @param angles the double[] in which the angles should be stored, or null if
+     *            you want a new double[] to be created
+     *  @return the double[] in which the angles are stored.
+     */
+    public double[] toAngles( double[] angles ) {
+        if( angles == null ) {
+            angles = new double[3];
+        } else if( angles.length != 3 ) {
+            throw new IllegalArgumentException("Angles array must have three elements");
+        }
+
+        double sqw = w * w;
+        double sqx = x * x;
+        double sqy = y * y;
+        double sqz = z * z;
+        double unit = sqx + sqy + sqz + sqw; // if normalized is one, otherwise
+        // is correction factor
+        double test = x * y + z * w;
+        if( test > 0.499 * unit ) { // singularity at north pole
+            angles[1] = 2 * Math.atan2(x, w);
+            angles[2] = Math.PI * 0.5;
+            angles[0] = 0;
+        } else if( test < -0.499 * unit ) { // singularity at south pole
+            angles[1] = -2 * Math.atan2(x, w);
+            angles[2] = -Math.PI * 0.5;
+            angles[0] = 0;
+        } else {
+            angles[1] = Math.atan2(2 * y * w - 2 * x * z, sqx - sqy - sqz + sqw); // roll or heading 
+            angles[2] = Math.asin(2 * test / unit); // pitch or attitude
+            angles[0] = Math.atan2(2 * x * w - 2 * y * z, -sqx + sqy - sqz + sqw); // yaw or bank
+        }
+        return angles;
+    }
+
     @Override
     public String toString() {
         return "Quatd[" + x + ", " + y + ", " + z + ", " + w + "]";
