@@ -72,6 +72,10 @@ public class Vec3i implements Cloneable, java.io.Serializable {
         return new Vector3f(x,y,z);
     }
 
+    public Vec3d toVec3d() {
+        return new Vec3d(x,y,z);
+    }
+
     @Override
     public boolean equals( Object o ) {   
         if( o == this )

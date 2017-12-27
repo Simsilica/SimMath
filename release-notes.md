@@ -1,5 +1,6 @@
 Version 1.1.2 (unreleased)
 --------------
+* Added Vec4i.toVec3d()
 
 Version 1.1.1 
 --------------
