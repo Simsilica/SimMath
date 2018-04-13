@@ -4,6 +4,9 @@ Version 1.1.2 (unreleased)
 * Added Vec3d.set(Vector3f)
 * Added Quatd.set(Quaternion)
 * Added a Vec3d.xzy() swizzle method
+* Added filter package with Filterd interface and initial 
+    SimpleMovingMean filter implementation
+    
 
 Version 1.1.1 
 --------------
