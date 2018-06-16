@@ -2,6 +2,7 @@ Version 1.1.2 (unreleased)
 --------------
 * Added Vec4i.toVec3d()
 * Added Vec3d.set(Vector3f)
+* Modified Vec3d.set(Vec3d) to return Vec3d
 * Added Quatd.set(Quaternion)
 * Added a Vec3d.xzy() swizzle method
 * Added filter package with Filterd interface and initial 
