@@ -16,7 +16,9 @@ Version 1.1.2 (unreleased)
 * Added Vec3d.multLocal(Vec3d) method
 * Added Vec4d.divide() and divideLocal() methods.
 * Added Vec4d.multLocal(Vec3d) method
-    
+* Suppressed some 'unchecked' warnings in TransitionBuffer since we
+    know we're doing generic-voodoo in there.
+   
 
 Version 1.1.1 
 --------------

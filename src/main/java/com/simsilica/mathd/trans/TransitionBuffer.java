@@ -72,7 +72,8 @@ public class TransitionBuffer<T extends Transition> {
         return array.length - 1;
     }
  
-    public void addTransition( Transition transition ) {
+    @SuppressWarnings("unchecked")
+    public void addTransition( T transition ) {
     
         // Predict what the next tail will be to see if we need
         // to advance head.  Even though there is a blank entry,
@@ -95,7 +96,7 @@ public class TransitionBuffer<T extends Transition> {
             array[tail] = transition;
         } else {
             Transition last = array[previous(tail)];
-            transition.setPreviousTransition(last);
+            transition.setPreviousTransition((T)last);
             array[tail] = transition;
             
             //System.out.println("transition length:" + (transition.getEndTime() - transition.getStartTime()) + " nanos");            
@@ -128,6 +129,7 @@ public class TransitionBuffer<T extends Transition> {
         return getTransition(time, true);
     }
 
+    @SuppressWarnings("unchecked")
     public T getTransition( long time, boolean clamp ) {
     
         // We run forward from head to tail so that
