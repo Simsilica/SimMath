@@ -80,25 +80,28 @@ public final class Quatd implements Cloneable, java.io.Serializable {
         return new Quaternion((float)x, (float)y, (float)z, (float)w);
     }
 
-    public final void set( double x, double y, double z, double w ) {
+    public final Quatd set( double x, double y, double z, double w ) {
         this.x = x;
         this.y = y;
         this.z = z;
-        this.w = w;        
+        this.w = w;
+        return this;        
     } 
 
-    public final void set( Quatd q ) {
+    public final Quatd set( Quatd q ) {
         this.x = q.x;
         this.y = q.y;
         this.z = q.z;
-        this.w = q.w;        
+        this.w = q.w;
+        return this;        
     } 
     
-    public final void set( Quaternion quat ) {
+    public final Quatd set( Quaternion quat ) {
         this.x = quat.getX();
         this.y = quat.getY();
         this.z = quat.getZ();
         this.w = quat.getW();
+        return this;
     }
 
     public final Quatd add( Quatd q ) {
@@ -125,7 +128,7 @@ public final class Quatd implements Cloneable, java.io.Serializable {
         return this;
     }
 
-    public final void addScaledVectorLocal( Vec3d v, double scale ) {
+    public final Quatd addScaledVectorLocal( Vec3d v, double scale ) {
         // Represent the vector as a quat
         Quatd q = new Quatd(v.x * scale, v.y * scale, v.z * scale, 0);
                 
@@ -135,6 +138,8 @@ public final class Quatd implements Cloneable, java.io.Serializable {
         y = y + q.y * 0.5f;
         z = z + q.z * 0.5f;
         w = w + q.w * 0.5f;
+        
+        return this;
     } 
 
     public final Quatd mult( Quatd q ) {

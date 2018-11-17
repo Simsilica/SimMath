@@ -106,16 +106,18 @@ public class Vec3i implements Cloneable, java.io.Serializable {
         }
     }
 
-    public final void set( int x, int y, int z ) {
+    public final Vec3i set( int x, int y, int z ) {
         this.x = x;
         this.y = y;
         this.z = z;
+        return this;
     }
 
-    public final void set( Vec3i val ) {
+    public final Vec3i set( Vec3i val ) {
         this.x = val.x;
         this.y = val.y;
         this.z = val.z;
+        return this;
     }
 
     public final int get( int index ) {
@@ -131,7 +133,7 @@ public class Vec3i implements Cloneable, java.io.Serializable {
         }
     }
 
-    public final void set( int index, int value ) {
+    public final Vec3i set( int index, int value ) {
         switch( index ) {
             case 0:
                 this.x = value;
@@ -145,30 +147,35 @@ public class Vec3i implements Cloneable, java.io.Serializable {
             default:
                 throw new IndexOutOfBoundsException( String.valueOf(index) );
         }
+        return this;
     }
 
-    public final void addLocal( Vec3i v ) {
+    public final Vec3i addLocal( Vec3i v ) {
         x += v.x;
         y += v.y;
         z += v.z;
+        return this;
     }
 
-    public final void addLocal( int i, int j, int k ) {
+    public final Vec3i addLocal( int i, int j, int k ) {
         x += i;
         y += j;
         z += k;
+        return this;
     }
 
-    public final void subtractLocal( Vec3i v ) {
+    public final Vec3i subtractLocal( Vec3i v ) {
         x -= v.x;
         y -= v.y;
         z -= v.z;
+        return this;
     }
 
-    public final void subtractLocal( int i, int j, int k ) {
+    public final Vec3i subtractLocal( int i, int j, int k ) {
         x -= i;
         y -= j;
         z -= k;
+        return this;
     }
     
     public final Vec3i add( int i, int j, int k ) {
@@ -203,28 +210,32 @@ public class Vec3i implements Cloneable, java.io.Serializable {
         return Math.sqrt(getDistanceSq(v));
     }  
 
-    public void minLocal( int i, int j, int k ) {
+    public Vec3i minLocal( int i, int j, int k ) {
         x = Math.min(x, i);
         y = Math.min(y, j);
         z = Math.min(z, k);
+        return this;
     }
     
-    public void maxLocal( int i, int j, int k ) {
+    public Vec3i maxLocal( int i, int j, int k ) {
         x = Math.max(x, i);
         y = Math.max(y, j);
         z = Math.max(z, k);
+        return this;
     }
 
-    public void minLocal( Vec3i v ) {
+    public Vec3i minLocal( Vec3i v ) {
         x = Math.min(v.x, x);
         y = Math.min(v.y, y);
         z = Math.min(v.z, z);
+        return this;
     }
     
-    public void maxLocal( Vec3i v ) {
+    public Vec3i maxLocal( Vec3i v ) {
         x = Math.max(v.x, x);
         y = Math.max(v.y, y);
         z = Math.max(v.z, z);
+        return this;
     }
 
     public String toDisplay() {

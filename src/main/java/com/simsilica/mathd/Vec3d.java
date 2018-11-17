@@ -144,7 +144,7 @@ public class Vec3d implements Cloneable, java.io.Serializable {
         }
     }
     
-    public void set( int i, double d ) {
+    public Vec3d set( int i, double d ) {
         switch( i ) {
             case 0:
                 this.x = d;
@@ -158,6 +158,7 @@ public class Vec3d implements Cloneable, java.io.Serializable {
             default:
                 throw new IndexOutOfBoundsException( "Index:" + i );
         }
+        return this;
     }
  
     public final Vec3d add( Vec3d v ) {
@@ -182,6 +183,14 @@ public class Vec3d implements Cloneable, java.io.Serializable {
     
     public final Vec3d mult( Vec3d v ) {
         return new Vec3d(x * v.x, y * v.y, z * v.z);
+    }
+
+    public final Vec3d divide( double s ) {
+        return new Vec3d(x / s, y / s, z / s);
+    }
+    
+    public final Vec3d divide( Vec3d v ) {
+        return new Vec3d(x / v.x, y / v.y, z / v.z);
     }
 
     public final Vec3d addLocal( Vec3d v ) {
@@ -216,6 +225,27 @@ public class Vec3d implements Cloneable, java.io.Serializable {
         x *= s;
         y *= s;
         z *= s;
+        return this;
+    }
+
+    public final Vec3d multLocal( Vec3d v ) {
+        x *= v.x;
+        y *= v.y;
+        z *= v.z;
+        return this;
+    }
+
+    public final Vec3d divideLocal( double s ) {
+        x /= s;
+        y /= s;
+        z /= s;
+        return this;
+    }
+
+    public final Vec3d divideLocal( Vec3d v ) {
+        x /= v.x;
+        y /= v.y;
+        z /= v.z;
         return this;
     }
  
@@ -300,13 +330,14 @@ public class Vec3d implements Cloneable, java.io.Serializable {
         return this;
     }
  
-    public final void zeroEpsilon( double e ) {
+    public final Vec3d zeroEpsilon( double e ) {
         if( x > -e && x < e )
             x = 0;
         if( y > -e && y < e )
             y = 0;
         if( z > -e && z < e )
             z = 0;
+        return this;
     }
     
     public final Vec3d xzy() {

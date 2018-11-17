@@ -2,11 +2,20 @@ Version 1.1.2 (unreleased)
 --------------
 * Added Vec4i.toVec3d()
 * Added Vec3d.set(Vector3f)
-* Modified Vec3d.set(Vec3d) to return Vec3d
+* Modified Vec3d.set(Vec3d) and set(index, val) to return Vec3d (this)
 * Added Quatd.set(Quaternion)
 * Added a Vec3d.xzy() swizzle method
 * Added filter package with Filterd interface and initial 
     SimpleMovingMean filter implementation
+* Modified all Quatd.set() methods to return Quatd (this)
+* Modified Quatd.addScaledVectorLocal() to return Quatd (this)
+* Modified Vec3d.zeroEpsilon() and Vec4d.zeroEpsilon() to return
+    Vec3d and Vec4d resepctively (this) 
+* Modified all Vec3i void-return methods to return Vec3i (this)
+* Added Vec3d.divide() and divideLocal() methods.
+* Added Vec3d.multLocal(Vec3d) method
+* Added Vec4d.divide() and divideLocal() methods.
+* Added Vec4d.multLocal(Vec3d) method
     
 
 Version 1.1.1 

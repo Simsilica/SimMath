@@ -95,18 +95,20 @@ public final class Vec4d implements Cloneable, java.io.Serializable {
         return true;
     }
     
-    public final void set( double x, double y, double z, double w ) {
+    public final Vec4d set( double x, double y, double z, double w ) {
         this.x = x;
         this.y = y;
         this.z = z;
         this.w = w;
+        return this;
     }
     
-    public final void set( Vec4d v ) {
+    public final Vec4d set( Vec4d v ) {
         this.x = v.x;
         this.y = v.y;
         this.z = v.z;
         this.w = v.w;
+        return this;
     }
  
     @Override
@@ -129,7 +131,7 @@ public final class Vec4d implements Cloneable, java.io.Serializable {
         }
     }
     
-    public void set( int i, double d ) {
+    public Vec4d set( int i, double d ) {
         switch( i ) {
             case 0:
                 this.x = d;
@@ -146,6 +148,7 @@ public final class Vec4d implements Cloneable, java.io.Serializable {
             default:
                 throw new IndexOutOfBoundsException( "Index:" + i );
         }
+        return this;
     }
  
     public final Vec4d add( Vec4d v ) {
@@ -170,6 +173,14 @@ public final class Vec4d implements Cloneable, java.io.Serializable {
     
     public final Vec4d mult( Vec4d v ) {
         return new Vec4d(x * v.x, y * v.y, z * v.z, w * v.w);
+    }
+
+    public final Vec4d divide( double s ) {
+        return new Vec4d(x / s, y / s, z / s, w / s);
+    }
+    
+    public final Vec4d divide( Vec4d v ) {
+        return new Vec4d(x / v.x, y / v.y, z / v.z, w / v.w);
     }
 
     public final Vec4d addLocal( Vec4d v ) {
@@ -209,6 +220,30 @@ public final class Vec4d implements Cloneable, java.io.Serializable {
         y *= s;
         z *= s;
         w *= s;
+        return this;
+    }
+ 
+    public final Vec4d multLocal( Vec4d v ) {
+        x *= v.x;
+        y *= v.y;
+        z *= v.z;
+        w *= v.w;
+        return this;
+    }
+
+    public final Vec4d divideLocal( double s ) {
+        x /= s;
+        y /= s;
+        z /= s;
+        w /= s;
+        return this;
+    }
+ 
+    public final Vec4d divideLocal( Vec4d v ) {
+        x /= v.x;
+        y /= v.y;
+        z /= v.z;
+        w /= v.w;
         return this;
     }
  
@@ -272,7 +307,7 @@ public final class Vec4d implements Cloneable, java.io.Serializable {
         return this;
     }
 
-    public final void zeroEpsilon( double e ) {
+    public final Vec4d zeroEpsilon( double e ) {
         if( x > -e && x < e )
             x = 0;
         if( y > -e && y < e )
@@ -281,6 +316,7 @@ public final class Vec4d implements Cloneable, java.io.Serializable {
             z = 0;
         if( w > -e && w < e )
             w = 0;
+        return this;
     }
     
     @Override
