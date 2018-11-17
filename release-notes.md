@@ -1,4 +1,4 @@
-Version 1.2.0 (unreleased)
+Version 1.2.0 (latest)
 --------------
 * Added Vec4i.toVec3d()
 * Added Vec3d.set(Vector3f)
