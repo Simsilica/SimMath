@@ -14,10 +14,10 @@ buildscript {
 apply plugin: 'java'
 apply plugin: 'maven'
 
-version='1.1.2-SNAPSHOT'
+version='1.2.0'
 group='com.simsilica'
 
-ext.jmeVersion = "3.1.0-alpha4" 
+ext.jmeVersion = "3.1.0-stable" 
 
 // Version meta-data
 ext {
@@ -37,9 +37,12 @@ ext {
 repositories {
     mavenLocal()
     jcenter()
-    
-    // Temporary until JME jars are in jcenter()   
-    maven { url "http://dl.bintray.com/jmonkeyengine/org.jmonkeyengine" }        
+}
+
+sourceCompatibility = 1.7
+compileJava {
+    options.encoding = 'UTF-8'
+    options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
 }
 
 // Make sure the build file declares what it actually imports

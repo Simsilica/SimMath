@@ -1,4 +1,4 @@
-Version 1.1.2 (unreleased)
+Version 1.2.0 (unreleased)
 --------------
 * Added Vec4i.toVec3d()
 * Added Vec3d.set(Vector3f)
@@ -18,6 +18,8 @@ Version 1.1.2 (unreleased)
 * Added Vec4d.multLocal(Vec3d) method
 * Suppressed some 'unchecked' warnings in TransitionBuffer since we
     know we're doing generic-voodoo in there.
+* Set sourceCompatibility to 1.7 and turned on detailed 'unchecked' warnings
+   
    
 
 Version 1.1.1 
