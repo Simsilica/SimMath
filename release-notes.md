@@ -1,3 +1,8 @@
+Version 1.2.1 (unreleased)
+--------------
+* Added Quatd.fromAngles(double[])
+
+
 Version 1.2.0 (latest)
 --------------
 * Added Vec4i.toVec3d()
