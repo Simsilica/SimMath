@@ -36,7 +36,13 @@ ext {
 
 repositories {
     mavenLocal()
-    jcenter()
+
+    if( JavaVersion.current() == JavaVersion.VERSION_1_7 ) {
+        // Fallback for JDK 7 that can no longer connect to jcenter with https
+        maven { url "http://jcenter.bintray.com" }
+    } else {
+        jcenter()
+    }
 }
 
 sourceCompatibility = 1.7
@@ -54,6 +60,8 @@ dependencies {
     // Pull in jme core for the math package for easy translation to/from JME 
     // classes.
     compile "org.jmonkeyengine:jme3-core:$jmeVersion"
+      
+    compile 'org.slf4j:slf4j-api:1.7.13'        
 }
 
 
