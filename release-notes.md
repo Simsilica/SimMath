@@ -1,6 +1,10 @@
 Version 1.2.1 (unreleased)
 --------------
 * Added Quatd.fromAngles(double[])
+* Added Quatd.equals() and Quatd.hashCode()
+* Added Vec3d.isSimilar() and Quatd.isSimilar() that allow for
+    comparison of values within some epsilon.
+* Converted a System.out.println() in Vec3Bits to a log.debug() call.    
 
 
 Version 1.2.0 (latest)

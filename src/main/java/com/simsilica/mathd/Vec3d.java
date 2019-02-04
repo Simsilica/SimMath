@@ -104,6 +104,26 @@ public class Vec3d implements Cloneable, java.io.Serializable {
             return false;
         return true;
     }
+
+    /**
+     *  Returns true if this Vec3d is similar to the specified Vec3d within
+     *  some value of epsilon.
+     */
+    public boolean isSimilar( Vec3d other, double epsilon ) {
+        if( other == null ) {
+            return false;
+        }
+        if( Math.abs(other.x - x) > epsilon ) {
+            return false;
+        }
+        if( Math.abs(other.y - y) > epsilon ) {
+            return false;
+        }
+        if( Math.abs(other.z - z) > epsilon ) {
+            return false;
+        }
+        return true;
+    }
     
     public final Vec3d set( double x, double y, double z ) {
         this.x = x;

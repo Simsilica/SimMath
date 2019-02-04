@@ -36,6 +36,8 @@
 
 package com.simsilica.mathd.bits;
 
+import org.slf4j.*;
+
 import com.simsilica.mathd.Vec3d;
 
 
@@ -45,6 +47,8 @@ import com.simsilica.mathd.Vec3d;
  *  @author    Paul Speed
  */
 public final class Vec3Bits {
+ 
+    static Logger log = LoggerFactory.getLogger(Vec3Bits.class);
  
     private final FloatBits xBits;
     private final FloatBits yBits;
@@ -74,8 +78,8 @@ public final class Vec3Bits {
         temp |= yBits.getMask() << yShift;       
         temp |= zBits.getMask() << zShift;       
         this.mask = temp;
-        
-        System.out.println("Bit size:" + totalBits + "  mask:" + Long.toHexString(mask));
+ 
+        log.debug("Bit size:" + totalBits + "  mask:" + Long.toHexString(mask));
     }
  
     public FloatBits getXBits() {

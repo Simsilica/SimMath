@@ -80,6 +80,57 @@ public final class Quatd implements Cloneable, java.io.Serializable {
         return new Quaternion((float)x, (float)y, (float)z, (float)w);
     }
 
+    @Override
+    public int hashCode() {
+        long bits = Double.doubleToLongBits(x);
+        bits ^= Double.doubleToLongBits(y) * 31;
+        bits ^= Double.doubleToLongBits(z) * 31;
+        bits ^= Double.doubleToLongBits(w) * 31;
+        
+        return ((int)bits) ^ ((int)(bits >> 32));
+    }
+    
+    @Override
+    public boolean equals( Object o ) {
+        if( o == this )
+            return true;
+        if( o == null || o.getClass() != getClass() )
+            return false;
+        Quatd other = (Quatd)o;
+        if( other.x != x )
+            return false;
+        if( other.y != y )
+            return false;
+        if( other.z != z )
+            return false;
+        if( other.w != w )
+            return false;
+        return true;
+    }
+    
+    /**
+     *  Returns true if this Quatd is similar to the specified Quatd within
+     *  some value of epsilon.
+     */
+    public boolean isSimilar( Quatd other, double epsilon ) {
+        if( other == null ) {
+            return false;
+        }
+        if( Math.abs(other.x - x) > epsilon ) {
+            return false;
+        }
+        if( Math.abs(other.y - y) > epsilon ) {
+            return false;
+        }
+        if( Math.abs(other.z - z) > epsilon ) {
+            return false;
+        }
+        if( Math.abs(other.w - w) > epsilon ) {
+            return false;
+        }
+        return true;
+    }
+    
     public final Quatd set( double x, double y, double z, double w ) {
         this.x = x;
         this.y = y;
