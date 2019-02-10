@@ -359,6 +359,18 @@ public class Vec3d implements Cloneable, java.io.Serializable {
             z = 0;
         return this;
     }
+ 
+    /**
+     *  Sets the value of this Vec3d to be the linearly interpolated
+     *  value of start and end using the mix value as the 0 to 1 position
+     *  between start and end.  Basically, this = (1 - min) * start + mix * end.
+     */   
+    public final Vec3d interpolateLocal( Vec3d start, Vec3d end, double mix ) {
+        this.x = (1 - mix) * start.x + mix * end.x;
+        this.y = (1 - mix) * start.y + mix * end.y;
+        this.z = (1 - mix) * start.z + mix * end.z;
+        return this;
+    } 
     
     public final Vec3d xzy() {
         return new Vec3d(x, z, y);

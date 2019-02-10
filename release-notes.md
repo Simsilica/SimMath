@@ -1,10 +1,15 @@
-Version 1.2.1 (unreleased)
+Version 1.3.0 (unreleased)
 --------------
 * Added Quatd.fromAngles(double[])
 * Added Quatd.equals() and Quatd.hashCode()
 * Added Vec3d.isSimilar() and Quatd.isSimilar() that allow for
     comparison of values within some epsilon.
 * Converted a System.out.println() in Vec3Bits to a log.debug() call.    
+* Added Vec3d.interpolateLocal().
+* Added Quatd.slerpLocal().     
+* Added PositionTransition3f and PositionTransition3d.
+* Deprecated PositionTransition in favor of PositionTransition3f or 
+    PositionTransition3d.
 
 
 Version 1.2.0 (latest)

@@ -1,7 +1,7 @@
 /*
  * $Id$
  * 
- * Copyright (c) 2015, Simsilica, LLC
+ * Copyright (c) 2019, Simsilica, LLC
  * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without
@@ -36,7 +36,6 @@
 
 package com.simsilica.mathd.trans;
 
-import com.jme3.math.*;
 import com.simsilica.mathd.Quatd;
 import com.simsilica.mathd.Vec3d;
 
@@ -45,42 +44,32 @@ import com.simsilica.mathd.Vec3d;
  *  Represents a start and an end of a time-based transition
  *  with interpolation functions provided.
  *
- *  @deprecated Use PositionTransition3f or PositionTransition3d instead.
- * 
  *  @author    Paul Speed
  */
-@Deprecated 
-public class PositionTransition implements Transition<PositionTransition> {
+public class PositionTransition3d implements Transition<PositionTransition3d> {
 
     private long startTime;
-    private Vector3f startPos;
-    private Quaternion startRot;
+    private Vec3d startPos;
+    private Quatd startRot;
     private boolean startVisible;    
     private final long endTime;
-    private final Vector3f endPos;
-    private final Quaternion endRot;
+    private final Vec3d endPos;
+    private final Quatd endRot;
     private final boolean endVisible;    
     
-    public PositionTransition( long endTime, Vector3f endPos, Quaternion endRot, boolean visible ) {
+    public PositionTransition3d( long endTime, Vec3d endPos, Quatd endRot, boolean visible ) {
         this.endTime = endTime;
         this.endPos = endPos;
         this.endRot = endRot;
         this.endVisible = visible;
     }
 
-    public PositionTransition( long endTime, Vec3d endPos, Quatd endRot, boolean visible ) {
-        this.endTime = endTime;
-        this.endPos = new Vector3f((float)endPos.x, (float)endPos.y, (float)endPos.z);
-        this.endRot = new Quaternion((float)endRot.x, (float)endRot.y, (float)endRot.z, (float)endRot.w);
-        this.endVisible = visible;
-    }
- 
-    public static TransitionBuffer<PositionTransition> createBuffer( int history ) {
+    public static TransitionBuffer<PositionTransition3d> createBuffer( int history ) {
         return new TransitionBuffer<>(history);
     }
     
     @Override
-    public void setPreviousTransition( PositionTransition previous ) {
+    public void setPreviousTransition( PositionTransition3d previous ) {
         this.startTime = previous.endTime;
         this.startPos = previous.endPos;
         this.startRot = previous.endRot;
@@ -107,12 +96,12 @@ public class PositionTransition implements Transition<PositionTransition> {
         return endTime;
     }
  
-    protected final float tween( long time ) {
+    protected final double tween( long time ) {
         long length = endTime - startTime;
         if( length == 0 )
             return 0;
 
-        float part = time - startTime;
+        double part = time - startTime;
         if( part > length )
             return 1.0f;
         if( part < 0 )
@@ -120,15 +109,15 @@ public class PositionTransition implements Transition<PositionTransition> {
         return part / length;   
     }
  
-    public Vector3f getFrameVelocity() {
-        return new Vector3f( endPos.x - startPos.x, endPos.y - startPos.y, endPos.z - startPos.z );
+    public Vec3d getFrameVelocity() {
+        return new Vec3d( endPos.x - startPos.x, endPos.y - startPos.y, endPos.z - startPos.z );
     }
     
-    public Vector3f getPosition( long time ) {
+    public Vec3d getPosition( long time ) {
         return getPosition(time, false);
     }
 
-    public Vector3f getPosition( long time, boolean clamp ) {
+    public Vec3d getPosition( long time, boolean clamp ) {
  
         if( startPos == null ) {
             // Need to clone it even for the clamped version because
@@ -146,17 +135,17 @@ public class PositionTransition implements Transition<PositionTransition> {
             return clamp ? startPos.clone() : null;
         }
  
-        float t = tween(time);
+        double t = tween(time);
         
-        Vector3f result = new Vector3f().interpolateLocal( startPos, endPos, t );     
+        Vec3d result = new Vec3d().interpolateLocal(startPos, endPos, t);     
         return result;
     }
     
-    public Quaternion getRotation( long time ) {
+    public Quatd getRotation( long time ) {
         return getRotation(time, false);
     }
     
-    public Quaternion getRotation( long time, boolean clamp ) {
+    public Quatd getRotation( long time, boolean clamp ) {
         if( startRot == null ) {
             // Need to clone it even for the clamped version because
             // 99% of the time the caller will get their own instance and
@@ -173,7 +162,7 @@ public class PositionTransition implements Transition<PositionTransition> {
             return clamp ? startRot.clone() : null;
         }
             
-        Quaternion result = new Quaternion().slerp( startRot, endRot, tween(time) );
+        Quatd result = new Quatd().slerpLocal(startRot, endRot, tween(time));
         return result;
     }
     
@@ -189,7 +178,7 @@ public class PositionTransition implements Transition<PositionTransition> {
     
     @Override
     public String toString() {
-        return "PositionTransition[ t:" + startTime + ", pos:" + startPos + ", rot:" + startRot + ", vis:" + startVisible
+        return "PositionTransition3d[ t:" + startTime + ", pos:" + startPos + ", rot:" + startRot + ", vis:" + startVisible
                                 + " -> t:" + endTime + ", pos:" + endPos + ", rot:" + endRot + ", vis:" + endVisible + " ]";
     } 
 }

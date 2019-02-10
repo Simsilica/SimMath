@@ -45,12 +45,9 @@ import com.simsilica.mathd.Vec3d;
  *  Represents a start and an end of a time-based transition
  *  with interpolation functions provided.
  *
- *  @deprecated Use PositionTransition3f or PositionTransition3d instead.
- * 
  *  @author    Paul Speed
  */
-@Deprecated 
-public class PositionTransition implements Transition<PositionTransition> {
+public class PositionTransition3f implements Transition<PositionTransition3f> {
 
     private long startTime;
     private Vector3f startPos;
@@ -61,26 +58,26 @@ public class PositionTransition implements Transition<PositionTransition> {
     private final Quaternion endRot;
     private final boolean endVisible;    
     
-    public PositionTransition( long endTime, Vector3f endPos, Quaternion endRot, boolean visible ) {
+    public PositionTransition3f( long endTime, Vector3f endPos, Quaternion endRot, boolean visible ) {
         this.endTime = endTime;
         this.endPos = endPos;
         this.endRot = endRot;
         this.endVisible = visible;
     }
 
-    public PositionTransition( long endTime, Vec3d endPos, Quatd endRot, boolean visible ) {
+    public PositionTransition3f( long endTime, Vec3d endPos, Quatd endRot, boolean visible ) {
         this.endTime = endTime;
         this.endPos = new Vector3f((float)endPos.x, (float)endPos.y, (float)endPos.z);
         this.endRot = new Quaternion((float)endRot.x, (float)endRot.y, (float)endRot.z, (float)endRot.w);
         this.endVisible = visible;
     }
  
-    public static TransitionBuffer<PositionTransition> createBuffer( int history ) {
+    public static TransitionBuffer<PositionTransition3f> createBuffer( int history ) {
         return new TransitionBuffer<>(history);
     }
     
     @Override
-    public void setPreviousTransition( PositionTransition previous ) {
+    public void setPreviousTransition( PositionTransition3f previous ) {
         this.startTime = previous.endTime;
         this.startPos = previous.endPos;
         this.startRot = previous.endRot;
@@ -189,7 +186,7 @@ public class PositionTransition implements Transition<PositionTransition> {
     
     @Override
     public String toString() {
-        return "PositionTransition[ t:" + startTime + ", pos:" + startPos + ", rot:" + startRot + ", vis:" + startVisible
+        return "PositionTransition3f[ t:" + startTime + ", pos:" + startPos + ", rot:" + startRot + ", vis:" + startVisible
                                 + " -> t:" + endTime + ", pos:" + endPos + ", rot:" + endRot + ", vis:" + endVisible + " ]";
     } 
 }

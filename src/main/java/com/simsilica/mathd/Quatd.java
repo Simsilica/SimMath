@@ -416,6 +416,68 @@ public final class Quatd implements Cloneable, java.io.Serializable {
         return angles;
     }
 
+    /**
+     *  Sets this Quatd's value to the linear interpolation of start
+     *  and end using the mix value as the amount to interpolate.  
+     */
+    public Quatd slerpLocal( Quatd start, Quatd end, double mix ) {
+        // If they are already the same then just set the values
+        if( start.x == end.x && start.y == end.y && start.z == end.z && start.w == end.w ) {
+            set(start);
+            return this;
+        }
+
+        double endx = end.x;
+        double endy = end.y;
+        double endz = end.z;
+        double endw = end.w;
+        
+        double dot = (start.x * endx) 
+                    + (start.y * endy) 
+                    + (start.z * endz)  
+                    + (start.w * endw);
+       
+        if( dot < 0.0 ) {
+            // Negate the second quaternion and the result of the dot
+            // product.  (Note: JME actually modifies the second quaternion
+            // which is mathematically ok but to me not ok as a software dev.)
+            endx = -endx;
+            endy = -endy;
+            endz = -endz;
+            endw = -endw;
+            dot = -dot;
+        }
+        
+        double scale1 = 1 - mix;
+        double scale2 = mix;
+        
+        // If the angle between the two quaternions is big enough
+        // then we will do a more complicated interpolation.  Basically,
+        // for anything less than about 25.8 degrees difference then we'll
+        // do regular lerp else we'll do a circular lerp.
+        // JME does (1 - result) > 0.1f which to me is the same
+        // as result < 0.9, no?  Maybe they wanted the comparison to
+        // look more like "compare to a small angle" but to me dot = 1
+        // already means "angles are equal"... so dot < 0.9 is already
+        // "angles are not almost equal".
+        if( dot < 0.9 ) {
+            // Calculate the angle between the 4D vectors using the dot (cos)
+            double theta = Math.acos(dot);
+            
+            // Calculate new scales by interpolating the sines of the angle
+            double invSinTheta = 1.0 / Math.sin(theta);
+            scale1 = Math.sin(scale1 * theta) * invSinTheta;
+            scale2 = Math.sin(scale2 * theta) * invSinTheta;            
+        }
+        
+        this.x = (scale1 * start.x) + (scale2 * endx);    
+        this.y = (scale1 * start.y) + (scale2 * endy);    
+        this.z = (scale1 * start.z) + (scale2 * endz);    
+        this.w = (scale1 * start.w) + (scale2 * endw);
+        
+        return this;    
+    }
+
     @Override
     public String toString() {
         return "Quatd[" + x + ", " + y + ", " + z + ", " + w + "]";
