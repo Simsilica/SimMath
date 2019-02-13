@@ -116,16 +116,16 @@ public final class Quatd implements Cloneable, java.io.Serializable {
         if( other == null ) {
             return false;
         }
-        if( Math.abs(other.x - x) > epsilon ) {
+        if( Double.compare(Math.abs(other.x - x), epsilon) > 0 ) {
             return false;
         }
-        if( Math.abs(other.y - y) > epsilon ) {
+        if( Double.compare(Math.abs(other.y - y), epsilon) > 0 ) {
             return false;
         }
-        if( Math.abs(other.z - z) > epsilon ) {
+        if( Double.compare(Math.abs(other.z - z), epsilon) > 0 ) {
             return false;
         }
-        if( Math.abs(other.w - w) > epsilon ) {
+        if( Double.compare(Math.abs(other.w - w), epsilon) > 0 ) {
             return false;
         }
         return true;
