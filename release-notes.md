@@ -1,3 +1,7 @@
+Version 1.3.1 (unreleased)
+--------------
+
+
 Version 1.3.0 (latest)
 --------------
 * Added Quatd.fromAngles(double[])
