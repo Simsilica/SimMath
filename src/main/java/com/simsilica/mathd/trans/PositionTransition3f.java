@@ -117,10 +117,6 @@ public class PositionTransition3f implements Transition<PositionTransition3f> {
         return part / length;   
     }
  
-    public Vector3f getFrameVelocity() {
-        return new Vector3f( endPos.x - startPos.x, endPos.y - startPos.y, endPos.z - startPos.z );
-    }
-    
     public Vector3f getPosition( long time ) {
         return getPosition(time, false);
     }

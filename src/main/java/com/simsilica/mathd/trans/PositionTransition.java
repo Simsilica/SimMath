@@ -120,6 +120,13 @@ public class PositionTransition implements Transition<PositionTransition> {
         return part / length;   
     }
  
+    /**
+     *  @deprecated This is actually not a velocity and doesn't properly cover
+     *              the case where an end is null.  The caller can easily calculate
+     *              this information themselves and decide what to do with a null
+     *              end point.
+     */
+    @Deprecated
     public Vector3f getFrameVelocity() {
         return new Vector3f( endPos.x - startPos.x, endPos.y - startPos.y, endPos.z - startPos.z );
     }

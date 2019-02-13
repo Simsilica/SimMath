@@ -109,10 +109,6 @@ public class PositionTransition3d implements Transition<PositionTransition3d> {
         return part / length;   
     }
  
-    public Vec3d getFrameVelocity() {
-        return new Vec3d( endPos.x - startPos.x, endPos.y - startPos.y, endPos.z - startPos.z );
-    }
-    
     public Vec3d getPosition( long time ) {
         return getPosition(time, false);
     }

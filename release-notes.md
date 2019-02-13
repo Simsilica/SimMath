@@ -10,6 +10,8 @@ Version 1.3.0 (unreleased)
 * Added PositionTransition3f and PositionTransition3d.
 * Deprecated PositionTransition in favor of PositionTransition3f or 
     PositionTransition3d.
+* Deprecated PositionTransition.getFrameVelocity() and did not port it
+    to PositionTransition3f or PositionTransition3d.
 
 
 Version 1.2.0 (latest)
