@@ -1,5 +1,7 @@
-Version 1.3.1 (unreleased)
+Version 1.4.0 (unreleased)
 --------------
+* Added an IntSpanSet which is a Set<Integer> (and effectively Set<int))
+    that is space-optimized for sets of integers that consist of packed ranges.
 
 
 Version 1.3.0 (latest)
