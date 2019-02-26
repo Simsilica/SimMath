@@ -48,14 +48,14 @@ import java.util.*;
  *
  *  @author    Paul Speed
  */
-public class IntSpanSet extends AbstractSet<Integer> {
+public class IntRangeSet extends AbstractSet<Integer> {
 
     private Span head;
  
-    public IntSpanSet() {
+    public IntRangeSet() {
     } 
 
-    public Range[] toRangeArray() {
+    public IntRange[] toRangeArray() {
         // Counting them first is better than allocating a list or 
         // something to accumulate them, I think.  Traversing the linked
         // list is not tricky.
@@ -63,15 +63,15 @@ public class IntSpanSet extends AbstractSet<Integer> {
         for( Span span = head; span != null; span = span.next ) {
             count++;
         }
-        Range[] result = new Range[count];
+        IntRange[] result = new IntRange[count];
         int index = 0;
         for( Span span = head; span != null; span = span.next ) {
-            result[index++] = new FixedRange(span);
+            result[index++] = new FixedIntRange(span.getMinValue(), span.getMaxValue());
         }
         return result;
     }
 
-    public Iterator<Range> rangeIterator() {
+    public Iterator<IntRange> rangeIterator() {
         return new RangeIterator(head);
     }
  
@@ -256,14 +256,85 @@ public class IntSpanSet extends AbstractSet<Integer> {
         
         return false; 
     }
-     
-    public interface Range {
-        public int getMinValue();
-        public int getMaxValue();
-        public int getLength();
-    }      
+
+    //public boolean add( IntRange range ) {
+    //}
+ 
+    public boolean remove( IntRange range ) {
+        return remove(range.getMinValue(), range.getMaxValue());
+    }
     
-    private static class Span implements Range {
+    public boolean remove( int min, int max ) {
+
+        if( head == null ) {
+            // We're empty
+            return false;
+        }
+        
+        boolean removed = false;
+ 
+        Span prev = null;       
+        for( Span span = head; span != null; prev = span, span = span.next ) {
+            if( max < span.min ) {
+                // This set doesn't contain the value
+                return removed;
+            }
+
+            // Is this span completely contained within the range?
+            if( min <= span.min && max >= span.getMaxValue() ) {
+            
+                // Just remove it            
+                if( prev == null ) {
+                    head = span.next;
+                } else {
+                    prev.next = span.next;
+                }
+                
+                if( max == span.getMaxValue() ) {
+                    // We're done
+                    return true;
+                }
+                
+                // Try the next span
+                removed = true;                
+                continue;                
+            }  
+            
+            // Are we chopping off the beginning of a span
+            if( min <= span.min && span.contains(max) ) {
+                // Chop off the beginning
+                span.setRange(max + 1, span.getMaxValue());
+                
+                // And we're done
+                return true;
+            }
+            
+            // Are we chopping off the end of a span
+            if( span.contains(min) && max >= span.getMaxValue() ) {
+                span.setRange(span.min, min-1);
+
+                // There may be more left in the next span
+                removed = true;
+                continue;
+            }
+                        
+            // Is the range completely contained in this span
+            if( span.contains(min) && span.contains(max) ) {
+                // Chop it in half
+                Span right = new Span(max + 1, span.getMaxValue());
+                right.next = span.next;
+                
+                span.setMaxValue(min - 1);
+                span.next = right;
+
+                return true;
+            }
+        }
+        
+        return removed;
+    }
+    
+    private static class Span implements IntRange {
         Span next;
         int min;
         int size;
@@ -274,6 +345,11 @@ public class IntSpanSet extends AbstractSet<Integer> {
         }
  
         public Span( int min, int max ) {
+            this.min = min;
+            this.size = max - min + 1;
+        }
+ 
+        public void setRange( int min, int max ) {
             this.min = min;
             this.size = max - min + 1;
         }
@@ -313,37 +389,6 @@ public class IntSpanSet extends AbstractSet<Integer> {
         }       
     }
  
-    // For returning in arrays to be more compact   
-    private class FixedRange implements Range {
-        int min;
-        int size;
-
-        public FixedRange( Span span ) {
-            this.min = span.min;
-            this.size = span.size;
-        }
-        
-        @Override
-        public int getMinValue() {
-            return min;
-        }
-        
-        @Override
-        public int getMaxValue() {
-            return min + size - 1;
-        }
-        
-        @Override
-        public int getLength() {
-            return size;
-        }
- 
-        @Override       
-        public String toString() {
-            return "Range[" + getMinValue() + ":" + getMaxValue() + "]";
-        }       
-    }
-    
     private class IntegerIterator implements Iterator<Integer> {
         private Span current;
         private Integer nextValue;
@@ -395,7 +440,7 @@ public class IntSpanSet extends AbstractSet<Integer> {
         }
     }
     
-    private class RangeIterator implements Iterator<Range> {
+    private class RangeIterator implements Iterator<IntRange> {
         private Span current;
         
         public RangeIterator( Span current ) {
@@ -406,11 +451,11 @@ public class IntSpanSet extends AbstractSet<Integer> {
             return current != null;
         }
         
-        public Range next() {
+        public IntRange next() {
             if( !hasNext() ) {
                 throw new NoSuchElementException();   
             }
-            Range result = current;
+            IntRange result = current;
             current = current.next;
             return result;
         }

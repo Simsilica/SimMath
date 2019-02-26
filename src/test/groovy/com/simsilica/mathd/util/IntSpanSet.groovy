@@ -287,6 +287,50 @@ class IntSpanSetTest {
         }
     }
     
+    static class RemoveRangeTest extends GroovyTestCase {
+        
+        public void testRandomRemove() {
+ 
+            // Setup sets with 0-49 in them           
+            def test = [] as TreeSet;
+            IntSpanSet set = new IntSpanSet();
+            for( int i = 0; i < 50; i++ ) {
+                set.add(i);
+                test.add(i);
+            }
+            
+            // Remove some random values from both
+            Random rand = new Random(1);
+ 
+            // Remove some random ranges
+            for( int i = 0; i < 25; i++ ) {
+                int start = rand.nextInt(50);
+                int size = rand.nextInt(10);
+ 
+                boolean b1 = set.remove(new FixedIntRange(start, start + size - 1));
+                boolean b2 = false;
+                for( int j = start; j < start + size; j++ ) {
+                    if( test.remove(j) ) {
+                        b2 = true;
+                    }
+                }                                
+                assert b1 == b2 : "different set states for remove(" + start + ":" + size + ")";
+            }
+            
+            Iterator<Integer> it1 = set.iterator();
+            Iterator<Integer> it2 = test.iterator();
+            while( it1.hasNext() || it2.hasNext() ) {
+                Integer i1 = it1.next();
+                Integer i2 = it2.next();
+                assertEquals(i1, i2)
+            }
+            
+            //set.rangeIterator().each { range ->
+            //    println range
+            //}
+        }
+    }
+    
     static class RangeArrayTest extends GroovyTestCase {
         public void testPackedRandomAdd() {
         

@@ -1,6 +1,8 @@
 Version 1.4.0 (unreleased)
 --------------
-* Added an IntSpanSet which is a Set<Integer> (and effectively Set<int))
+* Added an IntRange interface and default FixedIntRange implementation to
+    represent a range of ints.
+* Added an IntRangeSet which is a Set<Integer> (and effectively Set<int))
     that is space-optimized for sets of integers that consist of packed ranges.
 
 
