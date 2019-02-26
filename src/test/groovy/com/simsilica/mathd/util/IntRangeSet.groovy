@@ -2,7 +2,7 @@ package com.simsilica.mathd.util;
 
 import java.util.Random;
 
-class IntSpanSetTest {
+class IntRangeSetTest {
 
     static class AddTest extends GroovyTestCase {
     
@@ -17,7 +17,7 @@ class IntSpanSetTest {
  
             def test = [] as TreeSet;
  
-            IntSpanSet set = new IntSpanSet();
+            IntRangeSet set = new IntRangeSet();
             for( int i : values ) {
                 boolean b1 = set.add(i);
                 boolean b2 = test.add(i);
@@ -44,7 +44,7 @@ class IntSpanSetTest {
  
             def test = [] as TreeSet;
  
-            IntSpanSet set = new IntSpanSet();
+            IntRangeSet set = new IntRangeSet();
             for( int i : values ) {
                 boolean b1 = set.add(i);
                 boolean b2 = test.add(i);
@@ -64,7 +64,7 @@ class IntSpanSetTest {
         
             def test = [] as TreeSet;
  
-            IntSpanSet set = new IntSpanSet();
+            IntRangeSet set = new IntRangeSet();
             for( int i = 0; i < 50; i++ ) {
                 boolean b1 = set.add(i);
                 boolean b2 = test.add(i);
@@ -87,7 +87,7 @@ class IntSpanSetTest {
  
             // Setup sets with 0-49 in them           
             def test = [] as TreeSet;
-            IntSpanSet set = new IntSpanSet();
+            IntRangeSet set = new IntRangeSet();
             for( int i = 0; i < 50; i++ ) {
                 set.add(i);
                 test.add(i);
@@ -122,7 +122,7 @@ class IntSpanSetTest {
  
             // Setup sets with 0-49 in them           
             def test = [] as TreeSet;
-            IntSpanSet set = new IntSpanSet();
+            IntRangeSet set = new IntRangeSet();
             for( int i = 0; i < 50; i++ ) {
                 set.add(i);
                 test.add(i);
@@ -164,7 +164,7 @@ class IntSpanSetTest {
  
             // Setup sets with 0-49 in them           
             def test = [] as TreeSet;
-            IntSpanSet set = new IntSpanSet();
+            IntRangeSet set = new IntRangeSet();
             for( int i = 0; i < 50; i++ ) {
                 set.add(i);
                 test.add(i);
@@ -206,7 +206,7 @@ class IntSpanSetTest {
  
             // Setup sets with 0-49 in them           
             def test = [] as TreeSet;
-            IntSpanSet set = new IntSpanSet();
+            IntRangeSet set = new IntRangeSet();
             for( int i = 0; i < 50; i++ ) {
                 set.add(i);
                 test.add(i);
@@ -248,7 +248,7 @@ class IntSpanSetTest {
  
             // Setup sets with 0-49 in them           
             def test = [] as TreeSet;
-            IntSpanSet set = new IntSpanSet();
+            IntRangeSet set = new IntRangeSet();
             for( int i = 0; i < 50; i++ ) {
                 set.add(i);
                 test.add(i);
@@ -293,7 +293,7 @@ class IntSpanSetTest {
  
             // Setup sets with 0-49 in them           
             def test = [] as TreeSet;
-            IntSpanSet set = new IntSpanSet();
+            IntRangeSet set = new IntRangeSet();
             for( int i = 0; i < 50; i++ ) {
                 set.add(i);
                 test.add(i);
@@ -334,7 +334,7 @@ class IntSpanSetTest {
     static class RangeArrayTest extends GroovyTestCase {
         public void testPackedRandomAdd() {
         
-            IntSpanSet set = new IntSpanSet();
+            IntRangeSet set = new IntRangeSet();
         
             Random rand = new Random(1);
             for( int i = 0; i < 50; i++ ) {
@@ -352,7 +352,7 @@ class IntSpanSetTest {
             
             // Add some values to the end and remove some from the
             // beginning
-            IntSpanSet set = new IntSpanSet();
+            IntRangeSet set = new IntRangeSet();
             for( int i = 0; i < 10; i++ ) {
                 set.add(i);
             }
