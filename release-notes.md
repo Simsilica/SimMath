@@ -1,4 +1,4 @@
-Version 1.4.0 (unreleased)
+Version 1.4.0 (latest)
 --------------
 * Added an IntRange interface and default FixedIntRange implementation to
     represent a range of ints.
@@ -6,7 +6,7 @@ Version 1.4.0 (unreleased)
     that is space-optimized for sets of integers that consist of packed ranges.
 
 
-Version 1.3.0 (latest)
+Version 1.3.0 
 --------------
 * Added Quatd.fromAngles(double[])
 * Added Quatd.equals() and Quatd.hashCode()
