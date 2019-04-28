@@ -1,3 +1,7 @@
+Version 1.4.1 (unreleased)
+--------------
+
+
 Version 1.4.0 (latest)
 --------------
 * Added an IntRange interface and default FixedIntRange implementation to
