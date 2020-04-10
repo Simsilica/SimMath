@@ -63,6 +63,14 @@ public final class Vec4d implements Cloneable, java.io.Serializable {
         this.w = w;
     }
  
+    public Vec4d( Vec4d v ) {
+        this(v.x, v.y, v.z, v.w);
+    }
+    
+    public Vec4d( Vector4f v ) {
+        this(v.x, v.y, v.z, v.w);
+    }
+ 
     public Vector4f toVector4f() {
         return new Vector4f((float)x, (float)y, (float)z, (float)w);
     }

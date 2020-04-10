@@ -65,6 +65,10 @@ public class Vec3d implements Cloneable, java.io.Serializable {
         this.z = z;
     }
 
+    public Vec3d( Vec3d v ) {
+        this(v.x, v.y, v.z);
+    }
+
     public Vec3d( Vector3f v ) {
         this(v.x, v.y, v.z);
     }
@@ -378,6 +382,6 @@ public class Vec3d implements Cloneable, java.io.Serializable {
     
     @Override
     public String toString() {
-        return "Vec3[" + x + ", " + y + ", " + z + "]";
+        return "Vec3d[" + x + ", " + y + ", " + z + "]";
     }
 }
