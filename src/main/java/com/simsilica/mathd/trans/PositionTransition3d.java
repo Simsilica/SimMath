@@ -171,6 +171,30 @@ public class PositionTransition3d implements Transition<PositionTransition3d> {
         }
         return startVisible;
     }
+ 
+    public Vec3d getStartPosition() {
+        return startPos;
+    }
+    
+    public Vec3d getEndPosition() {
+        return endPos;
+    }
+    
+    public Quatd getStartRotation() {
+        return startRot;
+    }
+    
+    public Quatd getEndRotation() {
+        return endRot;
+    }
+    
+    public boolean getStartVisibility() {
+        return startVisible;
+    }
+    
+    public boolean getEndVisibility() {
+        return endVisible;
+    }
     
     @Override
     public String toString() {

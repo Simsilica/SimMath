@@ -180,6 +180,30 @@ public class PositionTransition3f implements Transition<PositionTransition3f> {
         return startVisible;
     }
     
+    public Vector3f getStartPosition() {
+        return startPos;
+    }
+    
+    public Vector3f getEndPosition() {
+        return endPos;
+    }
+    
+    public Quaternion getStartRotation() {
+        return startRot;
+    }
+    
+    public Quaternion getEndRotation() {
+        return endRot;
+    }
+    
+    public boolean getStartVisibility() {
+        return startVisible;
+    }
+    
+    public boolean getEndVisibility() {
+        return endVisible;
+    }
+    
     @Override
     public String toString() {
         return "PositionTransition3f[ t:" + startTime + ", pos:" + startPos + ", rot:" + startRot + ", vis:" + startVisible

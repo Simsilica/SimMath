@@ -74,7 +74,7 @@ public class TransitionBuffer<T extends Transition> {
  
     @SuppressWarnings("unchecked")
     public void addTransition( T transition ) {
-    
+ 
         // Predict what the next tail will be to see if we need
         // to advance head.  Even though there is a blank entry,
         // we err on the side of caution and always advance head
