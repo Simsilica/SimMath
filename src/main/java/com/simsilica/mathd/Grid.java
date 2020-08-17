@@ -295,6 +295,40 @@ public class Grid implements java.io.Serializable {
     public final Vec3d cellToWorld( Vec3i cell, Vec3d store ) {
         return cellToWorld(cell.x, cell.y, cell.z, store);
     }
+    
+    /**
+     *  Converts the world location to a cell location and then to a cell ID.
+     *  This is the equivalent of using cellToId(worldToCell(worldLoc)).  
+     */
+    public final long worldToId( Vec3d world ) {
+        return worldToId(world.x, world.y, world.z);
+    }
+    
+    /**
+     *  Converts the world location to a cell location and then to a cell ID.  
+     *  This is the equivalent of using cellToId(worldToCell(worldLoc)) but
+     *  without the intermediate garbage.  
+     */
+    public final long worldToId( double xWorld, double yWorld, double zWorld ) {
+        int x = worldToCell(xWorld, gridSpacing.x);   
+        int y = worldToCell(yWorld, gridSpacing.y);   
+        int z = worldToCell(zWorld, gridSpacing.z);
+        return cellToId(x, y, z);
+    }
+
+    /**
+     *  Converts the x, y, z cell location into a single composite long value.  This 
+     *  is done using masking and bitshifting to pack the individual values 
+     *  together.  Any of the axes that are 'flat' or using 0 spacing are 
+     *  skipped giving more overhead to the other dimensions.  Even with three 
+     *  dimensions present, that leaves 2^21 bits (represents +/- 2^20) which is over 
+     *  one million cells in each direction (+ and -).  That seems pretty reasonable
+     *  for a grid that is already reducing space into discrete subspaces.  And if
+     *  it's not then calling code should just avoid using composite IDs.    
+     */   
+    public final long cellToId( Vec3i cell ) {
+        return cellToId(cell.x, cell.y, cell.z);
+    }
  
     /**
      *  Converts the x, y, z cell location into a single composite long value.  This 

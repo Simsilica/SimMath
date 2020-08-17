@@ -3,6 +3,8 @@ Version 1.4.1 (unreleased)
 * Added some copy constructors to Vec3d, Vec4d, and Quatd.
 * Added getters for the start/end pos, rotation, visibility of 
     PositionTransition3d and PositionTransition3f
+* Added Grid.worldToId(Vec3d), Grid.worldToId(double, double, double)
+    and Grid.cellToId(Vec3i)     
 
 
 Version 1.4.0 (latest)
