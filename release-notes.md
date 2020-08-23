@@ -4,7 +4,8 @@ Version 1.4.1 (unreleased)
 * Added getters for the start/end pos, rotation, visibility of 
     PositionTransition3d and PositionTransition3f
 * Added Grid.worldToId(Vec3d), Grid.worldToId(double, double, double)
-    and Grid.cellToId(Vec3i)     
+    and Grid.cellToId(Vec3i)
+* Added Vec3d.set(Vec3i)
 
 
 Version 1.4.0 (latest)

@@ -143,6 +143,13 @@ public class Vec3d implements Cloneable, java.io.Serializable {
         return this;
     }
 
+    public final Vec3d set( Vec3i v ) {
+        this.x = v.x;
+        this.y = v.y;
+        this.z = v.z;
+        return this;
+    }
+
     public final Vec3d set( Vector3f v ) {
         this.x = v.x;
         this.y = v.y;
