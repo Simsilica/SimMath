@@ -6,6 +6,7 @@ Version 1.4.1 (unreleased)
 * Added Grid.worldToId(Vec3d), Grid.worldToId(double, double, double)
     and Grid.cellToId(Vec3i)
 * Added Vec3d.set(Vec3i)
+* Added GridCell.getId() that maps to Grid.cellToId()
 
 
 Version 1.4.0 (latest)

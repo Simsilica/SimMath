@@ -59,6 +59,10 @@ public class GridCell implements java.io.Serializable {
         this.cell = cell;
         this.worldOrigin = grid.cellToWorld(cell);
     }
+    
+    public final long getId() {
+        return grid.cellToId(cell);
+    }
 
     public final Grid getGrid() {
         return grid;
