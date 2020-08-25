@@ -157,6 +157,27 @@ public class Vec3d implements Cloneable, java.io.Serializable {
         return this;
     }
  
+    /**
+     *  Returns the raw (int) cast version of this Vec3d as a Vec3i.
+     */
+    public final Vec3i toVec3i() {
+        return new Vec3i((int)x, (int)y, (int)z);
+    }
+    
+    /**
+     *  Returns the Math.floor() version of this Vec3d as a Vec3i.
+     */
+    public final Vec3i floor() {
+        return new Vec3i((int)Math.floor(x), (int)Math.floor(y), (int)Math.floor(z));
+    }
+
+    /**
+     *  Returns the Math.ceil() version of this Vec3d as a Vec3i.
+     */
+    public final Vec3i ceil() {
+        return new Vec3i((int)Math.ceil(x), (int)Math.ceil(y), (int)Math.ceil(z));
+    }
+ 
     @Override
     public final Vec3d clone() {
         return new Vec3d(x,y,z);
