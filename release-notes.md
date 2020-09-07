@@ -8,6 +8,7 @@ Version 1.4.1 (unreleased)
 * Added Vec3d.set(Vec3i)
 * Added GridCell.getId() that maps to Grid.cellToId()
 * Added Vec3d.toVec3i(), floor(), and ceil() for Vec3d to Vec3i conversion.
+* Added Grid.getContainingCell(Vec3i)
 
 
 Version 1.4.0 (latest)

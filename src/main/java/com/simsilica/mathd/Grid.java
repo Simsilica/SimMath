@@ -174,6 +174,17 @@ public class Grid implements java.io.Serializable {
     public final GridCell getContainingCell( Vec3d world ) {
         return getContainingCell(world.x, world.y, world.z);
     }
+
+    /**
+     *  Returns a GridCell object that represents the section of space that
+     *  contains the specified world location.  The Cell
+     *  object can be used to query additional values about the enclosing
+     *  subspace such as performing worldToLocal/localToWorld conversions,
+     *  obtaining the world origin, checking containment, etc.
+     */
+    public final GridCell getContainingCell( Vec3i world ) {
+        return getContainingCell(world.x, world.y, world.z);
+    }
     
     /**
      *  Returns a GridCell object the represents the section of space
