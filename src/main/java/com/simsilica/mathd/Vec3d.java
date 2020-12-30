@@ -319,6 +319,17 @@ public class Vec3d implements Cloneable, java.io.Serializable {
     public final double distance( Vec3d v ) {
         return Math.sqrt(distanceSq(v)); 
     }
+
+    public final double distanceSq( double vx, double vy, double vz ) {
+        double xs = vx - x;
+        double ys = vy - y;
+        double zs = vz - z;
+        return xs * xs + ys * ys + zs * zs; 
+    }
+
+    public final double distance( double vx, double vy, double vz ) {
+        return Math.sqrt(distanceSq(vx, vy, vz)); 
+    }
  
     public final Vec3d normalize() {
         return mult(1.0 / length());
