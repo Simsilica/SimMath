@@ -210,6 +210,14 @@ public class Vec3i implements Cloneable, java.io.Serializable {
         return Math.sqrt(getDistanceSq(v));
     }
 
+    public final double lengthSq() {
+        return x * x + y * y + z * z;
+    }
+    
+    public final double length() {
+        return Math.sqrt(lengthSq());                
+    }
+    
     public Vec3i minLocal( int i, int j, int k ) {
         x = Math.min(x, i);
         y = Math.min(y, j);

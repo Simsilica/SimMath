@@ -10,6 +10,7 @@ Version 1.4.1 (unreleased)
 * Added Vec3d.toVec3i(), floor(), and ceil() for Vec3d to Vec3i conversion.
 * Added Grid.getContainingCell(Vec3i)
 * Added Vec3d.distance(x,y,z) and Vec3d.distanceSq(x,y,z)
+* Added Vec3i.length() and Vec3i.lengthSq()
 
 
 Version 1.4.0 (latest)
