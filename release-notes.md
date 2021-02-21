@@ -11,6 +11,7 @@ Version 1.4.1 (unreleased)
 * Added Grid.getContainingCell(Vec3i)
 * Added Vec3d.distance(x,y,z) and Vec3d.distanceSq(x,y,z)
 * Added Vec3i.length() and Vec3i.lengthSq()
+* Added a Vec3d.ZERO 'constant'
 
 
 Version 1.4.0 (latest)

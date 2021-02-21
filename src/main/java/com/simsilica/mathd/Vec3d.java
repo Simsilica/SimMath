@@ -51,6 +51,7 @@ public class Vec3d implements Cloneable, java.io.Serializable {
     public static final Vec3d UNIT_X = new Vec3d(1,0,0);
     public static final Vec3d UNIT_Y = new Vec3d(0,1,0);
     public static final Vec3d UNIT_Z = new Vec3d(0,0,1);
+    public static final Vec3d ZERO = new Vec3d();
     
     public double x;
     public double y;
