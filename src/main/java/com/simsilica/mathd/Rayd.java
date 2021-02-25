@@ -88,7 +88,7 @@ public class Rayd implements Cloneable, java.io.Serializable {
         this.origin = origin; 
     }
 
-    public Vec3d getOrigin() {
+    public final Vec3d getOrigin() {
         return origin;
     }
     
@@ -96,13 +96,13 @@ public class Rayd implements Cloneable, java.io.Serializable {
         if( direction == null ) {
             throw new IllegalArgumentException("Direction cannot be null");
         } 
-        if( direction.lengthSq() > 0.0001 ) {
-            throw new IllegalArgumentException("Direction is not of unit length:" + direction);
+        if( Math.abs(direction.lengthSq() - 1.0) > 0.0001 ) {
+            throw new IllegalArgumentException("Direction is not of unit length:" + direction + "  lengthSq:" + direction.lengthSq());
         } 
         this.direction = direction;
     }
     
-    public Vec3d getDirection() {
+    public final Vec3d getDirection() {
         return direction;
     }    
        
@@ -172,6 +172,22 @@ public class Rayd implements Cloneable, java.io.Serializable {
         }
         return true;
     }
+    
+    /**
+     *  Returns the point along the ray at the specified distance. 
+     *  No checking is done to ensure that distance is positive so negative
+     *  values will return values 'behind' the origin.
+     */
+    public Vec3d project( double distance, Vec3d target ) {
+        if( target == null ) {
+            target = new Vec3d(direction);
+        } else {
+            target.set(direction);
+        }
+        target.multLocal(distance);
+        target.addLocal(origin);
+        return target;
+    }
  
     /**
      *  Returns the point on this ray that is closest to the specified
@@ -208,8 +224,108 @@ public class Rayd implements Cloneable, java.io.Serializable {
      *  If limit is less than or equal to zero then it is ignored as if it were infinity.  
      */   
     public double distanceSq( Vec3d point, double limit ) {        
-        return getClosestPoint(point, limit, null).distanceSq(origin);       
+        return getClosestPoint(point, limit, null).distanceSq(point);       
     }
+
+    /**
+     *  Returns the distance along this ray of the nearest intersection to 
+     *  the specified sphere or -1 if the ray and sphere do not intersect.
+     *  'limit' can optionally limit the length of the Ray if set to a value
+     *  greater than 0.
+     *  If 'outsideOnly' is true then cases where the ray origin is inside the
+     *  sphere are rejected.
+     */
+    public double intersectSphere( double limit, Vec3d center, double radius, boolean outsideOnly ) {
+        Vec3d relative = center.subtract(origin);
+        
+        double proj = relative.dot(direction);
+        if( outsideOnly && proj < 0 ) {
+            // In the best case, we are always inside the sphere in this case
+            return -1;
+        }
+        
+        // A couple cases that we can 'early out'
+        // 1) intersection would be so far behind us that the sphere
+        //    doesn't hit us.
+        // 2) interesection would be so far ahead of us that it exceeds the limit.
+        // 
+        // These are 'broadphase' rejections based just on radius.
+        if( proj < -radius ) {
+            // The point on the ray nearest to the sphere center is
+            // behind us far enough that even if the center were right on the
+            // ray, the origin is just outside of the sphere
+            return -1;
+        }
+        if( limit > 0 && proj > limit + radius ) {
+            // Even if the sphere is right on the ray, it is so far
+            // outside of 'limit' that it would never intersect
+            return -1;
+        }
+        
+        double distSq = relative.lengthSq();
+        //double dist = Math.sqrt(distSq); unused
+        
+        // We now have the hypotenuse (dist) and the leg (proj) of a right
+        // triangle and we want to know the length of the third leg.
+        // a^2 + b^2 = c^2
+        // proj^2 + b^2 = dist^2
+        // b = sqrt(dist^2 - proj^2)
+        double bSq = distSq - proj * proj;
+        if( bSq == 0 ) {
+            // The ray is tangent to the sphere as the distance from
+            // center to ray is 0
+            if( proj < 0 ) {
+                return -1; 
+            } 
+            if( proj > limit ) {
+                return -1;
+            }
+            return proj;
+        } 
+        //double b = Math.sqrt(bSq); // unused 
+            
+        // From here, we have the information necessary to construct
+        // the missing side of the triangle that extends from the 
+        // center of the sphere, to the 'nearest point on the ray'
+        // to the intersection of ray-and-sphere... which would be +/-
+        // the point nearest.
+        // a^2 + b^2 = c^2 
+        // where b is what we calculated above,
+        // h is the radius of the sphere,
+        // and a is the value that +/- projection is our intersection
+        // points.
+        // a = sqrt(radius^2 - b^2)
+        double a = Math.sqrt(radius * radius - bSq);
+ 
+        // near = proj - a;
+        // far = proj + a;
+        //
+        // If near is not behind us then it is the one we prefer.
+        // Else far will be the best one because the origin is inside the
+        // sphere.
+        double best = proj - a; // near
+        if( best < 0 ) {
+            if( outsideOnly ) {
+                // We are inside the sphere
+                return -1;
+            }
+            best = proj + a; // far
+        }
+        
+        // If the best is still behind us then we don't intersect
+        if( best < 0 ) {
+            return -1;
+        }
+        
+        // If we have a limit and best is outside the limit then
+        // we don't intersect
+        if( limit > 0 && best > limit ) {
+            return -1;
+        }
+        
+        // Else we have our answer
+        return best;
+    }    
     
     @Override
     public String toString() {
