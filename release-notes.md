@@ -1,3 +1,7 @@
+Version 1.4.2 (unreleased)
+--------------
+
+
 Version 1.4.1 (latest)
 --------------
 * Added some copy constructors to Vec3d, Vec4d, and Quatd.
