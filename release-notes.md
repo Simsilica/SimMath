@@ -1,7 +1,7 @@
-Version 1.4.1 (unreleased)
+Version 1.4.1 (latest)
 --------------
 * Added some copy constructors to Vec3d, Vec4d, and Quatd.
-* Added getters for the start/end pos, rotation, visibility of 
+* Added getters for the start/end pos, rotation, visibility of
     PositionTransition3d and PositionTransition3f
 * Added Grid.worldToId(Vec3d), Grid.worldToId(double, double, double)
     and Grid.cellToId(Vec3i)
@@ -15,7 +15,7 @@ Version 1.4.1 (unreleased)
 * Added Rayd, a double-precision Ray class.
 
 
-Version 1.4.0 (latest)
+Version 1.4.0
 --------------
 * Added an IntRange interface and default FixedIntRange implementation to
     represent a range of ints.
@@ -23,7 +23,7 @@ Version 1.4.0 (latest)
     that is space-optimized for sets of integers that consist of packed ranges.
 
 
-Version 1.3.0 
+Version 1.3.0
 --------------
 * Added Quatd.fromAngles(double[])
 * Added Quatd.equals() and Quatd.hashCode()
