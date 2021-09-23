@@ -1,24 +1,11 @@
-buildscript {
-    repositories {
-        if( JavaVersion.current() == JavaVersion.VERSION_1_7 ) {
-            // Fallback for JDK 7 that can no longer connect to jcenter with https
-            maven { url "http://jcenter.bintray.com" }
-        } else {
-            jcenter()
-        }
-    }
-    dependencies {
-        // This sucks down a lot of stuff that 'normal' users wouldn't
-        // have and won't need anyway.
-        if( project.hasProperty('releaseUser') ) {
-            classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.+'
-        }
-    }
-}
+// Gradle build script for the SimMath project
 
-apply plugin: 'java'
-apply plugin: 'groovy'
-apply plugin: 'maven'
+plugins {
+    id 'groovy'
+    id 'java-library'
+    id 'maven-publish'
+    id 'signing'
+}
 
 version='1.4.2-SNAPSHOT'
 group='com.simsilica'
@@ -27,18 +14,15 @@ ext.jmeVersion = "3.1.0-stable"
 
 // Version meta-data
 ext {
-    releaseDescription = "Sim-Math ${project.version}"
-    releaseVcsTag = "${project.name}-v${project.version}"
+    baseName = "${project.name}-${project.version}"
 }
 
 // Project-wide meta-data
 ext {
-    bintrayLabels = ['jMonkeyEngine', 'gamedev', 'math']
     websiteUrl = 'https://github.com/Simsilica/SimMath'
-    vcsUrl = 'https://github.com/Simsilica/SimMath.git'
-    githubRepo = 'Simsilica/SimMath'
-    issueTrackerUrl = 'https://github.com/Simsilica/SimMath/issues'
 }
+
+description = 'A double-based math package similar to JME\'s float-based math classes.'
 
 repositories {
     mavenLocal()
@@ -47,30 +31,34 @@ repositories {
         // Fallback for JDK 7 that can no longer connect to jcenter with https
         maven { url "http://jcenter.bintray.com" }
     } else {
-        jcenter()
+        maven { url "https://jcenter.bintray.com" }
     }
 }
 
 sourceCompatibility = 1.7
-compileJava {
+targetCompatibility = 1.7
+tasks.withType(JavaCompile) { // compile-time options:
     options.encoding = 'UTF-8'
-    options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
+    options.compilerArgs << '-Xlint:unchecked'
+    options.deprecation = true
 }
 
-// Make sure the build file declares what it actually imports
-configurations.compile {
-    transitive = false
+javadoc {
+    // Disable doclint for JDK8+.
+    if (JavaVersion.current().isJava8Compatible()) {
+        options.addStringOption('Xdoclint:none', '-quiet')
+    }
 }
 
 dependencies {
     // Pull in jme core for the math package for easy translation to/from JME
     // classes.
-    compile "org.jmonkeyengine:jme3-core:$jmeVersion"
+    api "org.jmonkeyengine:jme3-core:$jmeVersion"
 
-    compile 'org.slf4j:slf4j-api:1.7.13'
+    api 'org.slf4j:slf4j-api:1.7.13'
 
-    testCompile 'junit:junit:4.12'
-    testCompile 'org.codehaus.groovy:groovy-all:2.4.11'
+    testImplementation 'junit:junit:4.12'
+    testImplementation 'org.codehaus.groovy:groovy-all:2.4.11'
 }
 
 test {
@@ -80,28 +68,109 @@ test {
     }
 }
 
+// publishing tasks
+
+task('install') {
+    dependsOn 'publishMavenPublicationToMavenLocal'
+    description 'Installs Maven artifacts to the local repository.'
+}
+task('release') {
+    dependsOn 'publishMavenPublicationToOSSRHRepository'
+    description 'Stages Maven artifacts to Sonatype OSSRH.'
+}
+
 // Configuration to produce maven-repo style -sources and -javadoc jars
 task sourcesJar(type: Jar) {
-    classifier = 'sources'
+    archiveClassifier = 'sources'
+    description 'Creates a JAR of sourcecode.'
     from sourceSets.main.allSource
     exclude '**/.backups'
 }
 
 task javadocJar(type: Jar, dependsOn: javadoc) {
-    classifier = 'javadoc'
+    archiveClassifier = 'javadoc'
+    description 'Creates a JAR of javadoc.'
     from javadoc.destinationDir
 }
 
-artifacts {
-    archives sourcesJar
-    archives javadocJar
+build.dependsOn('pom', 'pomAsc')
+task('pom', type: Copy) {
+    dependsOn 'generatePomFileForMavenPublication'
+    description 'Copies the Maven POM to build/libs.'
+    from "${buildDir}/publications/maven/pom-default.xml"
+    into "${buildDir}/libs"
+    rename 'pom-default.xml', project.ext.baseName + '.pom'
+}
+task('pomAsc', type: Copy) {
+    dependsOn 'signMavenPublication'
+    description 'Copies the signature of the Maven POM to build/libs.'
+    from "${buildDir}/publications/maven/pom-default.xml.asc"
+    into "${buildDir}/libs"
+    rename 'pom-default.xml.asc', project.ext.baseName + '.pom.asc'
 }
 
-
-// Put this at the end or it won't pick up the project.version and stuff
-if( project.hasProperty('releaseUser') ) {
-    apply plugin: 'com.jfrog.bintray'
-    apply from: 'https://raw.githubusercontent.com/Simsilica/gradle-plugins/master/simtools-release.gradle'
+publishing {
+    publications {
+        maven(MavenPublication) {
+            artifact javadocJar
+            artifact sourcesJar
+            artifactId project.name
+            from components.java
+            groupId project.group
+            pom {
+                description = project.description
+                developers {
+                    developer {
+                        name = 'Paul Speed'
+                    }
+                }
+                inceptionYear = '2015'
+                licenses {
+                    license {
+                        distribution = 'repo'
+                        name = 'New BSD (3-clause) License'
+                        url = project.ext.websiteUrl + '/blob/master/license.md'
+                    }
+                }
+                name = project.group + ':' + project.name
+                scm {
+                    connection = 'scm:git:git://github.com/Simsilica/SimMath.git'
+                    developerConnection = 'scm:git:ssh://github.com:Simsilica/SimMath.git'
+                    url = project.ext.websiteUrl + '/tree/master'
+                }
+                url = project.ext.websiteUrl
+            }
+            version project.version
+        }
+    }
+    // Staging to OSSRH relies on the existence of 2 properties
+    // (ossrhUsername and ossrhPassword)
+    // which should be stored in ~/.gradle/gradle.properties
+    repositories {
+        maven {
+            credentials {
+                username = project.hasProperty('ossrhUsername') ? ossrhUsername : 'Unknown user'
+                password = project.hasProperty('ossrhPassword') ? ossrhPassword : 'Unknown password'
+            }
+            name = 'OSSRH'
+            url = 'https://oss.sonatype.org/service/local/staging/deploy/maven2'
+        }
+    }
+}
+generateMetadataFileForMavenPublication.dependsOn('pom')
+publishMavenPublicationToMavenLocal.doLast {
+    println 'installed locally as ' + project.ext.baseName
 }
 
+// signing tasks
 
+// Signing relies on the existence of 3 properties
+// (signing.keyId, signing.password, and signing.secretKeyRingFile)
+// which should be stored in ~/.gradle/gradle.properties
+
+signing {
+    sign publishing.publications.maven
+}
+tasks.withType(Sign) {
+    onlyIf { project.hasProperty('signing.keyId') }
+}
