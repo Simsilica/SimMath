@@ -159,6 +159,41 @@ public final class Quatd implements Cloneable, java.io.Serializable {
         return this;
     }
 
+    public double get( int i ) {
+        switch( i ) {
+            case 0:
+                return x;
+            case 1:
+                return y;
+            case 2:
+                return z;
+            case 3:
+                return w;
+            default:
+                throw new IndexOutOfBoundsException( "Index:" + i );
+        }
+    }
+
+    public Quatd set( int i, double d ) {
+        switch( i ) {
+            case 0:
+                this.x = d;
+                break;
+            case 1:
+                this.y = d;
+                break;
+            case 2:
+                this.z = d;
+                break;
+            case 3:
+                this.w = d;
+                break;
+            default:
+                throw new IndexOutOfBoundsException( "Index:" + i );
+        }
+        return this;
+    }
+
     public final Quatd add( Quatd q ) {
         return new Quatd(x + q.x, y + q.y, z + q.z, w + q.w);
     }
