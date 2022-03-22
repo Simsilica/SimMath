@@ -1,5 +1,7 @@
 Version 1.4.2 (unreleased)
 --------------
+* Added Quatd.get(int) and Quatd.set(int, double) methods to be similar
+    to Vec3d in allowing individual components to be set by index.
 
 
 Version 1.4.1 (latest)
