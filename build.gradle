@@ -40,6 +40,9 @@ tasks.withType(JavaCompile) { // compile-time options:
     options.encoding = 'UTF-8'
     options.compilerArgs << '-Xlint:unchecked'
     options.deprecation = true
+    if (JavaVersion.current().isCompatibleWith(JavaVersion.VERSION_1_10)) {
+        options.release = 7
+    }
 }
 
 javadoc {
