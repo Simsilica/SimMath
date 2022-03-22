@@ -96,22 +96,6 @@ tasks.register('javadocJar', Jar) {
     from javadoc.destinationDir
 }
 
-build.dependsOn('pom', 'pomAsc')
-tasks.register('pom', Copy) {
-    dependsOn 'generatePomFileForMavenPublication'
-    description 'Copies the Maven POM to build/libs.'
-    from "${buildDir}/publications/maven/pom-default.xml"
-    into "${buildDir}/libs"
-    rename 'pom-default.xml', project.ext.baseName + '.pom'
-}
-tasks.register('pomAsc', Copy) {
-    dependsOn 'signMavenPublication'
-    description 'Copies the signature of the Maven POM to build/libs.'
-    from "${buildDir}/publications/maven/pom-default.xml.asc"
-    into "${buildDir}/libs"
-    rename 'pom-default.xml.asc', project.ext.baseName + '.pom.asc'
-}
-
 publishing {
     publications {
         maven(MavenPublication) {
@@ -160,7 +144,6 @@ publishing {
         }
     }
 }
-generateMetadataFileForMavenPublication.dependsOn('pom')
 publishMavenPublicationToMavenLocal.doLast {
     println 'installed locally as ' + project.ext.baseName
 }
