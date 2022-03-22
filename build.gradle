@@ -71,38 +71,39 @@ test {
 
 // publishing tasks
 
-task('install') {
+tasks.register('install') {
     dependsOn 'publishMavenPublicationToMavenLocal'
     description 'Installs Maven artifacts to the local repository.'
 }
-task('release') {
+tasks.register('release') {
     dependsOn 'publishMavenPublicationToOSSRHRepository'
     description 'Stages Maven artifacts to Sonatype OSSRH.'
 }
 
 // Configuration to produce maven-repo style -sources and -javadoc jars
-task sourcesJar(type: Jar) {
+tasks.register('sourcesJar', Jar) {
     archiveClassifier = 'sources'
     description 'Creates a JAR of sourcecode.'
     from sourceSets.main.allSource
     exclude '**/.backups'
 }
 
-task javadocJar(type: Jar, dependsOn: javadoc) {
+tasks.register('javadocJar', Jar) {
     archiveClassifier = 'javadoc'
+    dependsOn 'javadoc'
     description 'Creates a JAR of javadoc.'
     from javadoc.destinationDir
 }
 
 build.dependsOn('pom', 'pomAsc')
-task('pom', type: Copy) {
+tasks.register('pom', Copy) {
     dependsOn 'generatePomFileForMavenPublication'
     description 'Copies the Maven POM to build/libs.'
     from "${buildDir}/publications/maven/pom-default.xml"
     into "${buildDir}/libs"
     rename 'pom-default.xml', project.ext.baseName + '.pom'
 }
-task('pomAsc', type: Copy) {
+tasks.register('pomAsc', Copy) {
     dependsOn 'signMavenPublication'
     description 'Copies the signature of the Maven POM to build/libs.'
     from "${buildDir}/publications/maven/pom-default.xml.asc"
