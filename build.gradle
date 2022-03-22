@@ -23,8 +23,6 @@ ext {
     websiteUrl = 'https://github.com/Simsilica/SimMath'
 }
 
-description = 'A double-based math package similar to JME\'s float-based math classes.'
-
 repositories {
     mavenLocal()
 
@@ -120,7 +118,7 @@ publishing {
             from components.java
             groupId project.group
             pom {
-                description = project.description
+                description = 'A double-based math package similar to JME\'s float-based math classes.'
                 developers {
                     developer {
                         name = 'Paul Speed'
