@@ -1,77 +1,58 @@
-buildscript {
-    repositories {
-        if( JavaVersion.current() == JavaVersion.VERSION_1_7 ) {
-            // Fallback for JDK 7 that can no longer connect to jcenter with https
-            maven { url "http://jcenter.bintray.com" }
-        } else {
-            jcenter()
-        }
-    }
-    dependencies {
-        // This sucks down a lot of stuff that 'normal' users wouldn't
-        // have and won't need anyway.
-        if( project.hasProperty('releaseUser') ) {
-            classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.+'
-        }
-    }
+/*
+ * SimMath build script.
+ */
+
+plugins {
+    id 'java-library'
+    id 'groovy'
+    id 'maven-publish'
+    id 'signing'
 }
 
-apply plugin: 'java'
-apply plugin: 'groovy'
-apply plugin: 'maven'
-
-version='1.4.2-SNAPSHOT'
+version='1.5.0'
 group='com.simsilica'
+ext.websiteUrl = 'https://github.com/Simsilica/SimMath'
 
 ext.jmeVersion = "3.1.0-stable"
 ext.slf4jVersion = '1.7.32'
 
-// Version meta-data
-ext {
-    releaseDescription = "Sim-Math ${project.version}"
-    releaseVcsTag = "${project.name}-v${project.version}"
-}
-
-// Project-wide meta-data
-ext {
-    bintrayLabels = ['jMonkeyEngine', 'gamedev', 'math']
-    websiteUrl = 'https://github.com/Simsilica/SimMath'
-    vcsUrl = 'https://github.com/Simsilica/SimMath.git'
-    githubRepo = 'Simsilica/SimMath'
-    issueTrackerUrl = 'https://github.com/Simsilica/SimMath/issues'
-}
-
 repositories {
-    mavenLocal()
-
-    if( JavaVersion.current() == JavaVersion.VERSION_1_7 ) {
-        // Fallback for JDK 7 that can no longer connect to jcenter with https
-        maven { url "http://jcenter.bintray.com" }
-    } else {
-        jcenter()
-    }
-}
-
-sourceCompatibility = 1.7
-compileJava {
-    options.encoding = 'UTF-8'
-    options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
-}
-
-// Make sure the build file declares what it actually imports
-configurations.compile {
-    transitive = false
+    mavenCentral()
 }
 
 dependencies {
     // Pull in jme core for the math package for easy translation to/from JME
     // classes.
-    compile "org.jmonkeyengine:jme3-core:$jmeVersion"
+    api "org.jmonkeyengine:jme3-core:$jmeVersion"
 
-    compile "org.slf4j:slf4j-api:$slf4jVersion"
+    implementation "org.slf4j:slf4j-api:$slf4jVersion"
 
-    testCompile 'junit:junit:4.12'
-    testCompile 'org.codehaus.groovy:groovy-all:2.4.11'
+    testImplementation 'junit:junit:4.12'
+    testImplementation 'org.codehaus.groovy:groovy-all:2.4.11'
+}
+
+
+compileJava { // compile-time options:
+    options.encoding = 'UTF-8'
+    options.compilerArgs << '-Xlint:unchecked'
+    options.deprecation = true
+    if( JavaVersion.current().isCompatibleWith(JavaVersion.VERSION_1_10) ) {
+        options.release = 7
+    }
+}
+
+java {
+    sourceCompatibility = 1.7
+    targetCompatibility = 1.7
+    withJavadocJar()
+    withSourcesJar()
+}
+
+javadoc {
+    // Disable doclint for JDK8+.
+    if( JavaVersion.current().isJava8Compatible() ) {
+        options.addStringOption('Xdoclint:none', '-quiet')
+    }
 }
 
 test {
@@ -81,28 +62,83 @@ test {
     }
 }
 
-// Configuration to produce maven-repo style -sources and -javadoc jars
-task sourcesJar(type: Jar) {
-    classifier = 'sources'
-    from sourceSets.main.allSource
-    exclude '**/.backups'
+sourceSets {
+    main {
+        resources {
+            exclude "**/.backups/**"
+        }
+    }
 }
 
-task javadocJar(type: Jar, dependsOn: javadoc) {
-    classifier = 'javadoc'
-    from javadoc.destinationDir
+publishing {
+    publications {
+        library(MavenPublication) {
+            from components.java
+            pom {
+                description = 'A double-based math package similar to JME\'s float-based math classes.'
+                developers {
+                    developer {
+                        name = 'Paul Speed'
+                    }
+                }
+                inceptionYear = '2015'
+                licenses {
+                    license {
+                        distribution = 'repo'
+                        name = 'New BSD (3-clause) License'
+                        url = project.ext.websiteUrl + '/blob/master/license.md'
+                    }
+                }
+                name = project.group + ':' + project.name
+                scm {
+                    connection = 'scm:git:git://github.com/Simsilica/SimMath.git'
+                    developerConnection = 'scm:git:ssh://github.com:Simsilica/SimMath.git'
+                    url = project.ext.websiteUrl + '/tree/master'
+                }
+                url = project.ext.websiteUrl
+            }
+        }
+    }
+    // Staging to OSSRH relies on the existence of 2 properties
+    // (ossrhUsername and ossrhPassword)
+    // which should be stored in ~/.gradle/gradle.properties
+    repositories {
+        maven {
+            credentials {
+                username = project.hasProperty('ossrhUsername') ? ossrhUsername : 'Unknown user'
+                password = project.hasProperty('ossrhPassword') ? ossrhPassword : 'Unknown password'
+            }
+            name = 'OSSRH'
+
+            def releasesRepoUrl = 'https://oss.sonatype.org/service/local/staging/deploy/maven2'
+            def snapshotsRepoUrl = 'https://oss.sonatype.org/content/repositories/snapshots'
+            url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
+
+            //url = 'https://oss.sonatype.org/service/local/staging/deploy/maven2'
+        }
+    }
 }
 
-artifacts {
-    archives sourcesJar
-    archives javadocJar
+tasks.register('install') {
+    dependsOn 'publishToMavenLocal'
+    description 'Installs Maven artifacts to the local repository.'
 }
 
 
-// Put this at the end or it won't pick up the project.version and stuff
-if( project.hasProperty('releaseUser') ) {
-    apply plugin: 'com.jfrog.bintray'
-    apply from: 'https://raw.githubusercontent.com/Simsilica/gradle-plugins/master/simtools-release.gradle'
+// signing tasks
+
+// Signing relies on the existence of 3 properties
+// (signing.keyId, signing.password, and signing.secretKeyRingFile)
+// which should be stored in ~/.gradle/gradle.properties
+
+signing {
+    sign publishing.publications
+}
+tasks.withType(Sign) {
+    onlyIf { project.hasProperty('signing.keyId') }
 }
 
-
+// Customize some tasks
+tasks.sourcesJar {
+    exclude "**/.backups/**"
+}
