@@ -108,7 +108,7 @@ class Vec3dTest {
             Vec3d a = new Vec3d(Double.NaN, 2, 3);
             Vec3d b = new Vec3d(Double.NaN, 2, 3);
             
-            assert !a.equals(b);
+            assert a.equals(b);
         }        
     }
 }
