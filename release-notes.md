@@ -1,7 +1,8 @@
-Version 1.4.2 (unreleased)
+Version 1.5.0 (unreleased)
 --------------
 * Added Quatd.get(int) and Quatd.set(int, double) methods to be similar
     to Vec3d in allowing individual components to be set by index.
+* Published to sonatype/maven central
 
 
 Version 1.4.1 (latest)
