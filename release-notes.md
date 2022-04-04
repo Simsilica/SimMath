@@ -1,3 +1,9 @@
+Version 1.5.1 (unreleased)
+--------------
+* Fixed an issue with how Quatd.equals() and Vec3d.equals() dealt with
+    NaN and -0.  Thanks, sgold.
+
+
 Version 1.5.0 (latest)
 --------------
 * Added Quatd.get(int) and Quatd.set(int, double) methods to be similar
