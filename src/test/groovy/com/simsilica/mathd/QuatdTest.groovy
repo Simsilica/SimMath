@@ -129,7 +129,7 @@ class QuatdTest {
             Quatd a = new Quatd(Double.NaN, 2, 3, 4);
             Quatd b = new Quatd(Double.NaN, 2, 3, 4);
             
-            assert !a.equals(b);
+            assert a.equals(b);
         }        
     }
 }

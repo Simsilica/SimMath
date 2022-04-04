@@ -101,11 +101,11 @@ public class Vec3d implements Cloneable, java.io.Serializable {
         if( o == null || o.getClass() != getClass() )
             return false;
         Vec3d other = (Vec3d)o;
-        if( other.x != x )
+        if( Double.compare(x, other.x) != 0 )
             return false;
-        if( other.y != y )
+        if( Double.compare(y, other.y) != 0 )
             return false;
-        if( other.z != z )
+        if( Double.compare(z, other.z) != 0 )
             return false;
         return true;
     }
