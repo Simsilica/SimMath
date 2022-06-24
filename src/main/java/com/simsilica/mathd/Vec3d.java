@@ -70,6 +70,10 @@ public class Vec3d implements Cloneable, java.io.Serializable {
         this(v.x, v.y, v.z);
     }
 
+    public Vec3d( Vec3i v ) {
+        this(v.x, v.y, v.z);
+    }
+
     public Vec3d( Vector3f v ) {
         this(v.x, v.y, v.z);
     }
@@ -218,11 +222,19 @@ public class Vec3d implements Cloneable, java.io.Serializable {
         return new Vec3d(x + v.x, y + v.y, z + v.z);
     }
 
+    public final Vec3d add( Vec3i v ) {
+        return new Vec3d(x + v.x, y + v.y, z + v.z);
+    }
+
     public final Vec3d add( double vx, double vy, double vz ) {
         return new Vec3d(x + vx, y + vy, z + vz);
     }
 
     public final Vec3d subtract( Vec3d v ) {
+        return new Vec3d(x - v.x, y - v.y, z - v.z);
+    }
+
+    public final Vec3d subtract( Vec3i v ) {
         return new Vec3d(x - v.x, y - v.y, z - v.z);
     }
 
@@ -238,6 +250,10 @@ public class Vec3d implements Cloneable, java.io.Serializable {
         return new Vec3d(x * v.x, y * v.y, z * v.z);
     }
 
+    public final Vec3d mult( Vec3i v ) {
+        return new Vec3d(x * v.x, y * v.y, z * v.z);
+    }
+
     public final Vec3d divide( double s ) {
         return new Vec3d(x / s, y / s, z / s);
     }
@@ -246,7 +262,18 @@ public class Vec3d implements Cloneable, java.io.Serializable {
         return new Vec3d(x / v.x, y / v.y, z / v.z);
     }
 
+    public final Vec3d divide( Vec3i v ) {
+        return new Vec3d(x / v.x, y / v.y, z / v.z);
+    }
+
     public final Vec3d addLocal( Vec3d v ) {
+        x += v.x;
+        y += v.y;
+        z += v.z;
+        return this;
+    }
+
+    public final Vec3d addLocal( Vec3i v ) {
         x += v.x;
         y += v.y;
         z += v.z;
@@ -261,6 +288,13 @@ public class Vec3d implements Cloneable, java.io.Serializable {
     }
 
     public final Vec3d subtractLocal( Vec3d v ) {
+        x -= v.x;
+        y -= v.y;
+        z -= v.z;
+        return this;
+    }
+
+    public final Vec3d subtractLocal( Vec3i v ) {
         x -= v.x;
         y -= v.y;
         z -= v.z;
@@ -282,6 +316,13 @@ public class Vec3d implements Cloneable, java.io.Serializable {
     }
 
     public final Vec3d multLocal( Vec3d v ) {
+        x *= v.x;
+        y *= v.y;
+        z *= v.z;
+        return this;
+    }
+
+    public final Vec3d multLocal( Vec3i v ) {
         x *= v.x;
         y *= v.y;
         z *= v.z;
@@ -317,6 +358,13 @@ public class Vec3d implements Cloneable, java.io.Serializable {
         return xs * xs + ys * ys + zs * zs; 
     }
 
+    public final double distanceSq( Vec3i v ) {
+        double xs = v.x - x;
+        double ys = v.y - y;
+        double zs = v.z - z;
+        return xs * xs + ys * ys + zs * zs; 
+    }
+
     public final double distance( Vec3d v ) {
         return Math.sqrt(distanceSq(v)); 
     }
@@ -341,6 +389,10 @@ public class Vec3d implements Cloneable, java.io.Serializable {
     }
  
     public final double dot( Vec3d v ) {
+        return x * v.x + y * v.y + z * v.z;
+    }
+
+    public final double dot( Vec3i v ) {
         return x * v.x + y * v.y + z * v.z;
     }
  
