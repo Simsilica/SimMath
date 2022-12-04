@@ -257,7 +257,11 @@ public final class Quatd implements Cloneable, java.io.Serializable {
         double zr = x * qy - y * qx + z * qw + w * qz;
         double wr = -x * qx - y * qy - z * qz + w * qw;
 
-        result.set(xr, yr, zr, wr); 
+        if( result == null ) {
+            result = new Quatd(xr, yr, zr, wr); 
+        } else {
+            result.set(xr, yr, zr, wr);
+        } 
         return result;
     }
 
