@@ -3,7 +3,9 @@ Version 1.5.1 (unreleased)
 * Fixed an issue with how Quatd.equals() and Vec3d.equals() dealt with
     NaN and -0.  Thanks, sgold.
 * Added Vec3i forms of the many of the Vec3d.add()/subtract()/etc. methods.
-    Most Vec3d operations will now accept a Vec3i as well as Vec3d.    
+    Most Vec3d operations will now accept a Vec3i as well as Vec3d.
+* Added Matrix4d.mult(vec3, vec3) method.
+* Added Quatd.mult(quatd, quatd) method.
 
 
 Version 1.5.0 (latest)

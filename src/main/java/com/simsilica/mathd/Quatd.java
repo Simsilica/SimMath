@@ -246,6 +246,21 @@ public final class Quatd implements Cloneable, java.io.Serializable {
         return new Quatd(xr, yr, zr, wr);
     }
 
+    public final Quatd mult( Quatd q, Quatd result ) {
+        double qx = q.x;
+        double qy = q.y;
+        double qz = q.z;
+        double qw = q.w;
+
+        double xr = x * qw + y * qz - z * qy + w * qx;
+        double yr = -x * qz + y * qw + z * qx + w * qy;
+        double zr = x * qy - y * qx + z * qw + w * qz;
+        double wr = -x * qx - y * qy - z * qz + w * qw;
+
+        result.set(xr, yr, zr, wr); 
+        return result;
+    }
+
     public final Quatd multLocal( Quatd q ) {
         double qx = q.x;
         double qy = q.y;

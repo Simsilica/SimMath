@@ -186,8 +186,6 @@ public class Matrix4d implements Cloneable, java.io.Serializable {
                              temp20, temp21, temp22, temp23,
                              temp30, temp31, temp32, temp33 );
     }
-
-
     
     public Vec3d mult( Vec3d v ) {
         double x = v.x;
@@ -201,6 +199,25 @@ public class Matrix4d implements Cloneable, java.io.Serializable {
         double zr = (m20 * x) + (m21 * y) + (m22 * z) + m23;
         
         return new Vec3d(xr,yr,zr);
+    }
+
+    public Vec3d mult( Vec3d v, Vec3d result ) {
+        double x = v.x;
+        double y = v.y;
+        double z = v.z;
+        
+        // this is conceptually extending the vector with an extra 1...
+        // but we don't have to calculate all that.
+        double xr = (m00 * x) + (m01 * y) + (m02 * z) + m03;
+        double yr = (m10 * x) + (m11 * y) + (m12 * z) + m13;
+        double zr = (m20 * x) + (m21 * y) + (m22 * z) + m23;
+ 
+        if( result == null ) {       
+            return new Vec3d(xr,yr,zr);
+        } else {
+            result.set(xr, yr, zr);
+            return result;
+        }
     }
 
     public double determinant() {
