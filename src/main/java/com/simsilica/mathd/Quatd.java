@@ -135,6 +135,31 @@ public final class Quatd implements Cloneable, java.io.Serializable {
         return true;
     }
 
+    /**
+     * Tests for an identity rotation. The quaternion is unaffected.
+     *
+     * @return true if W is non-zero and not NaN
+     * and X, Y, and Z are all 0 or -0, otherwise false
+     */
+    public boolean isRotationIdentity() {
+        if( x == 0. && y == 0. && z == 0. && w != 0. && !Double.isNaN(w) )
+            return true;
+        else
+            return false;
+    }
+
+    /**
+     * Tests for a zero value. The quaternion is unaffected.
+     *
+     * @return true if all components are 0 or -0, otherwise false
+     */
+    public boolean isZero() {
+        if( x == 0. && y == 0. && z == 0. && w == 0. )
+            return true;
+        else
+            return false;
+    }
+
     public final Quatd set( double x, double y, double z, double w ) {
         this.x = x;
         this.y = y;
