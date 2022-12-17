@@ -338,21 +338,21 @@ public class Matrix4d implements Cloneable, java.io.Serializable {
     @Override
     public int hashCode() {
         long bits = Double.doubleToLongBits(m00);
-        bits ^= Double.doubleToLongBits(m01) * 19L;
-        bits ^= Double.doubleToLongBits(m02) * 19L;
-        bits ^= Double.doubleToLongBits(m03) * 19L;
-        bits ^= Double.doubleToLongBits(m10) * 19L;
-        bits ^= Double.doubleToLongBits(m11) * 19L;
-        bits ^= Double.doubleToLongBits(m12) * 19L;
-        bits ^= Double.doubleToLongBits(m13) * 19L;
-        bits ^= Double.doubleToLongBits(m20) * 19L;
-        bits ^= Double.doubleToLongBits(m21) * 19L;
-        bits ^= Double.doubleToLongBits(m22) * 19L;
-        bits ^= Double.doubleToLongBits(m23) * 19L;
-        bits ^= Double.doubleToLongBits(m30) * 19L;
-        bits ^= Double.doubleToLongBits(m31) * 19L;
-        bits ^= Double.doubleToLongBits(m32) * 19L;
-        bits ^= Double.doubleToLongBits(m33) * 19L;
+        bits ^= Double.doubleToLongBits(m01) * 2L;
+        bits ^= Double.doubleToLongBits(m02) * 3L;
+        bits ^= Double.doubleToLongBits(m03) * 4L;
+        bits ^= Double.doubleToLongBits(m10) * 5L;
+        bits ^= Double.doubleToLongBits(m11) * 6L;
+        bits ^= Double.doubleToLongBits(m12) * 7L;
+        bits ^= Double.doubleToLongBits(m13) * 8L;
+        bits ^= Double.doubleToLongBits(m20) * 9L;
+        bits ^= Double.doubleToLongBits(m21) * 10L;
+        bits ^= Double.doubleToLongBits(m22) * 11L;
+        bits ^= Double.doubleToLongBits(m23) * 12L;
+        bits ^= Double.doubleToLongBits(m30) * 13L;
+        bits ^= Double.doubleToLongBits(m31) * 14L;
+        bits ^= Double.doubleToLongBits(m32) * 15L;
+        bits ^= Double.doubleToLongBits(m33) * 16L;
 
         return ((int)bits) ^ ((int)(bits >> 32));
     }
