@@ -290,7 +290,73 @@ public class Matrix4d implements Cloneable, java.io.Serializable {
     public Matrix3d toRotationMatrix() {
         return new Matrix3d( m00, m01, m02, m10, m11, m12, m20, m21, m22 );
     }
-    
+
+    @Override
+    public boolean equals( Object o ) {
+        if( o == this )
+            return true;
+        if( o == null || o.getClass() != getClass() )
+            return false;
+
+        Matrix4d other = (Matrix4d)o;
+        if( Double.compare(m00, other.m00) != 0 )
+            return false;
+        if( Double.compare(m01, other.m01) != 0 )
+            return false;
+        if( Double.compare(m02, other.m02) != 0 )
+            return false;
+        if( Double.compare(m03, other.m03) != 0 )
+            return false;
+        if( Double.compare(m10, other.m10) != 0 )
+            return false;
+        if( Double.compare(m11, other.m11) != 0 )
+            return false;
+        if( Double.compare(m12, other.m12) != 0 )
+            return false;
+        if( Double.compare(m13, other.m13) != 0 )
+            return false;
+        if( Double.compare(m20, other.m20) != 0 )
+            return false;
+        if( Double.compare(m21, other.m21) != 0 )
+            return false;
+        if( Double.compare(m22, other.m22) != 0 )
+            return false;
+        if( Double.compare(m23, other.m23) != 0 )
+            return false;
+        if( Double.compare(m30, other.m30) != 0 )
+            return false;
+        if( Double.compare(m31, other.m31) != 0 )
+            return false;
+        if( Double.compare(m32, other.m32) != 0 )
+            return false;
+        if( Double.compare(m33, other.m33) != 0 )
+            return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        long bits = Double.doubleToLongBits(m00);
+        bits ^= Double.doubleToLongBits(m01) * 2L;
+        bits ^= Double.doubleToLongBits(m02) * 3L;
+        bits ^= Double.doubleToLongBits(m03) * 4L;
+        bits ^= Double.doubleToLongBits(m10) * 5L;
+        bits ^= Double.doubleToLongBits(m11) * 6L;
+        bits ^= Double.doubleToLongBits(m12) * 7L;
+        bits ^= Double.doubleToLongBits(m13) * 8L;
+        bits ^= Double.doubleToLongBits(m20) * 9L;
+        bits ^= Double.doubleToLongBits(m21) * 10L;
+        bits ^= Double.doubleToLongBits(m22) * 11L;
+        bits ^= Double.doubleToLongBits(m23) * 12L;
+        bits ^= Double.doubleToLongBits(m30) * 13L;
+        bits ^= Double.doubleToLongBits(m31) * 14L;
+        bits ^= Double.doubleToLongBits(m32) * 15L;
+        bits ^= Double.doubleToLongBits(m33) * 16L;
+
+        return ((int)bits) ^ ((int)(bits >> 32));
+    }
+
     public String toString() {
         return "Matrix4d[{" + m00 + ", " + m01 + ", " + m02 + ", " + m03 + "}, {"
                             + m10 + ", " + m11 + ", " + m12 + ", " + m13 + "}, {"

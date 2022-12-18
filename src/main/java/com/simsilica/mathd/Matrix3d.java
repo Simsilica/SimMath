@@ -255,7 +255,52 @@ public class Matrix3d implements Cloneable, java.io.Serializable {
         
         return this;
     }
-    
+
+    @Override
+    public boolean equals( Object o ) {
+        if( o == this )
+            return true;
+        if( o == null || o.getClass() != getClass() )
+            return false;
+
+        Matrix3d other = (Matrix3d)o;
+        if( Double.compare(m00, other.m00) != 0 )
+            return false;
+        if( Double.compare(m01, other.m01) != 0 )
+            return false;
+        if( Double.compare(m02, other.m02) != 0 )
+            return false;
+        if( Double.compare(m10, other.m10) != 0 )
+            return false;
+        if( Double.compare(m11, other.m11) != 0 )
+            return false;
+        if( Double.compare(m12, other.m12) != 0 )
+            return false;
+        if( Double.compare(m20, other.m20) != 0 )
+            return false;
+        if( Double.compare(m21, other.m21) != 0 )
+            return false;
+        if( Double.compare(m22, other.m22) != 0 )
+            return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        long bits = Double.doubleToLongBits(m00);
+        bits ^= Double.doubleToLongBits(m01) * 2L;
+        bits ^= Double.doubleToLongBits(m02) * 3L;
+        bits ^= Double.doubleToLongBits(m10) * 4L;
+        bits ^= Double.doubleToLongBits(m11) * 5L;
+        bits ^= Double.doubleToLongBits(m12) * 6L;
+        bits ^= Double.doubleToLongBits(m20) * 7L;
+        bits ^= Double.doubleToLongBits(m21) * 8L;
+        bits ^= Double.doubleToLongBits(m22) * 9L;
+
+        return ((int)bits) ^ ((int)(bits >> 32));
+    }
+
     public String toString() {
         return "Matrix3d[{" + m00 + ", " + m01 + ", " + m02 + "}, {"
                             + m10 + ", " + m11 + ", " + m12 + "}, {"
