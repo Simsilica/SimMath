@@ -1,4 +1,4 @@
-Version 1.5.1 (unreleased)
+Version 1.6.0 (unreleased)
 --------------
 * Fixed an issue with how Quatd.equals() and Vec3d.equals() dealt with
     NaN and -0.  Thanks, sgold.
@@ -6,6 +6,10 @@ Version 1.5.1 (unreleased)
     Most Vec3d operations will now accept a Vec3i as well as Vec3d.
 * Added Matrix4d.mult(vec3, vec3) method.
 * Added Quatd.mult(quatd, quatd) method.
+* Added Matrix3d.isIdentity(), Matrix4d.isIdentity(), and Quatd.isIdentity().
+* Added Vec3d.isFinite().
+* Added .equals()/.hashCode() to Matrix3d and Matrix4d.
+
 
 
 Version 1.5.0 (latest)
