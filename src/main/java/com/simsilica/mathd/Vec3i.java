@@ -198,6 +198,13 @@ public class Vec3i implements Cloneable, java.io.Serializable {
         return new Vec3i( x * scale, y * scale, z * scale );
     }
 
+    public final Vec3i multLocal( int scale ) {
+        x *= scale;
+        y *= scale;
+        z *= scale;
+        return this;
+    }
+
     public final int getDistanceSq( Vec3i v ) {
         int xd = v.x - x;
         int yd = v.y - y;

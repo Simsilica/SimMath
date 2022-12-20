@@ -9,7 +9,7 @@ Version 1.6.0 (unreleased)
 * Added Matrix3d.isIdentity(), Matrix4d.isIdentity(), and Quatd.isIdentity().
 * Added Vec3d.isFinite().
 * Added .equals()/.hashCode() to Matrix3d and Matrix4d.
-
+* Added Vec3i.multLocal(scalar)
 
 
 Version 1.5.0 (latest)
