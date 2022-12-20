@@ -59,6 +59,11 @@ test {
     testLogging {
         // I want to see the tests that are run and pass, etc.
         events "passed", "skipped", "failed", "standardOut", "standardError"
+        
+        exceptionFormat org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL
+        showCauses true
+        showExceptions true
+        showStackTraces true        
     }
 }
 
