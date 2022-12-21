@@ -10,6 +10,9 @@ Version 1.6.0 (unreleased)
 * Added Vec3d.isFinite().
 * Added .equals()/.hashCode() to Matrix3d and Matrix4d.
 * Added Vec3i.multLocal(scalar)
+* Refactored the Grid ID stuff to allow for configurable bit sizes for the
+    different x,y,z components instead of always having the bits split evenly.
+* Added some Grid unit tests for different ID methods and Grid serialization.    
 
 
 Version 1.5.0 (latest)
