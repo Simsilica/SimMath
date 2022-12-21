@@ -60,11 +60,6 @@ public class Grid implements java.io.Serializable {
     private final Mask yMask;
     private final Mask zMask; 
  
-    //private final int shift;
-    //private final long mask;
-    //private final int signCheck;
-    //private final int signExtend;
- 
     /**
      *  Creates a grid with the same cell size along each coordinate
      *  axis.
@@ -140,26 +135,6 @@ public class Grid implements java.io.Serializable {
         this.xMask = new Mask(xBits);
         this.yMask = new Mask(yBits);
         this.zMask = new Mask(zBits);
-                
-        //shift = bits;
-        //
-        //// We only ever return ints as grid cell components so
-        //// signExtend can be int.       
-        //signExtend = (int)(-1L << bits);
-        //
-        //// Sign check can also be int
-        //signCheck = 0x1 << (bits - 1);
-        //
-        //// But the mask needs to be the full long size because we
-        //// will be using it to mask off parts of a value that comes
-        //// from the composite long
-        //mask = ~(-1L << bits);
-        //
-        //// From those, we'll use the mask to clear off the hi bits
-        //// from long parts.  We'll use the signCheck to see if an 
-        //// unshifted value is negative.  We'll use the signExtend to
-        //// turn it into a negative int without affecting the part of
-        //// the number we care about. 
     }   
         
     public final Vec3i getSpacing() {
@@ -406,21 +381,6 @@ public class Grid implements java.io.Serializable {
         result = result << zMask.shift;
         result = zMask.apply(zCell, result);
         
-        //int nextShift = 0;
-        //
-        //if( gridSpacing.x != 0 ) {
-        //    // Mask the provided value just in case the caller passed in
-        //    // something too large... clamping is better than corruption
-        //    result = xCell & mask;
-        //    nextShift = shift;
-        //}
-        //if( gridSpacing.y != 0 ) {
-        //    result = (result << nextShift) | (yCell & mask);
-        //    nextShift = shift;
-        //} 
-        //if( gridSpacing.z != 0 ) {
-        //    result = (result << nextShift) | (zCell & mask); 
-        //}
         return result;        
     } 
 
@@ -436,37 +396,6 @@ public class Grid implements java.io.Serializable {
         x = xMask.extract(id);
         id = id >> xMask.shift;
 
-        //if( gridSpacing.z != 0 ) {
-        //    z = (int)(id & mask);
-        //    if( (z & signCheck) != 0 ) {
-        //        // Sign extend it
-        //        z = z | signExtend;
-        //    }
-        //    id = id >> shift;
-        //} else {
-        //    z = 0;
-        //}
-        //if( gridSpacing.y != 0 ) {
-        //    y = (int)(id & mask);
-        //    if( (y & signCheck) != 0 ) {
-        //        // Sign extend it
-        //        y = y | signExtend;
-        //    }
-        //    id = id >> shift;
-        //} else {
-        //    y = 0;
-        //}
-        //if( gridSpacing.x != 0 ) {
-        //    x = (int)(id & mask);
-        //    if( (x & signCheck) != 0 ) {
-        //        // Sign extend it
-        //        x = x | signExtend;
-        //    }
-        //    id = id >> shift;
-        //} else {
-        //    x = 0;
-        //}
- 
         if( store == null ) {
             store = new Vec3i(x, y, z);
         } else {
