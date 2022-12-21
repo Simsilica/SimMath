@@ -2,6 +2,33 @@ package com.simsilica.mathd;
 
 class GridTest {
 
+    // Uncomment to write samples for the current serialization version
+    //static class SerializationSetupTest extends GroovyTestCase {
+    //    void testSaveCurrent() {
+    //        Grid grid = new Grid(32, 32, 32);
+    //        def f = new File(Grid.class.getName() + ".ser");
+    //        def out = new ObjectOutputStream(new FileOutputStream(f));
+    //        try {
+    //            out.writeObject(grid);
+    //        } finally {
+    //            out.close();
+    //        }
+    //    }
+    //}
+    
+    static class SerializationTest extends GroovyTestCase {
+        void testVersion42() {
+            def u = getClass().getResource(Grid.class.name + "-2022-12-20.ser");
+            def oin = new ObjectInputStream(u.openStream());
+            try {
+                def grid = oin.readObject();
+                assertEquals new Vec3i(21, 21, 21), grid.getIdBits();
+            } finally {
+                oin.close();
+            }
+        }
+    } 
+
     static class CellToIdXyzTest extends GroovyTestCase {
     
         void testDefaultBits() {
