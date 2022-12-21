@@ -84,6 +84,14 @@ public class Grid implements java.io.Serializable {
     public Grid( int xSpacing, int ySpacing, int zSpacing ) {
         this(new Vec3i(xSpacing, ySpacing, zSpacing), null);
     }
+
+    /**
+     *  Creates a grid with the specified spacing alon the x, y, and z
+     *  axes using the specified bit sizes for each when doing ID encoding.
+     */
+    public Grid( int xSpacing, int ySpacing, int zSpacing, Vec3i gridBits ) {
+        this(new Vec3i(xSpacing, ySpacing, zSpacing), gridBits);
+    }
  
     /**
      *  Creates a grid with the specified spacing along the x, y, and z
@@ -93,7 +101,17 @@ public class Grid implements java.io.Serializable {
         this(gridSpacing, null);
     }
 
+    /**
+     *  Creates a grid with the specified spacing alon the x, y, and z
+     *  axes using the specified bit sizes for each when doing ID encoding.
+     */
     public Grid( Vec3i gridSpacing, Vec3i gridBits ) {
+        if( gridBits != null ) {
+            int total = gridBits.x + gridBits.y + gridBits.z; 
+            if( total > 64 ) {
+                throw new IllegalArgumentException("Bit overfload in bit sizes:" + total);
+            }
+        }
         this.gridSpacing = gridSpacing;
         int axes = 0;
         int xBits = 0;

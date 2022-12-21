@@ -70,12 +70,132 @@ class GridTest {
         }
         
         void testLowBitsX() {
+            Grid grid = new Grid(32, 32, 32, new Vec3i(8, 28, 28)); 
+            
+            assertEquals 0, grid.cellToId(0, 0, 0);
+
+            //             xxyyyyyyyzzzzzzz
+            assertEquals 0x0100000000000000L, grid.cellToId(1, 0, 0) 
+            assertEquals 0x0000000010000000L, grid.cellToId(0, 1, 0)
+            assertEquals 0x0100000010000000L, grid.cellToId(1, 1, 0)
+            assertEquals 0x0000000000000001L, grid.cellToId(0, 0, 1)
+            assertEquals 0x0100000000000001L, grid.cellToId(1, 0, 1)
+            assertEquals 0x0000000010000001L, grid.cellToId(0, 1, 1)
+            assertEquals 0x0100000010000001L, grid.cellToId(1, 1, 1)
+
+            //             xxyyyyyyyzzzzzzz
+            assertEquals 0xff00000000000000L, grid.cellToId(-1, 0, 0) 
+            assertEquals 0x00fffffff0000000L, grid.cellToId(0, -1, 0)
+            assertEquals 0xfffffffff0000000L, grid.cellToId(-1, -1, 0)
+            assertEquals 0x000000000fffffffL, grid.cellToId(0, 0, -1)
+            assertEquals 0xff0000000fffffffL, grid.cellToId(-1, 0, -1)
+            assertEquals 0x00ffffffffffffffL, grid.cellToId(0, -1, -1)
+            assertEquals 0xffffffffffffffffL, grid.cellToId(-1, -1, -1)
+
+
+            //             xxyyyyyyyzzzzzzz
+            assertEquals 0x6400000000000000L, grid.cellToId(100, 0, 0) 
+            assertEquals 0x0000000640000000L, grid.cellToId(0, 100, 0)
+            assertEquals 0x6400000640000000L, grid.cellToId(100, 100, 0)
+            assertEquals 0x0000000000000064L, grid.cellToId(0, 0, 100)
+            assertEquals 0x6400000000000064L, grid.cellToId(100, 0, 100)
+            assertEquals 0x0000000640000064L, grid.cellToId(0, 100, 100)
+            assertEquals 0x6400000640000064L, grid.cellToId(100, 100, 100)
+
+            //             xxyyyyyyyzzzzzzz
+            assertEquals 0x9c00000000000000L, grid.cellToId(-100, 0, 0) 
+            assertEquals 0x00fffff9c0000000L, grid.cellToId(0, -100, 0)
+            assertEquals 0x9cfffff9c0000000L, grid.cellToId(-100, -100, 0)
+            assertEquals 0x000000000fffff9cL, grid.cellToId(0, 0, -100)
+            assertEquals 0x9c0000000fffff9cL, grid.cellToId(-100, 0, -100)
+            assertEquals 0x00fffff9cfffff9cL, grid.cellToId(0, -100, -100)
+            assertEquals 0x9cfffff9cfffff9cL, grid.cellToId(-100, -100, -100)
         }
 
         void testLowBitsY() {
+            Grid grid = new Grid(32, 32, 32, new Vec3i(28, 8, 28)); 
+            
+            assertEquals 0, grid.cellToId(0, 0, 0);
+
+            //             xxxxxxxyyzzzzzzz
+            assertEquals 0x0000001000000000L, grid.cellToId(1, 0, 0) 
+            assertEquals 0x0000000010000000L, grid.cellToId(0, 1, 0)
+            assertEquals 0x0000001010000000L, grid.cellToId(1, 1, 0)
+            assertEquals 0x0000000000000001L, grid.cellToId(0, 0, 1)
+            assertEquals 0x0000001000000001L, grid.cellToId(1, 0, 1)
+            assertEquals 0x0000000010000001L, grid.cellToId(0, 1, 1)
+            assertEquals 0x0000001010000001L, grid.cellToId(1, 1, 1)
+
+            //             xxxxxxxyyzzzzzzz
+            assertEquals 0xfffffff000000000L, grid.cellToId(-1, 0, 0) 
+            assertEquals 0x0000000ff0000000L, grid.cellToId(0, -1, 0)
+            assertEquals 0xfffffffff0000000L, grid.cellToId(-1, -1, 0)
+            assertEquals 0x000000000fffffffL, grid.cellToId(0, 0, -1)
+            assertEquals 0xfffffff00fffffffL, grid.cellToId(-1, 0, -1)
+            assertEquals 0x0000000fffffffffL, grid.cellToId(0, -1, -1)
+            assertEquals 0xffffffffffffffffL, grid.cellToId(-1, -1, -1)
+
+
+            //             xxxxxxxyyzzzzzzz
+            assertEquals 0x0000064000000000L, grid.cellToId(100, 0, 0) 
+            assertEquals 0x0000000640000000L, grid.cellToId(0, 100, 0)
+            assertEquals 0x0000064640000000L, grid.cellToId(100, 100, 0)
+            assertEquals 0x0000000000000064L, grid.cellToId(0, 0, 100)
+            assertEquals 0x0000064000000064L, grid.cellToId(100, 0, 100)
+            assertEquals 0x0000000640000064L, grid.cellToId(0, 100, 100)
+            assertEquals 0x0000064640000064L, grid.cellToId(100, 100, 100)
+
+            //             xxxxxxxyyzzzzzzz
+            assertEquals 0xfffff9c000000000L, grid.cellToId(-100, 0, 0) 
+            assertEquals 0x00000009c0000000L, grid.cellToId(0, -100, 0)
+            assertEquals 0xfffff9c9c0000000L, grid.cellToId(-100, -100, 0)
+            assertEquals 0x000000000fffff9cL, grid.cellToId(0, 0, -100)
+            assertEquals 0xfffff9c00fffff9cL, grid.cellToId(-100, 0, -100)
+            assertEquals 0x00000009cfffff9cL, grid.cellToId(0, -100, -100)
+            assertEquals 0xfffff9c9cfffff9cL, grid.cellToId(-100, -100, -100)
         }
 
         void testLowBitsZ() {
+            Grid grid = new Grid(32, 32, 32, new Vec3i(28, 28, 8)); 
+            
+            assertEquals 0, grid.cellToId(0, 0, 0);
+
+            //             xxxxxxxyyyyyyyzz
+            assertEquals 0x0000001000000000L, grid.cellToId(1, 0, 0) 
+            assertEquals 0x0000000000000100L, grid.cellToId(0, 1, 0)
+            assertEquals 0x0000001000000100L, grid.cellToId(1, 1, 0)
+            assertEquals 0x0000000000000001L, grid.cellToId(0, 0, 1)
+            assertEquals 0x0000001000000001L, grid.cellToId(1, 0, 1)
+            assertEquals 0x0000000000000101L, grid.cellToId(0, 1, 1)
+            assertEquals 0x0000001000000101L, grid.cellToId(1, 1, 1)
+
+            //             xxxxxxxyyyyyyyzz
+            assertEquals 0xfffffff000000000L, grid.cellToId(-1, 0, 0) 
+            assertEquals 0x0000000fffffff00L, grid.cellToId(0, -1, 0)
+            assertEquals 0xffffffffffffff00L, grid.cellToId(-1, -1, 0)
+            assertEquals 0x00000000000000ffL, grid.cellToId(0, 0, -1)
+            assertEquals 0xfffffff0000000ffL, grid.cellToId(-1, 0, -1)
+            assertEquals 0x0000000fffffffffL, grid.cellToId(0, -1, -1)
+            assertEquals 0xffffffffffffffffL, grid.cellToId(-1, -1, -1)
+
+
+            //             xxxxxxxyyyyyyyzz
+            assertEquals 0x0000064000000000L, grid.cellToId(100, 0, 0) 
+            assertEquals 0x0000000000006400L, grid.cellToId(0, 100, 0)
+            assertEquals 0x0000064000006400L, grid.cellToId(100, 100, 0)
+            assertEquals 0x0000000000000064L, grid.cellToId(0, 0, 100)
+            assertEquals 0x0000064000000064L, grid.cellToId(100, 0, 100)
+            assertEquals 0x0000000000006464L, grid.cellToId(0, 100, 100)
+            assertEquals 0x0000064000006464L, grid.cellToId(100, 100, 100)
+
+            //             xxxxxxxyyyyyyyzz
+            assertEquals 0xfffff9c000000000L, grid.cellToId(-100, 0, 0) 
+            assertEquals 0x0000000fffff9c00L, grid.cellToId(0, -100, 0)
+            assertEquals 0xfffff9cfffff9c00L, grid.cellToId(-100, -100, 0)
+            assertEquals 0x000000000000009cL, grid.cellToId(0, 0, -100)
+            assertEquals 0xfffff9c00000009cL, grid.cellToId(-100, 0, -100)
+            assertEquals 0x0000000fffff9c9cL, grid.cellToId(0, -100, -100)
+            assertEquals 0xfffff9cfffff9c9cL, grid.cellToId(-100, -100, -100)
         }
     }
     
@@ -167,12 +287,6 @@ class GridTest {
             assertEquals 4294967196L,       grid.cellToId(0, -100, -100)
             assertEquals 0-425201762404L,   grid.cellToId(-100, -100, -100)
         }
-        
-        void testLowBitsX() {
-        }
-
-        void testLowBitsZ() {
-        }
     }
 
     static class CellToIdToCellXzTest extends GroovyTestCase {
@@ -211,8 +325,48 @@ class GridTest {
             new Vec3i(0, -1, -1).multLocal(100),
             new Vec3i(-1, -1, -1).multLocal(100)
         ];
+
+        void testDefaultBitsXyz() {
+            Grid grid = new Grid(32, 32, 32);
+            
+            for( Vec3i v : testCells ) {
+                long id = grid.cellToId(v);
+                Vec3i result = grid.idToCell(id, null);                
+                assertEquals v, result
+            }
+        } 
+
+        void testXyzLowBitsX() {
+            Grid grid = new Grid(32, 32, 32, new Vec3i(8, 28, 28));
+            
+            for( Vec3i v : testCells ) {
+                long id = grid.cellToId(v);
+                Vec3i result = grid.idToCell(id, null);                
+                assertEquals v, result
+            }
+        } 
+
+        void testXyzLowBitsY() {
+            Grid grid = new Grid(32, 32, 32, new Vec3i(28, 8, 28));
+            
+            for( Vec3i v : testCells ) {
+                long id = grid.cellToId(v);
+                Vec3i result = grid.idToCell(id, null);                
+                assertEquals v, result
+            }
+        } 
+
+        void testXyzLowBitsZ() {
+            Grid grid = new Grid(32, 32, 32, new Vec3i(28, 28, 8));
+            
+            for( Vec3i v : testCells ) {
+                long id = grid.cellToId(v);
+                Vec3i result = grid.idToCell(id, null);                
+                assertEquals v, result
+            }
+        } 
     
-        void testDefaultBits() {
+        void testDefaultBitsXz() {
             Grid grid = new Grid(32, 0, 32);
             
             for( Vec3i v : testCells ) {
