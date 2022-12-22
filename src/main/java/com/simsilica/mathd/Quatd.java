@@ -40,6 +40,16 @@ import com.jme3.math.Quaternion;
 
 
 /**
+ * Used to efficiently represent rotations and orientations in 3-dimensional
+ * space, without risk of gimbal lock. Each instance has 4 double-precision
+ * components: 3 imaginary components (X, Y, and Z) and a real component (W).
+ * <p>
+ * Methods with names ending in "Local" modify the current instance. They are
+ * used to avoid creating temporary objects.
+ * <p>
+ * Mathematically, quaternions are an extension of complex numbers. In
+ * mathematics texts, W often appears first, but here the conventional order
+ * is (X, Y, Z, W).
  *
  *  @version   $Revision: 3951 $
  *  @author    Paul Speed
