@@ -419,7 +419,7 @@ public final class Quatd implements Cloneable, java.io.Serializable {
 
     /**
      * Builds a Quaternion from the Euler rotation angles (x,y,z) aka
-     * (pitch, yaw, roll)).  They are applyed in order: (y, z, x) aka (yaw, roll, pitch).
+     * (pitch, yaw, roll).  They are applied in order: (y, z, x) aka (yaw, roll, pitch).
      * @see <a href="http://www.euclideanspace.com/maths/geometry/rotations/conversions/eulerToQuaternion/index.htm">http://www.euclideanspace.com/maths/geometry/rotations/conversions/eulerToQuaternion/index.htm</a>
      */
     public Quatd fromAngles( double[] angles ) {
@@ -428,7 +428,7 @@ public final class Quatd implements Cloneable, java.io.Serializable {
 
     /**
      * Builds a Quaternion from the Euler rotation angles (x,y,z) aka
-     * (pitch, yaw, roll)).  They are applyed in order: (y, z, x) aka (yaw, roll, pitch).
+     * (pitch, yaw, roll).  They are applied in order: (y, z, x) aka (yaw, roll, pitch).
      * @see <a href="http://www.euclideanspace.com/maths/geometry/rotations/conversions/eulerToQuaternion/index.htm">http://www.euclideanspace.com/maths/geometry/rotations/conversions/eulerToQuaternion/index.htm</a>
      */
     public Quatd fromAngles( double xAngle, double yAngle, double zAngle ) {
