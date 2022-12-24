@@ -68,6 +68,7 @@ public class Matrix3d implements Cloneable, java.io.Serializable {
         this.m22 = m22;
     } 
  
+    @Override
     public Matrix3d clone() {
         return new Matrix3d(m00, m01, m02,  
                             m10, m11, m12,
@@ -315,6 +316,7 @@ public class Matrix3d implements Cloneable, java.io.Serializable {
         return ((int)bits) ^ ((int)(bits >> 32));
     }
 
+    @Override
     public String toString() {
         return "Matrix3d[{" + m00 + ", " + m01 + ", " + m02 + "}, {"
                             + m10 + ", " + m11 + ", " + m12 + "}, {"

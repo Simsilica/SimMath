@@ -422,10 +422,12 @@ public class IntRangeSet extends AbstractSet<Integer> {
             fetch();
         }
         
+        @Override
         public boolean hasNext() {
             return nextValue != null;
         }
         
+        @Override
         public Integer next() {
             if( nextValue == null ) {
                 throw new NoSuchElementException();
@@ -435,6 +437,7 @@ public class IntRangeSet extends AbstractSet<Integer> {
             return result;
         }
         
+        @Override
         public void remove() {
             throw new UnsupportedOperationException();
         }
@@ -447,10 +450,12 @@ public class IntRangeSet extends AbstractSet<Integer> {
             this.current = current;
         }
         
+        @Override
         public boolean hasNext() {
             return current != null;
         }
         
+        @Override
         public IntRange next() {
             if( !hasNext() ) {
                 throw new NoSuchElementException();   
@@ -460,6 +465,7 @@ public class IntRangeSet extends AbstractSet<Integer> {
             return result;
         }
         
+        @Override
         public void remove() {
             throw new UnsupportedOperationException();
         }
