@@ -75,6 +75,7 @@ public class Matrix4d implements Cloneable, java.io.Serializable {
         this.m33 = m33;
     } 
  
+    @Override
     public Matrix4d clone() {
         return new Matrix4d(m00, m01, m02, m03,  
                             m10, m11, m12, m13,
@@ -373,6 +374,7 @@ public class Matrix4d implements Cloneable, java.io.Serializable {
         return ((int)bits) ^ ((int)(bits >> 32));
     }
 
+    @Override
     public String toString() {
         return "Matrix4d[{" + m00 + ", " + m01 + ", " + m02 + ", " + m03 + "}, {"
                             + m10 + ", " + m11 + ", " + m12 + ", " + m13 + "}, {"

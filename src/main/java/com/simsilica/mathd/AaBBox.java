@@ -64,6 +64,7 @@ public final class AaBBox implements Cloneable, java.io.Serializable {
         set(min, max);
     }
     
+    @Override
     public AaBBox clone() {
         return new AaBBox(min.clone(), max.clone());
     }
