@@ -91,6 +91,8 @@ public class Vec3d implements Cloneable, java.io.Serializable {
  
     /**
      *  Returns true if any of the x,y,z elements are NaN.
+     * 
+     * @return true if there are NaNs, otherwise false
      */
     public boolean isNaN() {
         return Double.isNaN(x) || Double.isNaN(y) || Double.isNaN(z);
@@ -124,6 +126,10 @@ public class Vec3d implements Cloneable, java.io.Serializable {
     /**
      *  Returns true if this Vec3d is similar to the specified Vec3d within
      *  some value of epsilon.
+     *
+     * @param other the Vec3d to compare (may be null, unaffected)
+     * @param epsilon the tolerance for comparison
+     * @return true if all components are sufficiently similar, otherwise false
      */
     public boolean isSimilar( Vec3d other, double epsilon ) {
         if( other == null ) {
@@ -185,6 +191,8 @@ public class Vec3d implements Cloneable, java.io.Serializable {
  
     /**
      *  Returns the raw (int) cast version of this Vec3d as a Vec3i.
+     * 
+     * @return a new Vec3i instance
      */
     public final Vec3i toVec3i() {
         return new Vec3i((int)x, (int)y, (int)z);
@@ -192,6 +200,8 @@ public class Vec3d implements Cloneable, java.io.Serializable {
     
     /**
      *  Returns the Math.floor() version of this Vec3d as a Vec3i.
+     * 
+     * @return a new Vec3i instance
      */
     public final Vec3i floor() {
         return new Vec3i((int)Math.floor(x), (int)Math.floor(y), (int)Math.floor(z));
@@ -199,6 +209,8 @@ public class Vec3d implements Cloneable, java.io.Serializable {
 
     /**
      *  Returns the Math.ceil() version of this Vec3d as a Vec3i.
+     * 
+     * @return a new Vec3i instance
      */
     public final Vec3i ceil() {
         return new Vec3i((int)Math.ceil(x), (int)Math.ceil(y), (int)Math.ceil(z));
