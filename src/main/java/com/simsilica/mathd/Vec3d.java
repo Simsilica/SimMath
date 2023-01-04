@@ -40,6 +40,13 @@ import com.jme3.math.Vector3f;
 
 
 /**
+ * A vector composed of 3 double-precision components, used to represent
+ * locations, offsets, velocities, and directions in 3-dimensional space.
+ * <p>
+ * Methods with names ending in "Local" modify the current instance. They are
+ * used to avoid creating temporary vectors.
+ * <p>
+ * The conventional order of components is (X, Y, Z).
  *
  *  @version   $Revision: 3951 $
  *  @author    Paul Speed
