@@ -57,10 +57,26 @@ public class Matrix3d implements Cloneable, java.io.Serializable {
     public double m10, m11, m12;    
     public double m20, m21, m22;
     
+    /**
+     * Instantiates an identity matrix (diagonals = 1, other elements = 0).
+     */
     public Matrix3d() {
         makeIdentity();
     }
  
+    /**
+     * Instantiates a matrix with the specified elements.
+     *
+     * @param m00 the desired value for row 0, column 0
+     * @param m01 the desired value for row 0, column 1
+     * @param m02 the desired value for row 0, column 2
+     * @param m10 the desired value for row 1, column 0
+     * @param m11 the desired value for row 1, column 1
+     * @param m12 the desired value for row 1, column 2
+     * @param m20 the desired value for row 2, column 0
+     * @param m21 the desired value for row 2, column 1
+     * @param m22 the desired value for row 2, column 2
+     */
     public Matrix3d( double m00, double m01, double m02,
                      double m10, double m11, double m12,
                      double m20, double m21, double m22 ) {
@@ -82,6 +98,12 @@ public class Matrix3d implements Cloneable, java.io.Serializable {
                             m20, m21, m22);
     }
  
+    /**
+     * Copies all elements of the argument to the current instance.
+     *
+     * @param mat the desired value (not null, unaffected)
+     * @return the (modified) current instance (for chaining)
+     */
     public Matrix3d set( Matrix3d mat ) {
         this.m00 = mat.m00;
         this.m01 = mat.m01;
@@ -95,6 +117,12 @@ public class Matrix3d implements Cloneable, java.io.Serializable {
         return this;
     }
  
+    /**
+     * Configures the matrix as an identity matrix (diagonals = 1, other
+     * elements = 0).
+     * 
+     * @return the (modified) current instance (for chaining)
+     */
     public Matrix3d makeIdentity() {
         m01 = m02 = m10 = m12 = m20 = m21 = 0;
         m00 = m11 = m22 = 1;
@@ -115,6 +143,13 @@ public class Matrix3d implements Cloneable, java.io.Serializable {
             return false;
     }
 
+    /**
+     * Returns the indexed column. The matrix is unaffected.
+     *
+     * @param i 0, 1, or 2
+     * @return a copy of the {@code i}th column
+     * @throws IndexOutOfBoundsException if {@code i} is not 0, 1, or 2
+     */
     public Vec3d getColumn( int i ) {
         switch( i ) {
             case 0:
@@ -127,6 +162,14 @@ public class Matrix3d implements Cloneable, java.io.Serializable {
         return null;            
     }        
 
+    /**
+     * Alters the indexed column and returns the (modified) current instance.
+     *
+     * @param i 0, 1, or 2
+     * @param col the desired value (not null, unaffected)
+     * @return the current instance (for chaining)
+     * @throws IndexOutOfBoundsException if {@code i} is not 0, 1, or 2
+     */
     public Matrix3d setColumn( int i, Vec3d col ) {
         switch( i ) {
             case 0:
@@ -150,6 +193,13 @@ public class Matrix3d implements Cloneable, java.io.Serializable {
         return this;            
     }
      
+    /**
+     * Multiplies by the argument and returns the product as a new instance. The
+     * current instance is unaffected.
+     *
+     * @param mat the right factor (not null, unaffected)
+     * @return a new Vec3d
+     */
     public Matrix3d mult( Matrix3d mat ) {
         double temp00 = m00 * mat.m00 + m01 * mat.m10 + m02 * mat.m20;
         double temp01 = m00 * mat.m01 + m01 * mat.m11 + m02 * mat.m21;
@@ -166,6 +216,13 @@ public class Matrix3d implements Cloneable, java.io.Serializable {
                              temp20, temp21, temp22 );
     }
 
+    /**
+     * Multiplies by the specified column vector and returns the product as a
+     * new column vector. The current instance is unaffected.
+     *
+     * @param v the right factor (not null, unaffected)
+     * @return a new Vec3d
+     */
     public Vec3d mult( Vec3d v ) {
         double x = v.x;
         double y = v.y;
@@ -178,6 +235,15 @@ public class Matrix3d implements Cloneable, java.io.Serializable {
         return new Vec3d(xr,yr,zr);
     }
 
+    /**
+     * Multiplies by the argument and returns the (modified) current instance.
+     * <p>
+     * It IS safe for {@code mat} and {@code this} to be the same object.
+     *
+     * @param mat the right factor (not null, unaffected unless it's
+     * {@code this})
+     * @return the (modified) current instance (for chaining)
+     */
     public Matrix3d multLocal( Matrix3d mat ) {
         double temp00 = m00 * mat.m00 + m01 * mat.m10 + m02 * mat.m20;
         double temp01 = m00 * mat.m01 + m01 * mat.m11 + m02 * mat.m21;
@@ -202,6 +268,13 @@ public class Matrix3d implements Cloneable, java.io.Serializable {
         return this;
     }
     
+    /**
+     * Multiplies by the scalar argument and returns the (modified) current
+     * instance.
+     *
+     * @param scale the scaling factor
+     * @return the (modified) current instance (for chaining)
+     */
     public Matrix3d multLocal( double scale ) {
         this.m00 *= scale;
         this.m01 *= scale;
@@ -216,6 +289,11 @@ public class Matrix3d implements Cloneable, java.io.Serializable {
         return this;
     }
     
+    /**
+     * Returns the determinant. The matrix is unaffected.
+     *
+     * @return the determinant
+     */
     public double determinant() {
         double co00 = (m11 * m22) - (m12 * m21);
         double co10 = (m12 * m20) - (m10 * m22);
@@ -223,6 +301,12 @@ public class Matrix3d implements Cloneable, java.io.Serializable {
         return m00 * co00 + m01 * co10 + m02 * co20;
     }
     
+    /**
+     * Returns the multiplicative inverse. If the current instance is singular,
+     * an identity matrix is returned. The current instance is unaffected.
+     *
+     * @return a new Matrix3d
+     */
     public Matrix3d invert() {
         double d = determinant();
         if( d == 0 )
@@ -245,6 +329,11 @@ public class Matrix3d implements Cloneable, java.io.Serializable {
                              rm20 * s, rm21 * s, rm22 * s );
     }
     
+    /**
+     * Returns the transpose. The current instance is unaffected.
+     *
+     * @return a new Matrix3d
+     */
     public Matrix3d transpose() {
         return new Matrix3d( m00, m10, m20, m01, m11, m21, m02, m12, m22 );
     }
@@ -264,6 +353,15 @@ public class Matrix3d implements Cloneable, java.io.Serializable {
         return this;
     }
  
+    /**
+     * Adds the argument and returns the (modified) current instance.
+     * <p>
+     * It IS safe for {@code add} and {@code this} to be the same object.
+     *
+     * @param add the matrix to add (not null, unaffected unless it's
+     * {@code this})
+     * @return the (modified) current instance (for chaining)
+     */
     public Matrix3d addLocal( Matrix3d add ) {
         m00 = m00 + add.m00;
         m01 = m01 + add.m01;
