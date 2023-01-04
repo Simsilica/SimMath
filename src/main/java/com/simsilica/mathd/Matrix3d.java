@@ -52,11 +52,43 @@ package com.simsilica.mathd;
 public class Matrix3d implements Cloneable, java.io.Serializable {
 
     static final long serialVersionUID = 42L;
-    
-    public double m00, m01, m02;    
-    public double m10, m11, m12;    
-    public double m20, m21, m22;
-    
+    /**
+     * The element in row 0, column 0.
+     */
+    public double m00;
+    /**
+     * The element in row 0, column 1.
+     */
+    public double m01;
+    /**
+     * The element in row 0, column 2.
+     */
+    public double m02;
+    /**
+     * The element in row 1, column 0.
+     */
+    public double m10;
+    /**
+     * The element in row 1, column 1.
+     */
+    public double m11;
+    /**
+     * The element in row 1, column 2.
+     */
+    public double m12;
+    /**
+     * The element in row 2, column 0.
+     */
+    public double m20;
+    /**
+     * The element in row 2, column 1.
+     */
+    public double m21;
+    /**
+     * The element in row 2, column 2.
+     */
+    public double m22;
+
     public Matrix3d() {
         makeIdentity();
     }
