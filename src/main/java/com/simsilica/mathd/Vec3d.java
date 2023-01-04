@@ -90,7 +90,7 @@ public class Vec3d implements Cloneable, java.io.Serializable {
     }
  
     /**
-     *  Returns treu if any of the x,y,z elements are NaN.
+     *  Returns true if any of the x,y,z elements are NaN.
      */
     public boolean isNaN() {
         return Double.isNaN(x) || Double.isNaN(y) || Double.isNaN(z);
