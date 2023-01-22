@@ -83,15 +83,30 @@ public class Vec3d implements Cloneable, java.io.Serializable {
      */
     public double z;
  
+    /**
+     * Instantiates an all-zero vector (0,0,0).
+     */
     public Vec3d() {
     }
     
+    /**
+     * Instantiates a vector with the specified components.
+     *
+     * @param x the desired X component
+     * @param y the desired Y component
+     * @param z the desired Z component
+     */
     public Vec3d( double x, double y, double z ) {
         this.x = x;
         this.y = y;
         this.z = z;
     }
 
+    /**
+     * Instantiates a copy of the argument.
+     *
+     * @param v the Vec3d to copy (not null, unaffected)
+     */
     public Vec3d( Vec3d v ) {
         this(v.x, v.y, v.z);
     }
@@ -100,10 +115,20 @@ public class Vec3d implements Cloneable, java.io.Serializable {
         this(v.x, v.y, v.z);
     }
 
+    /**
+     * Instantiates a double-precision copy of the argument.
+     *
+     * @param v the input Vector3f (not null, unaffected)
+     */
     public Vec3d( Vector3f v ) {
         this(v.x, v.y, v.z);
     }
  
+    /**
+     * Creates a single-precision copy of the current instance.
+     *
+     * @return a new Vector3f
+     */
     public Vector3f toVector3f() {
         return new Vector3f((float)x, (float)y, (float)z);
     }
@@ -174,6 +199,14 @@ public class Vec3d implements Cloneable, java.io.Serializable {
             return true;
     }
 
+    /**
+     * Sets all 3 components to specified values.
+     *
+     * @param x the desired X component
+     * @param y the desired Y component
+     * @param z the desired Z component
+     * @return the (modified) current instance (for chaining)
+     */
     public final Vec3d set( double x, double y, double z ) {
         this.x = x;
         this.y = y;
@@ -181,6 +214,12 @@ public class Vec3d implements Cloneable, java.io.Serializable {
         return this;
     }
     
+    /**
+     * Copies all 3 components from the argument.
+     *
+     * @param v the Vec3d to copy (not null, unaffected)
+     * @return the (modified) current instance (for chaining)
+     */
     public final Vec3d set( Vec3d v ) {
         this.x = v.x;
         this.y = v.y;
@@ -195,6 +234,13 @@ public class Vec3d implements Cloneable, java.io.Serializable {
         return this;
     }
 
+    /**
+     * Copies all 3 components from the argument, converting them to
+     * double precision.
+     *
+     * @param v the Vector3f to copy (not null, unaffected)
+     * @return the (modified) current instance (for chaining)
+     */
     public final Vec3d set( Vector3f v ) {
         this.x = v.x;
         this.y = v.y;
@@ -228,6 +274,14 @@ public class Vec3d implements Cloneable, java.io.Serializable {
         return new Vec3d(x,y,z);
     }
  
+    /**
+     * Returns the indexed component. The vector is unaffected.
+     *
+     * @param i 0, 1, or 2
+     * @return the X component if i=0, the Y component if i=1, or the Z
+     * component if i=2
+     * @throws IndexOutOfBoundsException if {@code i} is not 0, 1, or 2
+     */
     public double get( int i ) {
         switch( i ) {
             case 0:
@@ -241,6 +295,15 @@ public class Vec3d implements Cloneable, java.io.Serializable {
         }
     }
     
+    /**
+     * Alters the indexed component.
+     *
+     * @param i which component to set: 0 &rarr; the X component, 1 &rarr;
+     * the Y component, 2 &rarr; the Z component
+     * @param d the desired component value
+     * @return the (modified) current instance (for chaining)
+     * @throws IllegalArgumentException if {@code i} is not 0, 1, or 2
+     */
     public Vec3d set( int i, double d ) {
         switch( i ) {
             case 0:
@@ -258,6 +321,13 @@ public class Vec3d implements Cloneable, java.io.Serializable {
         return this;
     }
  
+    /**
+     * Adds the argument and returns the sum as a new instance. The current
+     * instance is unaffected.
+     *
+     * @param v the vector to add (not null, unaffected)
+     * @return a new Vec3d
+     */
     public final Vec3d add( Vec3d v ) {
         return new Vec3d(x + v.x, y + v.y, z + v.z);
     }
@@ -266,10 +336,26 @@ public class Vec3d implements Cloneable, java.io.Serializable {
         return new Vec3d(x + v.x, y + v.y, z + v.z);
     }
 
+    /**
+     * Adds specified amounts to the vector's components and returns the sum as
+     * a new instance. The current instance is unaffected.
+     *
+     * @param vx the amount to add to the X component
+     * @param vy the amount to add to the Y component
+     * @param vz the amount to add to the Z component
+     * @return a new Vec3d
+     */
     public final Vec3d add( double vx, double vy, double vz ) {
         return new Vec3d(x + vx, y + vy, z + vz);
     }
 
+    /**
+     * Subtracts the argument and returns the difference as a new instance. The
+     * current instance is unaffected.
+     *
+     * @param v the vector to subtract (not null, unaffected)
+     * @return a new Vec3d
+     */
     public final Vec3d subtract( Vec3d v ) {
         return new Vec3d(x - v.x, y - v.y, z - v.z);
     }
@@ -278,14 +364,37 @@ public class Vec3d implements Cloneable, java.io.Serializable {
         return new Vec3d(x - v.x, y - v.y, z - v.z);
     }
 
+    /**
+     * Subtracts specified amounts from the vector's components and returns the
+     * difference as a new instance. The current instance is unaffected.
+     *
+     * @param vx the amount to add to the X component
+     * @param vy the amount to add to the Y component
+     * @param vz the amount to add to the Z component
+     * @return a new Vec3d
+     */
     public final Vec3d subtract( double vx, double vy, double vz ) {
         return new Vec3d(x - vx, y - vy, z - vz);
     }
 
+    /**
+     * Multiplies with the scalar argument and returns the product as a new
+     * instance. The current instance is unaffected.
+     *
+     * @param s the scaling factor
+     * @return a new Vec3d
+     */
     public final Vec3d mult( double s ) {
         return new Vec3d(x * s, y * s, z * s);
     }
     
+    /**
+     * Multiplies component-wise with the argument and returns the product as a
+     * new instance. The current instance is unaffected.
+     *
+     * @param v the scale vector (not null, unaffected)
+     * @return a new Vec3d
+     */
     public final Vec3d mult( Vec3d v ) {
         return new Vec3d(x * v.x, y * v.y, z * v.z);
     }
@@ -294,10 +403,24 @@ public class Vec3d implements Cloneable, java.io.Serializable {
         return new Vec3d(x * v.x, y * v.y, z * v.z);
     }
 
+    /**
+     * Divides by the scalar argument and returns the quotient as a new
+     * instance. The current instance is unaffected.
+     *
+     * @param s the divisor
+     * @return a new Vec3d
+     */
     public final Vec3d divide( double s ) {
         return new Vec3d(x / s, y / s, z / s);
     }
     
+    /**
+     * Divides component-wise by the argument and returns the quotient as a
+     * new instance. The current instance is unaffected.
+     *
+     * @param v the inverse scale vector (not null, unaffected)
+     * @return a new Vec3d
+     */
     public final Vec3d divide( Vec3d v ) {
         return new Vec3d(x / v.x, y / v.y, z / v.z);
     }
@@ -306,6 +429,15 @@ public class Vec3d implements Cloneable, java.io.Serializable {
         return new Vec3d(x / v.x, y / v.y, z / v.z);
     }
 
+    /**
+     * Adds the argument and returns the (modified) current instance.
+     * <p>
+     * It IS safe for {@code v} and {@code this} to be the same object.
+     *
+     * @param v the vector to add (not null, unaffected unless it's
+     * {@code this})
+     * @return the (modified) current instance (for chaining)
+     */
     public final Vec3d addLocal( Vec3d v ) {
         x += v.x;
         y += v.y;
@@ -313,6 +445,12 @@ public class Vec3d implements Cloneable, java.io.Serializable {
         return this;
     }
 
+    /**
+     * Adds the Vec3i argument and returns the (modified) current instance.
+     *
+     * @param v the vector to add (not null, unaffected)
+     * @return the (modified) current instance (for chaining)
+     */
     public final Vec3d addLocal( Vec3i v ) {
         x += v.x;
         y += v.y;
@@ -320,6 +458,15 @@ public class Vec3d implements Cloneable, java.io.Serializable {
         return this;
     }
 
+    /**
+     * Adds specified amounts to the vector's components and returns the
+     * (modified) current instance.
+     *
+     * @param vx the amount to add to the X component
+     * @param vy the amount to add to the Y component
+     * @param vz the amount to add to the Z component
+     * @return the (modified) current instance (for chaining)
+     */
     public final Vec3d addLocal( double vx, double vy, double vz ) {
         x += vx;
         y += vy;
@@ -327,6 +474,15 @@ public class Vec3d implements Cloneable, java.io.Serializable {
         return this;
     }
 
+    /**
+     * Subtracts the argument and returns the (modified) current instance.
+     * <p>
+     * It IS safe for {@code v} and {@code this} to be the same object.
+     *
+     * @param v the vector to subtract (not null, unaffected unless it's
+     * {@code this})
+     * @return the (modified) current instance (for chaining)
+     */
     public final Vec3d subtractLocal( Vec3d v ) {
         x -= v.x;
         y -= v.y;
@@ -341,6 +497,15 @@ public class Vec3d implements Cloneable, java.io.Serializable {
         return this;
     }
 
+    /**
+     * Subtracts the specified amounts from the vector's components and returns
+     * the (modified) current instance.
+     *
+     * @param vx the amount to subtract from the X component
+     * @param vy the amount to subtract from the Y component
+     * @param vz the amount to subtract from the Z component
+     * @return the (modified) current instance (for chaining)
+     */
     public final Vec3d subtractLocal( double vx, double vy, double vz ) {
         x -= vx;
         y -= vy;
@@ -348,6 +513,13 @@ public class Vec3d implements Cloneable, java.io.Serializable {
         return this;
     }
 
+    /**
+     * Multiplies by the scalar argument and returns the (modified) current
+     * instance.
+     *
+     * @param s the scaling factor
+     * @return the (modified) current instance (for chaining)
+     */
     public final Vec3d multLocal( double s ) {
         x *= s;
         y *= s;
@@ -355,6 +527,15 @@ public class Vec3d implements Cloneable, java.io.Serializable {
         return this;
     }
 
+    /**
+     * Multiplies component-wise by the argument and returns the (modified)
+     * current instance.
+     * <p>
+     * It IS safe for {@code v} and {@code this} to be the same object.
+     *
+     * @param v the scale vector (not null, unaffected unless it's {@code this})
+     * @return the (modified) current instance (for chaining)
+     */
     public final Vec3d multLocal( Vec3d v ) {
         x *= v.x;
         y *= v.y;
@@ -369,6 +550,12 @@ public class Vec3d implements Cloneable, java.io.Serializable {
         return this;
     }
 
+    /**
+     * Divides by the argument and returns the (modified) current instance.
+     *
+     * @param s the divisor
+     * @return the (modified) current instance (for chaining)
+     */
     public final Vec3d divideLocal( double s ) {
         x /= s;
         y /= s;
@@ -376,6 +563,15 @@ public class Vec3d implements Cloneable, java.io.Serializable {
         return this;
     }
 
+    /**
+     * Divides component-wise by the argument and returns the (modified) current
+     * instance.
+     * <p>
+     * It IS safe for {@code v} and {@code this} to be the same object.
+     *
+     * @param v the divisor (not null, unaffected unless it's {@code this})
+     * @return the (modified) current instance (for chaining)
+     */
     public final Vec3d divideLocal( Vec3d v ) {
         x /= v.x;
         y /= v.y;
@@ -383,10 +579,20 @@ public class Vec3d implements Cloneable, java.io.Serializable {
         return this;
     }
  
+    /**
+     * Returns the square of the length. The current instance is unaffected.
+     *
+     * @return the sum of the squared components (not negative)
+     */
     public final double lengthSq() {
         return x * x + y * y + z * z;
     }
     
+    /**
+     * Returns the length (or magnitude). The current instance is unaffected.
+     *
+     * @return the root-sum of the squared components (not negative)
+     */
     public final double length() {
         return Math.sqrt(lengthSq());                
     }
@@ -424,10 +630,23 @@ public class Vec3d implements Cloneable, java.io.Serializable {
         return mult(1.0 / length());
     }
 
+    /**
+     * Normalize this vector in place. For a zero vector, the result is
+     * undefined.
+     *
+     * @return the (normalized) current instance (for chaining)
+     */
     public final Vec3d normalizeLocal() {
         return multLocal(1.0 / length());
     }
  
+    /**
+     * Returns the dot (or inner) product with the argument. The current
+     * instance is unaffected.
+     *
+     * @param v the vector to multiply (not null, unaffected)
+     * @return the dot product
+     */
     public final double dot( Vec3d v ) {
         return x * v.x + y * v.y + z * v.z;
     }
@@ -440,6 +659,13 @@ public class Vec3d implements Cloneable, java.io.Serializable {
         return x * vx + y * vy + z * vz;
     }
  
+    /**
+     * Calculates a cross product with the argument and returns the product as a
+     * new instance. The current instance is unaffected.
+     *
+     * @param v the right factor (not null, unaffected)
+     * @return {@code this} cross {@code v} (a new Vec3d)
+     */
     public final Vec3d cross( Vec3d v ) {
         double xNew = (y * v.z) - (z * v.y);
         double yNew = (z * v.x) - (x * v.z);
