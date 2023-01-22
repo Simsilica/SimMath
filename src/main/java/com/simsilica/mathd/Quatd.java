@@ -63,10 +63,22 @@ public final class Quatd implements Cloneable, java.io.Serializable {
     public double z;
     public double w;
 
+    /**
+     * Instantiates an identity quaternion: all components zeroed except
+     * {@code w}, which is set to 1.
+     */
     public Quatd() {
         this( 0, 0, 0, 1 );
     }
 
+    /**
+     * Instantiates a quaternion with the specified components.
+     *
+     * @param x the desired X component
+     * @param y the desired Y component
+     * @param z the desired Z component
+     * @param w the desired W component
+     */
     public Quatd( double x, double y, double z, double w ) {
         this.x = x;
         this.y = y;
@@ -74,10 +86,20 @@ public final class Quatd implements Cloneable, java.io.Serializable {
         this.w = w;
     }
 
+    /**
+     * Instantiates a copy of the argument.
+     *
+     * @param quat the quaternion to copy (not null, unaffected)
+     */
     public Quatd( Quatd quat ) {
         this(quat.x, quat.y, quat.z, quat.w);
     }
 
+    /**
+     * Instantiates based on the specified (single-precision) Quaternion.
+     *
+     * @param quat the input Quaternion (not null, unaffected)
+     */
     public Quatd( Quaternion quat ) {
         this.x = quat.getX();
         this.y = quat.getY();
@@ -90,6 +112,12 @@ public final class Quatd implements Cloneable, java.io.Serializable {
         return new Quatd(x,y,z,w);
     }
 
+    /**
+     * Creates a (single-precision) Quaternion that approximates the current
+     * instance.
+     *
+     * @return a new Quaternion
+     */
     public Quaternion toQuaternion() {
         return new Quaternion((float)x, (float)y, (float)z, (float)w);
     }
@@ -170,6 +198,15 @@ public final class Quatd implements Cloneable, java.io.Serializable {
             return false;
     }
 
+    /**
+     * Sets all 4 components to the specified values.
+     *
+     * @param x the desired X component
+     * @param y the desired Y component
+     * @param z the desired Z component
+     * @param w the desired W component
+     * @return the (modified) current instance (for chaining)
+     */
     public final Quatd set( double x, double y, double z, double w ) {
         this.x = x;
         this.y = y;
@@ -178,6 +215,12 @@ public final class Quatd implements Cloneable, java.io.Serializable {
         return this;
     }
 
+    /**
+     * Copies all 4 components from the argument.
+     *
+     * @param q the quaternion to copy (not null, unaffected)
+     * @return the (modified) current instance (for chaining)
+     */
     public final Quatd set( Quatd q ) {
         this.x = q.x;
         this.y = q.y;
@@ -186,6 +229,13 @@ public final class Quatd implements Cloneable, java.io.Serializable {
         return this;
     }
 
+    /**
+     * Copies all 4 components of the specified (single-precision) Quaternion to
+     * the current instance.
+     *
+     * @param quat the input Quaternion (not null, unaffected)
+     * @return the (modified) current instance (for chaining)
+     */
     public final Quatd set( Quaternion quat ) {
         this.x = quat.getX();
         this.y = quat.getY();
@@ -194,6 +244,14 @@ public final class Quatd implements Cloneable, java.io.Serializable {
         return this;
     }
 
+    /**
+     * Returns the indexed component. The quaternion is unaffected.
+     *
+     * @param i 0, 1, 2, or 3
+     * @return the X component if i=0, the Y component if i=1, the Z
+     * component if i=2, or the W component if i=3
+     * @throws IndexOutOfBoundsException if {@code i} is not 0, 1, 2, or 3
+     */
     public double get( int i ) {
         switch( i ) {
             case 0:
@@ -209,6 +267,15 @@ public final class Quatd implements Cloneable, java.io.Serializable {
         }
     }
 
+    /**
+     * Alters the indexed component.
+     *
+     * @param i which component to set: 0 &rarr; the X component, 1 &rarr;
+     * the Y component, 2 &rarr; the Z component, 3 &rarr; the W component
+     * @param d the desired component value
+     * @return the (modified) current instance (for chaining)
+     * @throws IllegalArgumentException if {@code i} is not 0, 1, 2, or 3
+     */
     public Quatd set( int i, double d ) {
         switch( i ) {
             case 0:
@@ -229,10 +296,25 @@ public final class Quatd implements Cloneable, java.io.Serializable {
         return this;
     }
 
+    /**
+     * Adds the argument and returns the sum as a new instance. The current
+     * instance is unaffected.
+     *
+     * @param q the Quatd to add (not null, unaffected)
+     * @return a new Quatd
+     */
     public final Quatd add( Quatd q ) {
         return new Quatd(x + q.x, y + q.y, z + q.z, w + q.w);
     }
 
+    /**
+     * Adds the argument and returns the (modified) current instance.
+     * <p>
+     * It IS safe for {@code q} and {@code this} to be the same object.
+     *
+     * @param q the Quatd to add (not null, unaffected unless it's {@code this})
+     * @return the (modified) current instance (for chaining)
+     */
     public final Quatd addLocal( Quatd q ) {
         x += q.x;
         y += q.y;
@@ -241,10 +323,26 @@ public final class Quatd implements Cloneable, java.io.Serializable {
         return this;
     }
 
+    /**
+     * Subtracts the argument and returns the difference as a new instance.
+     * The current instance is unaffected.
+     *
+     * @param q the Quatd to subtract (not null, unaffected)
+     * @return a new Quatd
+     */
     public final Quatd subtract( Quatd q ) {
         return new Quatd(x - q.x, y - q.y, z - q.z, w - q.w);
     }
 
+    /**
+     * Subtracts the argument and returns the (modified) current instance.
+     * <p>
+     * It IS safe for {@code q} and {@code this} to be the same object.
+     *
+     * @param q the Quatd to subtract (not null, unaffected unless it's
+     * {@code this})
+     * @return the (modified) current instance (for chaining)
+     */
     public final Quatd subtractLocal( Quatd q ) {
         x -= q.x;
         y -= q.y;
@@ -267,6 +365,16 @@ public final class Quatd implements Cloneable, java.io.Serializable {
         return this;
     }
 
+    /**
+     * Takes the Hamilton product of the current instance times the argument to
+     * yield a new Quatd. The current instance is unaffected.
+     * <p>
+     * This method is used to combine rotations. Note that the Hamilton product
+     * is noncommutative, so generally q * p != p * q.
+     *
+     * @param q the right factor (not null, unaffected)
+     * @return {@code this * q} (a new instance)
+     */
     public final Quatd mult( Quatd q ) {
         double qx = q.x;
         double qy = q.y;
@@ -281,6 +389,22 @@ public final class Quatd implements Cloneable, java.io.Serializable {
         return new Quatd(xr, yr, zr, wr);
     }
 
+    /**
+     * Multiplies by the first argument and returns the Hamilton
+     * product in the 2nd argument. The current instance is unaffected, unless
+     * it's {@code result}.
+     * <p>
+     * This method is used to combine rotations. Note that the Hamilton product
+     * is noncommutative, so generally q * p != p * q.
+     * <p>
+     * It is safe for {@code q} and {@code result} to be the same object.
+     * It's also safe for {@code this} and {@code result} to be the same object.
+     *
+     * @param q the right factor (not null, unaffected unless it's
+     * {@code result})
+     * @param result storage for the product, or null for a new Quatd
+     * @return {@code this * q} (either {@code result} or a new Quatd)
+     */
     public final Quatd mult( Quatd q, Quatd result ) {
         double qx = q.x;
         double qy = q.y;
@@ -300,6 +424,18 @@ public final class Quatd implements Cloneable, java.io.Serializable {
         return result;
     }
 
+    /**
+     * Takes the Hamilton product of current instance times the argument, in
+     * place.
+     * <p>
+     * This method is used to combine rotations. Note that the Hamilton product
+     * is noncommutative, so generally q * p != p * q.
+     * <p>
+     * It IS safe for {@code q} and {@code this} to be the same object.
+     *
+     * @param q the right factor (not null, unaffected unless it's {@code this})
+     * @return the (modified) current instance (for chaining)
+     */
     public final Quatd multLocal( Quatd q ) {
         double qx = q.x;
         double qy = q.y;
@@ -318,6 +454,13 @@ public final class Quatd implements Cloneable, java.io.Serializable {
         return this;
     }
 
+    /**
+     * Rotates the argument vector to produce a new vector. The quaternion
+     * is unaffected.
+     *
+     * @param v the input vector (not null, unaffected)
+     * @return a new instance
+     */
     public Vec3d mult( Vec3d v ) {
         if( v.x == 0 && v.y == 0 && v.z == 0 )
             return new Vec3d();
@@ -339,6 +482,17 @@ public final class Quatd implements Cloneable, java.io.Serializable {
         return new Vec3d(rx, ry, rz);
     }
 
+    /**
+     * Rotates a specified vector and return the result in another vector. The
+     * quaternion is unaffected.
+     * <p>
+     * It IS safe for {@code v} and {@code result} to be the same object.
+     *
+     * @param v the vector to rotate (not null, unaffected unless it's
+     * {@code result})
+     * @param result storage for the result (not null)
+     * @return the (rotated) vector {@code result}
+     */
     public Vec3d mult( Vec3d v, Vec3d result ) {
         if( v.x == 0 && v.y == 0 && v.z == 0 ) {
             if( v != result )
@@ -364,10 +518,20 @@ public final class Quatd implements Cloneable, java.io.Serializable {
         return result;
     }
 
+    /**
+     * Returns the squared length.
+     *
+     * @return the squared length (&ge;0)
+     */
     public final double lengthSq() {
         return (x * x) + (y * y) + (z * z) + (w * w);
     }
 
+    /**
+     * Normalizes the current instance in place.
+     *
+     * @return the (modified) current instance (for chaining)
+     */
     public final Quatd normalizeLocal() {
         double d = lengthSq();
         if( d == 0 ) {
@@ -384,6 +548,15 @@ public final class Quatd implements Cloneable, java.io.Serializable {
         return this;
     }
 
+    /**
+     * Converts the quaternion to an equivalent rotation matrix. The quaternion
+     * is unaffected.
+     * <p>
+     * Note: the result is created from a normalized version of the current
+     * instance.
+     *
+     * @return a new 3x3 rotation matrix
+     */
     public Matrix3d toRotationMatrix() {
         double d = lengthSq();
         double s = 2 / d;
@@ -418,6 +591,12 @@ public final class Quatd implements Cloneable, java.io.Serializable {
                              m20, m21, m22 );
     }
 
+    /**
+     * Returns the multiplicative inverse.  For a quaternion with norm=0, {@code
+     * null} is returned. Either way, the current instance is unaffected.
+     *
+     * @return a new instance, or null if not invertible
+     */
     public Quatd inverse() {
         double norm = lengthSq();
         if( norm <= 0 )
