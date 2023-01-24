@@ -153,6 +153,10 @@ public final class Quatd implements Cloneable, java.io.Serializable {
     /**
      *  Returns true if this Quatd is similar to the specified Quatd within
      *  some value of epsilon.
+     *
+     * @param other the Quatd to compare (may be null, unaffected)
+     * @param epsilon the tolerance for comparison
+     * @return true if all components are sufficiently similar, otherwise false
      */
     public boolean isSimilar( Quatd other, double epsilon ) {
         if( other == null ) {
@@ -610,6 +614,10 @@ public final class Quatd implements Cloneable, java.io.Serializable {
      * Builds a Quaternion from the Euler rotation angles (x,y,z) aka
      * (pitch, yaw, roll).  They are applied in order: (y, z, x) aka (yaw, roll, pitch).
      * @see <a href="http://www.euclideanspace.com/maths/geometry/rotations/conversions/eulerToQuaternion/index.htm">http://www.euclideanspace.com/maths/geometry/rotations/conversions/eulerToQuaternion/index.htm</a>
+     *
+     * @parm angles the rotation angles for each axis (in radians, not null,
+     * length &ge;3)
+     * @return the (modified) current instance (for chaining)
      */
     public Quatd fromAngles( double[] angles ) {
         return fromAngles(angles[0], angles[1], angles[2]);
@@ -619,6 +627,11 @@ public final class Quatd implements Cloneable, java.io.Serializable {
      * Builds a Quaternion from the Euler rotation angles (x,y,z) aka
      * (pitch, yaw, roll).  They are applied in order: (y, z, x) aka (yaw, roll, pitch).
      * @see <a href="http://www.euclideanspace.com/maths/geometry/rotations/conversions/eulerToQuaternion/index.htm">http://www.euclideanspace.com/maths/geometry/rotations/conversions/eulerToQuaternion/index.htm</a>
+     *
+     * @param xAngle the desired rotation about the +X axis (in radians)
+     * @param yAngle the desired rotation about the +Y axis (in radians)
+     * @param zAngle the desired rotation about the +Z axis (in radians)
+     * @return the (modified) current instance (for chaining)
      */
     public Quatd fromAngles( double xAngle, double yAngle, double zAngle ) {
         double a;
@@ -691,6 +704,13 @@ public final class Quatd implements Cloneable, java.io.Serializable {
     /**
      *  Sets this Quatd's value to the linear interpolation of start
      *  and end using the mix value as the amount to interpolate.
+     * 
+     * @param start the desired value when {@code mix} is zero (not null,
+     * unaffected unless it's {@code this})
+     * @param end the desired value when {@code mix} is one (not null,
+     * unaffected unless it's {@code this})
+     * @param mix typically between 0 and 1 inclusive
+     * @return the (modified) current instance (for chaining)
      */
     public Quatd slerpLocal( Quatd start, Quatd end, double mix ) {
         // If they are already the same then just set the values
