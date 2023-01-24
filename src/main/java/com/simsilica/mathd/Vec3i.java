@@ -46,9 +46,17 @@ import com.jme3.math.Vector3f;
 public class Vec3i implements Cloneable, java.io.Serializable {
 
     static final long serialVersionUID = 42;
-
+    /**
+     * The first (X) component.
+     */
     public int x;
+    /**
+     * The 2nd (Y) component.
+     */
     public int y;
+    /**
+     * The 3rd (Z) component.
+     */
     public int z;
 
     public Vec3i() {

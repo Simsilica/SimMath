@@ -57,10 +57,21 @@ import com.jme3.math.Quaternion;
 public final class Quatd implements Cloneable, java.io.Serializable {
 
     static final long serialVersionUID = 42L;
-
+    /**
+     * The first imaginary (X) component. Not an angle!
+     */
     public double x;
+    /**
+     * The 2nd imaginary (Y) component. Not an angle!
+     */
     public double y;
+    /**
+     * The 3rd imaginary (Z) component. Not an angle!
+     */
     public double z;
+    /**
+     * The real (W) component. Not an angle!
+     */
     public double w;
 
     /**

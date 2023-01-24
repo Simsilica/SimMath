@@ -54,14 +54,33 @@ import com.jme3.math.Vector3f;
 public class Vec3d implements Cloneable, java.io.Serializable {
 
     static final long serialVersionUID = 42L;
-    
+    /**
+     * Shared instance of the +X direction (1,0,0). Do not modify!
+     */
     public static final Vec3d UNIT_X = new Vec3d(1,0,0);
+    /**
+     * Shared instance of the +Y direction (0,1,0). Do not modify!
+     */
     public static final Vec3d UNIT_Y = new Vec3d(0,1,0);
+    /**
+     * Shared instance of the +Z direction (0,0,1). Do not modify!
+     */
     public static final Vec3d UNIT_Z = new Vec3d(0,0,1);
+    /**
+     * Shared instance of the all-zero vector (0,0,0). Do not modify!
+     */
     public static final Vec3d ZERO = new Vec3d();
-    
+    /**
+     * The first (X) component.
+     */
     public double x;
+    /**
+     * The 2nd (Y) component.
+     */
     public double y;
+    /**
+     * The 3rd (Z) component.
+     */
     public double z;
  
     /**

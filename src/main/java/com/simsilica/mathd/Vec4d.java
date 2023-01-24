@@ -46,11 +46,22 @@ import com.jme3.math.Vector4f;
  */
 public final class Vec4d implements Cloneable, java.io.Serializable {
 
-    static final long serialVersionUID = 42L;
-    
+    static final long serialVersionUID = 42L;    
+    /**
+     * The first (X) component.
+     */
     public double x;
+    /**
+     * The 2nd (Y) component.
+     */
     public double y;
+    /**
+     * The 3rd (Z) component.
+     */
     public double z;
+    /**
+     * The 4th (W) component.
+     */
     public double w;
     
     public Vec4d() {
