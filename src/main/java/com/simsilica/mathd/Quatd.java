@@ -384,6 +384,8 @@ public final class Quatd implements Cloneable, java.io.Serializable {
      * Takes the Hamilton product of the current instance times the argument to
      * yield a new Quatd. The current instance is unaffected.
      * <p>
+     * It is safe for {@code q} and {@code this} to be the same object.
+     * <p>
      * This method is used to combine rotations. Note that the Hamilton product
      * is noncommutative, so generally q * p != p * q.
      *
@@ -405,15 +407,15 @@ public final class Quatd implements Cloneable, java.io.Serializable {
     }
 
     /**
-     * Multiplies by the first argument and returns the Hamilton
-     * product in the 2nd argument. The current instance is unaffected, unless
-     * it's {@code result}.
+     * Takes the Hamilton product of the current instance times the first
+     * argument and returns the product in the 2nd argument. The current
+     * instance is unaffected, unless it's {@code result}.
      * <p>
      * This method is used to combine rotations. Note that the Hamilton product
      * is noncommutative, so generally q * p != p * q.
      * <p>
-     * It is safe for {@code q} and {@code result} to be the same object.
-     * It's also safe for {@code this} and {@code result} to be the same object.
+     * It is safe for any or all of {@code q}, {@code result}, and {@code this}
+     * to be the same object.
      *
      * @param q the right factor (not null, unaffected unless it's
      * {@code result})
@@ -440,8 +442,8 @@ public final class Quatd implements Cloneable, java.io.Serializable {
     }
 
     /**
-     * Takes the Hamilton product of current instance times the argument, in
-     * place.
+     * Takes the Hamilton product of the current instance times the argument,
+     * in place.
      * <p>
      * This method is used to combine rotations. Note that the Hamilton product
      * is noncommutative, so generally q * p != p * q.
