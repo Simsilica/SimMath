@@ -118,6 +118,11 @@ public final class Quatd implements Cloneable, java.io.Serializable {
         this.w = quat.getW();
     }
 
+    /**
+     * Creates a copy. The current instance is unaffected.
+     *
+     * @return a new instance, equivalent to this one
+     */
     @Override
     public final Quatd clone() {
         return new Quatd(x,y,z,w);
@@ -133,6 +138,12 @@ public final class Quatd implements Cloneable, java.io.Serializable {
         return new Quaternion((float)x, (float)y, (float)z, (float)w);
     }
 
+    /**
+     * Returns a hash code. If two quaternions have identical values, they
+     * will have the same hash code. The current instance is unaffected.
+     *
+     * @return a 32-bit value for use in hashing
+     */
     @Override
     public int hashCode() {
         long bits = Double.doubleToLongBits(x);
@@ -143,6 +154,15 @@ public final class Quatd implements Cloneable, java.io.Serializable {
         return ((int)bits) ^ ((int)(bits >> 32));
     }
 
+    /**
+     * Tests for exact equality with the argument, distinguishing -0 from 0. If
+     * {@code o} is null, false is returned. Either way, the current instance is
+     * unaffected.
+     *
+     * @param o the object to compare (may be null, unaffected)
+     * @return true if {@code this} and {@code o} have identical values,
+     *     otherwise false
+     */
     @Override
     public boolean equals( Object o ) {
         if( o == this )
@@ -781,6 +801,15 @@ public final class Quatd implements Cloneable, java.io.Serializable {
         return this;
     }
 
+    /**
+     * Returns a string representation of the quaternion, which is unaffected.
+     * For example, the identity quaternion is represented by:
+     * <pre>
+     * Quatd[0.0, 0.0, 0.0, 1.0]
+     * </pre>
+     *
+     * @return the string representation (not null, not empty)
+     */
     @Override
     public String toString() {
         return "Quatd[" + x + ", " + y + ", " + z + ", " + w + "]";

@@ -123,6 +123,11 @@ public class Matrix3d implements Cloneable, java.io.Serializable {
         this.m22 = m22;
     } 
  
+    /**
+     * Creates a copy of the current instance.
+     *
+     * @return a new instance, equivalent to this one
+     */
     @Override
     public Matrix3d clone() {
         return new Matrix3d(m00, m01, m02,  
@@ -408,6 +413,15 @@ public class Matrix3d implements Cloneable, java.io.Serializable {
         return this;
     }
 
+    /**
+     * Tests for exact equality with the argument, distinguishing -0 from 0. If
+     * {@code o} is null, false is returned. Either way, the current instance is
+     * unaffected.
+     *
+     * @param o the object to compare (may be null, unaffected)
+     * @return true if {@code this} and {@code o} have identical values,
+     * otherwise false
+     */
     @Override
     public boolean equals( Object o ) {
         if( o == this )
@@ -438,6 +452,12 @@ public class Matrix3d implements Cloneable, java.io.Serializable {
         return true;
     }
 
+    /**
+     * Returns a hash code. If two matrices have identical values, they
+     * will have the same hash code. The matrix is unaffected.
+     *
+     * @return a 32-bit value for use in hashing
+     */
     @Override
     public int hashCode() {
         long bits = Double.doubleToLongBits(m00);
@@ -453,6 +473,15 @@ public class Matrix3d implements Cloneable, java.io.Serializable {
         return ((int)bits) ^ ((int)(bits >> 32));
     }
 
+    /**
+     * Returns a string representation of the matrix, which is unaffected. For
+     * example, an identity matrix would be represented by:
+     * <pre>
+     * Matrix3d[{1.0, 0.0, 0.0}, {0.0, 1.0, 0.0}, {0.0, 0.0, 1.0}]
+     * </pre>
+     *
+     * @return a descriptive string of text (not null, not empty)
+     */
     @Override
     public String toString() {
         return "Matrix3d[{" + m00 + ", " + m01 + ", " + m02 + "}, {"
