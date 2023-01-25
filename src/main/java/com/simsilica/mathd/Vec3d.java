@@ -142,6 +142,12 @@ public class Vec3d implements Cloneable, java.io.Serializable {
         return Double.isNaN(x) || Double.isNaN(y) || Double.isNaN(z);
     }
  
+    /**
+     * Returns a hash code. If two vectors have identical values, they will
+     * have the same hash code. The current instance is unaffected.
+     *
+     * @return a 32-bit value for use in hashing
+     */
     @Override
     public int hashCode() {
         long bits = Double.doubleToLongBits(x);
@@ -151,6 +157,15 @@ public class Vec3d implements Cloneable, java.io.Serializable {
         return ((int)bits) ^ ((int)(bits >> 32));
     }
     
+    /**
+     * Tests for exact equality with the argument, distinguishing -0 from 0. If
+     * {@code o} is null, false is returned. Either way, the current instance is
+     * unaffected.
+     *
+     * @param o the object to compare (may be null, unaffected)
+     * @return true if {@code this} and {@code o} have identical values,
+     *     otherwise false
+     */
     @Override
     public boolean equals( Object o ) {
         if( o == this )
@@ -281,6 +296,11 @@ public class Vec3d implements Cloneable, java.io.Serializable {
         return new Vec3i((int)Math.ceil(x), (int)Math.ceil(y), (int)Math.ceil(z));
     }
  
+    /**
+     * Creates a copy. The current instance is unaffected.
+     *
+     * @return a new instance, equivalent to the current one
+     */
     @Override
     public final Vec3d clone() {
         return new Vec3d(x,y,z);
@@ -750,6 +770,15 @@ public class Vec3d implements Cloneable, java.io.Serializable {
         return new Vec3d(x, z, y);
     }
     
+    /**
+     * Returns a string representation of the vector, which is unaffected.
+     * For example, the +X direction vector is represented by:
+     * <pre>
+     * Vec3d[1.0, 0.0, 0.0]
+     * </pre>
+     *
+     * @return the string representation (not null, not empty)
+     */
     @Override
     public String toString() {
         return "Vec3d[" + x + ", " + y + ", " + z + "]";
