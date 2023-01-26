@@ -648,7 +648,7 @@ public final class Quatd implements Cloneable, java.io.Serializable {
      * (pitch, yaw, roll).  They are applied in order: (y, z, x) aka (yaw, roll, pitch).
      * @see <a href="http://www.euclideanspace.com/maths/geometry/rotations/conversions/eulerToQuaternion/index.htm">http://www.euclideanspace.com/maths/geometry/rotations/conversions/eulerToQuaternion/index.htm</a>
      *
-     * @parm angles the rotation angles for each axis (in radians, not null,
+     * @param angles the rotation angles for each axis (in radians, not null,
      * length &ge;3)
      * @return the (modified) current instance (for chaining)
      */
