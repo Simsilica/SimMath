@@ -9,7 +9,7 @@ plugins {
     id 'signing'
 }
 
-version='1.6.0-SNAPSHOT'
+version='1.6.0'
 group='com.simsilica'
 ext.websiteUrl = 'https://github.com/Simsilica/SimMath'
 

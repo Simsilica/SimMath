@@ -1,4 +1,4 @@
-Version 1.6.0 (unreleased)
+Version 1.6.0 (latest)
 --------------
 * Fixed an issue with how Quatd.equals() and Vec3d.equals() dealt with
     NaN and -0.  Thanks, sgold.
@@ -16,7 +16,7 @@ Version 1.6.0 (unreleased)
 * A bunch of javadoc updates (thanks, sgold)    
 
 
-Version 1.5.0 (latest)
+Version 1.5.0 
 --------------
 * Added Quatd.get(int) and Quatd.set(int, double) methods to be similar
     to Vec3d in allowing individual components to be set by index.
