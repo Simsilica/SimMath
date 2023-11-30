@@ -1,3 +1,8 @@
+Version 1.6.1 (unreleased)
+--------------
+* Added DoubleBits as a double-based complement to FloatBits.    
+
+
 Version 1.6.0 (latest)
 --------------
 * Fixed an issue with how Quatd.equals() and Vec3d.equals() dealt with
@@ -14,7 +19,6 @@ Version 1.6.0 (latest)
     different x,y,z components instead of always having the bits split evenly.
 * Added some Grid unit tests for different ID methods and Grid serialization.
 * A bunch of javadoc updates (thanks, sgold)
-* Added DoubleBits as a double-based complement to FloatBits.    
 
 
 Version 1.5.0 
