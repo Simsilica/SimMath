@@ -79,7 +79,9 @@ public final class Vec3Bits {
         temp |= zBits.getMask() << zShift;       
         this.mask = temp;
  
-        log.debug("Bit size:" + totalBits + "  mask:" + Long.toHexString(mask));
+        if( log.isTraceEnabled() ) {
+            log.trace("Bit size:" + totalBits + "  mask:" + Long.toHexString(mask));
+        }
     }
  
     public FloatBits getXBits() {

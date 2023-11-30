@@ -36,6 +36,8 @@
 
 package com.simsilica.mathd.bits;
 
+import org.slf4j.*;
+
 import com.simsilica.mathd.Quatd;
 import com.simsilica.mathd.Vec4d;
 
@@ -46,6 +48,8 @@ import com.simsilica.mathd.Vec4d;
  *  @author    Paul Speed
  */
 public final class QuatBits {
+ 
+    static Logger log = LoggerFactory.getLogger(QuatBits.class);
  
     private final FloatBits componentBits;
     private final int yShift;
@@ -68,7 +72,9 @@ public final class QuatBits {
         mask |= componentBits.getMask() << zShift;       
         mask |= componentBits.getMask() << wShift;       
         
-        System.out.println("Bit size:" + totalBits + "  mask:" + Long.toHexString(mask));
+        if( log.isTraceEnabled() ) {
+            log.trace("Bit size:" + totalBits + "  mask:" + Long.toHexString(mask));
+        }
     }
  
     public int getComponentBitSize() {

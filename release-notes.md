@@ -1,6 +1,8 @@
 Version 1.6.1 (unreleased)
 --------------
 * Added DoubleBits as a double-based complement to FloatBits.    
+* Converted a Quatbits System.out.println() to a trace log.
+* Modified a Vec3Bits debug log to be trace.  
 
 
 Version 1.6.0 (latest)
