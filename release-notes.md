@@ -13,7 +13,8 @@ Version 1.6.0 (latest)
 * Refactored the Grid ID stuff to allow for configurable bit sizes for the
     different x,y,z components instead of always having the bits split evenly.
 * Added some Grid unit tests for different ID methods and Grid serialization.
-* A bunch of javadoc updates (thanks, sgold)    
+* A bunch of javadoc updates (thanks, sgold)
+* Added DoubleBits as a double-based complement to FloatBits.    
 
 
 Version 1.5.0 
