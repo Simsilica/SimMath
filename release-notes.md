@@ -2,7 +2,10 @@ Version 1.6.1 (unreleased)
 --------------
 * Added DoubleBits as a double-based complement to FloatBits.    
 * Converted a Quatbits System.out.println() to a trace log.
-* Modified a Vec3Bits debug log to be trace.  
+* Modified a Vec3Bits debug log to be trace.
+* Deprecating Vec3i.getDistance()/getDistanceSq() in favor of the
+    newly added Vec3i.distance()/distanceSq() that more closely 
+    match other classes.  
 
 
 Version 1.6.0 (latest)

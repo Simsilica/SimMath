@@ -213,7 +213,17 @@ public class Vec3i implements Cloneable, java.io.Serializable {
         return this;
     }
 
+    @Deprecated
     public final int getDistanceSq( Vec3i v ) {
+        return distanceSq(v);
+    }
+    
+    @Deprecated
+    public final double getDistance( Vec3i v ) {
+        return distance(v);
+    }
+
+    public final int distanceSq( Vec3i v ) {
         int xd = v.x - x;
         int yd = v.y - y;
         int zd = v.z - z;
@@ -221,8 +231,8 @@ public class Vec3i implements Cloneable, java.io.Serializable {
         return xd * xd + yd * yd + zd * zd;
     }
 
-    public final double getDistance( Vec3i v ) {
-        return Math.sqrt(getDistanceSq(v));
+    public final double distance( Vec3i v ) {
+        return Math.sqrt(distanceSq(v));
     }
 
     public final double lengthSq() {
