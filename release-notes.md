@@ -1,11 +1,13 @@
 Version 1.6.1 (unreleased)
 --------------
-* Added DoubleBits as a double-based complement to FloatBits.    
+* Added DoubleBits as a double-based complement to FloatBits.
 * Converted a Quatbits System.out.println() to a trace log.
 * Modified a Vec3Bits debug log to be trace.
 * Deprecating Vec3i.getDistance()/getDistanceSq() in favor of the
-    newly added Vec3i.distance()/distanceSq() that more closely 
-    match other classes.  
+    newly added Vec3i.distance()/distanceSq() that more closely
+    match other classes.
+* Added Vec3d.round()
+* Added Vec3d.distance(Vec3i)
 
 
 Version 1.6.0 (latest)
@@ -26,7 +28,7 @@ Version 1.6.0 (latest)
 * A bunch of javadoc updates (thanks, sgold)
 
 
-Version 1.5.0 
+Version 1.5.0
 --------------
 * Added Quatd.get(int) and Quatd.set(int, double) methods to be similar
     to Vec3d in allowing individual components to be set by index.

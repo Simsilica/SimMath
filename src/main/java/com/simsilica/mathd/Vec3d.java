@@ -1,36 +1,36 @@
 /*
  * $Id$
- * 
+ *
  * Copyright (c) 2015, Simsilica, LLC
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions 
+ * modification, are permitted provided that the following conditions
  * are met:
- * 
- * 1. Redistributions of source code must retain the above copyright 
+ *
+ * 1. Redistributions of source code must retain the above copyright
  *    notice, this list of conditions and the following disclaimer.
- * 
- * 2. Redistributions in binary form must reproduce the above copyright 
- *    notice, this list of conditions and the following disclaimer in 
- *    the documentation and/or other materials provided with the 
+ *
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in
+ *    the documentation and/or other materials provided with the
  *    distribution.
- * 
- * 3. Neither the name of the copyright holder nor the names of its 
- *    contributors may be used to endorse or promote products derived 
+ *
+ * 3. Neither the name of the copyright holder nor the names of its
+ *    contributors may be used to endorse or promote products derived
  *    from this software without specific prior written permission.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 
- * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT 
- * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS 
- * FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE 
- * COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, 
- * INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
- * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
- * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) 
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, 
- * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED 
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+ * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+ * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
+ * FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
+ * COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
+ * INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
+ * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
  * OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
@@ -82,13 +82,13 @@ public class Vec3d implements Cloneable, java.io.Serializable {
      * The 3rd (Z) component.
      */
     public double z;
- 
+
     /**
      * Instantiates an all-zero vector (0,0,0).
      */
     public Vec3d() {
     }
-    
+
     /**
      * Instantiates a vector with the specified components.
      *
@@ -123,7 +123,7 @@ public class Vec3d implements Cloneable, java.io.Serializable {
     public Vec3d( Vector3f v ) {
         this(v.x, v.y, v.z);
     }
- 
+
     /**
      * Creates a single-precision copy of the current instance.
      *
@@ -132,16 +132,16 @@ public class Vec3d implements Cloneable, java.io.Serializable {
     public Vector3f toVector3f() {
         return new Vector3f((float)x, (float)y, (float)z);
     }
- 
+
     /**
      *  Returns true if any of the x,y,z elements are NaN.
-     * 
+     *
      * @return true if there are NaNs, otherwise false
      */
     public boolean isNaN() {
         return Double.isNaN(x) || Double.isNaN(y) || Double.isNaN(z);
     }
- 
+
     /**
      * Returns a hash code. If two vectors have identical values, they will
      * have the same hash code. The current instance is unaffected.
@@ -153,10 +153,10 @@ public class Vec3d implements Cloneable, java.io.Serializable {
         long bits = Double.doubleToLongBits(x);
         bits ^= Double.doubleToLongBits(y) * 31;
         bits ^= Double.doubleToLongBits(z) * 31;
-        
+
         return ((int)bits) ^ ((int)(bits >> 32));
     }
-    
+
     /**
      * Tests for exact equality with the argument, distinguishing -0 from 0. If
      * {@code o} is null, false is returned. Either way, the current instance is
@@ -234,7 +234,7 @@ public class Vec3d implements Cloneable, java.io.Serializable {
         this.z = z;
         return this;
     }
-    
+
     /**
      * Copies all 3 components from the argument.
      *
@@ -268,19 +268,19 @@ public class Vec3d implements Cloneable, java.io.Serializable {
         this.z = v.z;
         return this;
     }
- 
+
     /**
      *  Returns the raw (int) cast version of this Vec3d as a Vec3i.
-     * 
+     *
      * @return a new Vec3i instance
      */
     public final Vec3i toVec3i() {
         return new Vec3i((int)x, (int)y, (int)z);
     }
-    
+
     /**
      *  Returns the Math.floor() version of this Vec3d as a Vec3i.
-     * 
+     *
      * @return a new Vec3i instance
      */
     public final Vec3i floor() {
@@ -289,13 +289,22 @@ public class Vec3d implements Cloneable, java.io.Serializable {
 
     /**
      *  Returns the Math.ceil() version of this Vec3d as a Vec3i.
-     * 
+     *
      * @return a new Vec3i instance
      */
     public final Vec3i ceil() {
         return new Vec3i((int)Math.ceil(x), (int)Math.ceil(y), (int)Math.ceil(z));
     }
- 
+
+    /**
+     *  Returns the Math.round() version of this Vec3d as a Vec3i.
+     *
+     * @return a new Vec3i instance
+     */
+    public final Vec3i round() {
+        return new Vec3i((int)Math.round(x), (int)Math.round(y), (int)Math.round(z));
+    }
+
     /**
      * Creates a copy. The current instance is unaffected.
      *
@@ -305,7 +314,7 @@ public class Vec3d implements Cloneable, java.io.Serializable {
     public final Vec3d clone() {
         return new Vec3d(x,y,z);
     }
- 
+
     /**
      * Returns the indexed component. The vector is unaffected.
      *
@@ -326,7 +335,7 @@ public class Vec3d implements Cloneable, java.io.Serializable {
                 throw new IndexOutOfBoundsException( "Index:" + i );
         }
     }
-    
+
     /**
      * Alters the indexed component.
      *
@@ -352,7 +361,7 @@ public class Vec3d implements Cloneable, java.io.Serializable {
         }
         return this;
     }
- 
+
     /**
      * Adds the argument and returns the sum as a new instance. The current
      * instance is unaffected.
@@ -419,7 +428,7 @@ public class Vec3d implements Cloneable, java.io.Serializable {
     public final Vec3d mult( double s ) {
         return new Vec3d(x * s, y * s, z * s);
     }
-    
+
     /**
      * Multiplies component-wise with the argument and returns the product as a
      * new instance. The current instance is unaffected.
@@ -445,7 +454,7 @@ public class Vec3d implements Cloneable, java.io.Serializable {
     public final Vec3d divide( double s ) {
         return new Vec3d(x / s, y / s, z / s);
     }
-    
+
     /**
      * Divides component-wise by the argument and returns the quotient as a
      * new instance. The current instance is unaffected.
@@ -610,7 +619,7 @@ public class Vec3d implements Cloneable, java.io.Serializable {
         z /= v.z;
         return this;
     }
- 
+
     /**
      * Returns the square of the length. The current instance is unaffected.
      *
@@ -619,45 +628,49 @@ public class Vec3d implements Cloneable, java.io.Serializable {
     public final double lengthSq() {
         return x * x + y * y + z * z;
     }
-    
+
     /**
      * Returns the length (or magnitude). The current instance is unaffected.
      *
      * @return the root-sum of the squared components (not negative)
      */
     public final double length() {
-        return Math.sqrt(lengthSq());                
+        return Math.sqrt(lengthSq());
     }
- 
+
     public final double distanceSq( Vec3d v ) {
         double xs = v.x - x;
         double ys = v.y - y;
         double zs = v.z - z;
-        return xs * xs + ys * ys + zs * zs; 
+        return xs * xs + ys * ys + zs * zs;
     }
 
     public final double distanceSq( Vec3i v ) {
         double xs = v.x - x;
         double ys = v.y - y;
         double zs = v.z - z;
-        return xs * xs + ys * ys + zs * zs; 
+        return xs * xs + ys * ys + zs * zs;
     }
 
     public final double distance( Vec3d v ) {
-        return Math.sqrt(distanceSq(v)); 
+        return Math.sqrt(distanceSq(v));
+    }
+
+    public final double distance( Vec3i v ) {
+        return Math.sqrt(distanceSq(v));
     }
 
     public final double distanceSq( double vx, double vy, double vz ) {
         double xs = vx - x;
         double ys = vy - y;
         double zs = vz - z;
-        return xs * xs + ys * ys + zs * zs; 
+        return xs * xs + ys * ys + zs * zs;
     }
 
     public final double distance( double vx, double vy, double vz ) {
-        return Math.sqrt(distanceSq(vx, vy, vz)); 
+        return Math.sqrt(distanceSq(vx, vy, vz));
     }
- 
+
     public final Vec3d normalize() {
         return mult(1.0 / length());
     }
@@ -671,7 +684,7 @@ public class Vec3d implements Cloneable, java.io.Serializable {
     public final Vec3d normalizeLocal() {
         return multLocal(1.0 / length());
     }
- 
+
     /**
      * Returns the dot (or inner) product with the argument. The current
      * instance is unaffected.
@@ -686,11 +699,11 @@ public class Vec3d implements Cloneable, java.io.Serializable {
     public final double dot( Vec3i v ) {
         return x * v.x + y * v.y + z * v.z;
     }
- 
+
     public final double dot( double vx, double vy, double vz ) {
         return x * vx + y * vy + z * vz;
     }
- 
+
     /**
      * Calculates a cross product with the argument and returns the product as a
      * new instance. The current instance is unaffected.
@@ -702,21 +715,21 @@ public class Vec3d implements Cloneable, java.io.Serializable {
         double xNew = (y * v.z) - (z * v.y);
         double yNew = (z * v.x) - (x * v.z);
         double zNew = (x * v.y) - (y * v.x);
-        return new Vec3d(xNew, yNew, zNew);         
+        return new Vec3d(xNew, yNew, zNew);
     }
 
     public final Vec3d cross( double vx, double vy, double vz ) {
         double xNew = (y * vz) - (z * vy);
         double yNew = (z * vx) - (x * vz);
         double zNew = (x * vy) - (y * vx);
-        return new Vec3d(xNew, yNew, zNew);         
+        return new Vec3d(xNew, yNew, zNew);
     }
 
     public final Vec3d crossLocal( Vec3d v ) {
         double xNew = (y * v.z) - (z * v.y);
         double yNew = (z * v.x) - (x * v.z);
         double zNew = (x * v.y) - (y * v.x);
-        
+
         x = xNew;
         y = yNew;
         z = zNew;
@@ -729,21 +742,21 @@ public class Vec3d implements Cloneable, java.io.Serializable {
         z += toAdd.z * scale;
         return this;
     }
- 
+
     public final Vec3d minLocal( Vec3d v ) {
         x = x < v.x ? x : v.x;
         y = y < v.y ? y : v.y;
         z = z < v.z ? z : v.z;
         return this;
     }
-    
+
     public final Vec3d maxLocal( Vec3d v ) {
         x = x > v.x ? x : v.x;
         y = y > v.y ? y : v.y;
         z = z > v.z ? z : v.z;
         return this;
     }
- 
+
     public final Vec3d zeroEpsilon( double e ) {
         if( x > -e && x < e )
             x = 0;
@@ -753,23 +766,23 @@ public class Vec3d implements Cloneable, java.io.Serializable {
             z = 0;
         return this;
     }
- 
+
     /**
      *  Sets the value of this Vec3d to be the linearly interpolated
      *  value of start and end using the mix value as the 0 to 1 position
      *  between start and end.  Basically, this = (1 - min) * start + mix * end.
-     */   
+     */
     public final Vec3d interpolateLocal( Vec3d start, Vec3d end, double mix ) {
         this.x = (1 - mix) * start.x + mix * end.x;
         this.y = (1 - mix) * start.y + mix * end.y;
         this.z = (1 - mix) * start.z + mix * end.z;
         return this;
-    } 
-    
+    }
+
     public final Vec3d xzy() {
         return new Vec3d(x, z, y);
     }
-    
+
     /**
      * Returns a string representation of the vector, which is unaffected.
      * For example, the +X direction vector is represented by:
